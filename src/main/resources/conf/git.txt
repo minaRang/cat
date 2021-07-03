@@ -1,4 +1,0 @@
-git 추적을 위한 테스트 파일 
-디렉토리 사용시 삭제 권장 
-
-jdbc, properties, sec.properties, api.properties 등에 관한 파일 관리
