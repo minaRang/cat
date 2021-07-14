@@ -1,0 +1,61 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default_layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="CSS/signup.css">
+</head>
+
+<body>
+<div class="main" layout:fragment="content">
+    <div class="main ">
+        <div class="integrated-sign">
+            <div class="integrated-sign-inner">
+
+                <h2 class="sign-title">계정 만들기</h2>
+                <form role="form" class="new_user" id="new_user" action="/users" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="19q5DqeFv2bAqdX4UMx7QJXdTPquyK3YLeEL8z6uw1vMu5Wf7z74z5gTsJiNqyr-EnpHuaVz0xzI8LWDazzllA">
+                    <input type="hidden" name="price_plan" value="">
+                    <input type="hidden" name="user[referer]" id="user_referer">
+                    <div class="top">
+                        <div class="input-area">
+                            <label class="control-label required" for="user_name">이름</label>
+                            <div class="form-group"><input required="required" autofocus="autofocus" placeholder="이름" class="form-control" type="text" name="user[name]" id="user_name"></div>
+                            <label class="control-label required" for="user_email">이메일</label>
+                            <div class="form-group"><input required="required" placeholder="이메일" class="form-control" type="email" name="user[email]" id="user_email"></div>
+                            <label class="control-label required" for="user_password">비밀번호 <span>(소문자와 숫자 포함 최소 6자)</span></label>
+                            <div class="form-group"><input required="required" placeholder="비밀번호" class="form-control" type="password" name="user[password]" id="user_password"></div>
+                            <label class="control-label required" for="user_password_confirmation">비밀번호 확인</label>
+                            <div class="form-group"><input required="required" placeholder="비밀번호 확인" class="form-control" type="password" name="user[password_confirmation]" id="user_password_confirmation"></div>
+                        </div>
+                    </div>
+                    <h6 class="mt-2 mb-2 developer-signup-agreement">
+                        <input type="checkbox" id="tos_agreed" name="tos_agreed" value="tos_agreed">
+                        <a target="_blank" rel="noopener" href="/tos">이용약관</a> 및 <a target="_blank" rel="noopener" href="/privacy">개인정보 처리방침</a>에 동의합니다.
+                    </h6>
+                    <div class="mt-2 form-group developer-signup-agreement">
+                        <div class="form-check"><input name="user[marketing_agreement]" type="hidden" value="0"><input class="form-check-input" type="checkbox" value="1" name="user[marketing_agreement]" id="user_marketing_agreement"><label class="form-check-label" for="user_marketing_agreement">마케팅 활용 동의 및 광고 수신에 동의합니다. (선택)</label></div>
+                        <span data-container="body" data-toggle="popover" data-placement="top" data-content="개발자 이벤트, 강의 할인 쿠폰 등 개발자에게 유용한 정보를 제공합니다." data-html="true" data-original-title="" title="">
+                        <svg class="ic-18 ic-blue-grey-200">
+                            <use xlink:href="/assets/svg-defs-85c488ea18b5a12778df9adc779a4ea8c1a0fdbb2da2f65a3812b7dfb19f6045.svg#ic-help2"></use>
+                        </svg>
+                    </span>
+                    </div>
+                    <div class="tooltip-wrapper disabled">
+                        <button name="button" type="submit" id="btn-sign-up" class="btn btn-primary btn-block btn-signup" disabled="" data-disable-with="처리 중">
+                            계정 만들기
+                        </button> </div>
+                </form>
+                <div class="anther-approach">
+                    이미 계정이 있으신가요? <a href="/users/login">로그인</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>
