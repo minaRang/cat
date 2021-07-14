@@ -1,0 +1,291 @@
+:root {
+    --blue: #007bff;
+    --indigo: #6610f2;
+    --purple: #6f42c1;
+    --pink: #e83e8c;
+    --red: #dc3545;
+    --orange: #fd7e14;
+    --yellow: #ffc107;
+    --green: #28a745;
+    --teal: #20c997;
+    --cyan: #17a2b8;
+    --white: #fff;
+    --gray: #6c757d;
+    --gray-dark: #343a40;
+    --primary: #007bff;
+    --secondary: #6c757d;
+    --success: #28a745;
+    --info: #17a2b8;
+    --warning: #ffc107;
+    --danger: #dc3545;
+    --light: #f8f9fa;
+    --dark: #343a40;
+    --breakpoint-xs: 0;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+    --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+.integrated-sign {
+    margin-top: 2rem;
+}
+.integrated-sign .integrated-sign-inner {
+    max-width: 20rem;
+    border: 0;
+    margin: 0 auto;
+    background-color: white;
+}
+.integrated-sign .integrated-sign-inner .sign-title {
+    margin: 0;
+}
+.integrated-sign .integrated-sign-inner .sign-title, .integrated-sign .integrated-sign-inner .sign-service-name {
+    -webkit-font-smoothing: antialiased;
+    font-weight: 700;
+    text-align: center;
+}
+.integrated-sign .integrated-sign-inner form {
+    margin-top: 1rem;
+}
+button, input {
+    overflow: visible;
+}
+input, button, select, optgroup, textarea {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+.integrated-sign .integrated-sign-inner form .input-area {
+    margin-top: 1.5rem;
+}
+.users-sessions .control-label, .users-registrations .control-label, .users-passwords .control-label, .users-invitations .control-label, .users-confirmations .control-label, .users-confirmations-new .control-label, .inactive-accounts-show .control-label {
+    font-size: 14px;
+    line-height: 1.5;
+}
+.control-label {
+    display: block;
+    padding-bottom: 0.375rem;
+    margin-bottom: 0;
+    font-weight: 400;
+}
+.control-label+.form-group {
+    margin-top: 0;
+}
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.integrated-sign .integrated-sign-inner form .control-label:nth-child(n+2) {
+    margin-top: 1rem;
+}
+.users-sessions .control-label, .users-registrations .control-label, .users-passwords .control-label, .users-invitations .control-label, .users-confirmations .control-label, .users-confirmations-new .control-label, .inactive-accounts-show .control-label {
+    font-size: 14px;
+    line-height: 1.5;
+}
+.control-label {
+    display: block;
+    padding-bottom: 0.375rem;
+    margin-bottom: 0;
+    font-weight: 400;
+}
+.float-right {
+    float: right !important;
+}
+input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, textarea:-webkit-autofill, textarea:-webkit-autofill:hover, textarea:-webkit-autofill:focus, select:-webkit-autofill, select:-webkit-autofill:hover, select:-webkit-autofill:focus {
+    border-color: #FFCCBC;
+    -webkit-box-shadow: 0 0 0 1000px #fff3e0 inset;
+    -webkit-font-smoothing: antialiased;
+    font-weight: 700;
+    -webkit-text-fill-color: #263747;
+    -webkit-transition: background-color 5000s ease-in-out 0s;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+a {
+    transition-delay: initial;
+    transition-duration: 0.08s;
+    transition-property: all;
+    transition-timing-function: ease-in-out;
+    color: #0078FF;
+    cursor: pointer;
+    text-decoration: none;
+}
+h2, .h2 {
+    font-size: 32px;
+    letter-spacing: -0.009em;
+    line-height: 1.4;
+}
+h1, h2, h3 {
+    font-weight: 700;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Inter", 'NotoSansKR', "Helvetica Neue", Helvetica, Arial, "맑은 고딕", malgun gothic, "돋움", Dotum, sans-serif, "Apple Color Emoji", "Noto Color Emoji";
+    margin-top: 0;
+    margin-bottom: 0;
+    color: inherit;
+}
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+.form-control {
+    transition-delay: initial;
+    transition-duration: 0.08s;
+    transition-property: all;
+    transition-timing-function: ease-in-out;
+    transition-delay: initial;
+    transition-duration: 0.08s;
+    transition-property: all;
+    transition-timing-function: ease-in-out;
+    display: block;
+    height: 40px;
+    padding: 8px 12px;
+    border: 1px solid #D7E2EB;
+    background-color: #FBFBFD;
+    border-radius: 0.25rem;
+    color: #263747;
+    font-size: 16px;
+    line-height: 24px;
+    outline: 0;
+}
+.form-control {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+button:not(:disabled), [type="button"]:not(:disabled), [type="reset"]:not(:disabled), [type="submit"]:not(:disabled) {
+    cursor: pointer;
+}
+.btn {
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 400;
+    color: #212529;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.btn-primary {
+    border-color: #0078FF;
+    background-color: #0078FF;
+    color: white;
+}
+.alert {
+    position: relative;
+    padding: 16px;
+    border: none;
+    margin: 16px 0 0 0;
+    border-radius: 0.75rem;
+    color: white;
+}
+.alert-danger {
+    font-size: 12px;
+    border: 0.0714285714rem solid #FFCDD2;
+    color: #D32F2F;
+    background-color: #FFEBEE;
+}
+.close {
+    float: right;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    opacity: .5;
+}
+.alert .close {
+    position: relative;
+    top: -0.75rem;
+    right: -1.5rem;
+    padding: 0.25rem;
+    color: rgba(20,20,50,0.12);
+    font-weight: 400;
+    opacity: 1;
+    text-shadow: none;
+}
+.alert-dismissible .close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    padding: 0.75rem 1.25rem;
+}
+.alert-dismissible {
+    padding-right: 32px;
+}
+button.close {
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+}
+.integrated-sign .integrated-sign-inner .anther-approach {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-top: 1rem;
+    color: #98A8B9;
+    text-align: center;
+}
+.integrated-sign .integrated-sign-inner .anther-approach a {
+    padding-left: 0.25rem;
+    color: #263747;
+    font-weight: 500;
+}
+.btn-block {
+    display: block;
+    width: 100%;
+}
+div {
+    display: block;
+}
+body {
+    font-family: "Inter", 'NotoSansKR', "Helvetica Neue", Helvetica, Arial, "맑은 고딕", malgun gothic, "돋움", Dotum, sans-serif, "Apple Color Emoji", "Noto Color Emoji";
+    font-size: 16px;
+    font-weight: 400;
+    background-color: white;
+    color: #263747;
+    line-height: 1.4;
+    text-align: left;
+}
+html {
+    font-family: sans-serif;
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+}
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+#btn-sign-in:hover{
+    background: #0053F4;
+}
+a:hover {
+    color: #0056b3;
+}
+.integrated-sign .integrated-sign-inner .anther-approach a:hover {
+    color: #0078FF;
+}
+
+
+.close span:hover{
+    color: #555555
+}
