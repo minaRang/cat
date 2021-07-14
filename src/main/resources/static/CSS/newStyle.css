@@ -95,7 +95,7 @@ h3, h4, h5, h6 {
     transform: translateX(-2px);
 }}
 .questions-new .topbar .topbar-wrap, .questions-new .headerbar .headerbar-wrap, .questions-new .content .content-wrap, .questions-edit .topbar .topbar-wrap, .questions-edit .headerbar .headerbar-wrap, .questions-edit .content .content-wrap, .answers-edit .topbar .topbar-wrap, .answers-edit .headerbar .headerbar-wrap, .answers-edit .content .content-wrap, .edit_requests .topbar .topbar-wrap, .edit_requests .headerbar .headerbar-wrap, .edit_requests .content .content-wrap, .edit_requests-new .topbar .topbar-wrap, .edit_requests-new .headerbar .headerbar-wrap, .edit_requests-new .content .content-wrap {
-    max-width: 111.4285714286rem;
+    max-width: 1560px;
     width: 1560px;
     margin: 0 auto;
     padding-left: 3.5714285714rem;
@@ -331,7 +331,7 @@ button, input, optgroup, select, textarea {
     background-position: -400px -50px;
 }
 .hc-icons-italic {
-    background-image: url(../ICONS/icons.png);
+    background-image: url(../../image/icons.png);
     background-size: 771px 780px;
     background-repeat: no-repeat;
     text-indent: -999999em;
@@ -344,7 +344,7 @@ button, input, optgroup, select, textarea {
 }
 
 .hc-icons-link {
-    background-image: url(../ICONS/icons.png);
+    background-image: url(../image/icons.png);
     background-size: 771px 780px;
     background-repeat: no-repeat;
     text-indent: -999999em;
@@ -356,7 +356,7 @@ button, input, optgroup, select, textarea {
     background-position: -500px 0;
 }
 .hc-icons-image {
-    background-image: url(../ICONS/icons.png);
+    background-image: url(../image/icons.png);
     background-size: 771px 780px;
     background-repeat: no-repeat;
     text-indent: -999999em;
@@ -372,7 +372,7 @@ button, input, optgroup, select, textarea {
     cursor: pointer;
 }
 .hc-icons-quotation {
-    background-image: url(../ICONS/icons.png);
+    background-image: url(../image/icons.png);
     background-size: 771px 780px;
     background-repeat: no-repeat;
     text-indent: -999999em;
@@ -390,7 +390,7 @@ button, input, optgroup, select, textarea {
     background-position: -500px -50px;
 }
 .hc-icons-code {
-    background-image: url(../ICONS/icons.png);
+    background-image: url(../image/icons.png);
     background-size: 771px 780px;
     background-repeat: no-repeat;
     text-indent: -999999em;
@@ -405,7 +405,7 @@ button, input, optgroup, select, textarea {
     background-position: -550px -50px;
 }
 .hc-icons-u-list {
-    background-image: url(../ICONS/icons.png);
+    background-image: url(../image/icons.png);
     background-size: 771px 780px;
     background-repeat: no-repeat;
     text-indent: -999999em;
@@ -427,7 +427,7 @@ button, input, optgroup, select, textarea {
 }
 
 .hc-icons-o-list {
-    background-image: url(../ICONS/icons.png);
+    background-image: url(../image/icons.png);
     background-size: 771px 780px;
     background-repeat: no-repeat;
     text-indent: -999999em;
@@ -446,7 +446,7 @@ button, input, optgroup, select, textarea {
     cursor: pointer
 }
 .hc-icons-bold {
-    background-image: url(../ICONS/icons.png);
+    background-image: url(../image/icons.png);
     background-size: 771px 780px;
     background-repeat: no-repeat;
     text-indent: -999999em;
@@ -552,7 +552,7 @@ button, input, optgroup, select, textarea {
     width: 100% !important;
 }
 .hc-icons-grippie {
-    background-image: url(../ICONS/icons.png);
+    background-image: url(../image/icons.png);
     background-size: 771px 780px;
     background-repeat: no-repeat;
     text-indent: -999999em;
@@ -686,57 +686,6 @@ a, input, textarea {
 a, a:hover, a:focus {
     text-decoration: none;
 }
-
-/* .bs-popover-bottom {
-    left: -10% !important;
-    -webkit-transition: .16s;
-    transition: .16s;
-    top: 2rem;
-    display: block;
-    opacity: 0;
-    pointer-events: none;
-    -webkit-transform: translateX(8px);
-    transform: translateX(8px);
-    position: relative;
-    padding: 1.7142857143rem;
-    width: 28.5714285714rem;
-    border-radius: 0.2142857143rem;
-    background-color: #2979FF;
-    color: white;
-    word-break: keep-all;
-    z-index: 3;
-    box-shadow: 8px 8px 8px -8px rgb(50 50 100 / 16%), 48px 16px 64px -16px rgb(50 50 100 / 12%), 24px 56px 56px -8px rgb(50 50 100 / 8%), 56px 56px 80px -32px rgb(50 50 100 / 12%), 0 0 40px rgb(50 50 100 / 4%);
-    opacity: 1;
-    pointer-events: all;
-    z-index: 9;
-    -webkit-transform: translateX(0);
-    transform: translateX(0);
-}
-.bs-popover-top {
-    left: -10% !important;
-    -webkit-transition: .16s;
-    transition: .16s;
-    top: 2rem;
-    display: block;
-    opacity: 0;
-    pointer-events: none;
-    -webkit-transform: translateX(8px);
-    transform: translateX(8px);
-    position: relative;
-    padding: 1.7142857143rem;
-    width: 28.5714285714rem;
-    border-radius: 0.2142857143rem;
-    background-color: #2979FF;
-    color: white;
-    word-break: keep-all;
-    z-index: 3;
-    box-shadow: 8px 8px 8px -8px rgb(50 50 100 / 16%), 48px 16px 64px -16px rgb(50 50 100 / 12%), 24px 56px 56px -8px rgb(50 50 100 / 8%), 56px 56px 80px -32px rgb(50 50 100 / 12%), 0 0 40px rgb(50 50 100 / 4%);
-    opacity: 1;
-    pointer-events: all;
-    z-index: 9;
-    -webkit-transform: translateX(0);
-    transform: translateX(0);
-} */
 .popover-title-tips.open {
     position: relative;
     left: -5% !important;
@@ -885,7 +834,7 @@ h1, h2, h3, h4, h5, h6 {
     cursor: pointer;
 }
 .hc-icons-bulb {
-    background-image: url(../ICONS/icons.png);
+    background-image: url(../image/icons.png);
     background-size: 771px 780px;
     background-repeat: no-repeat;
     text-indent: -999999em;

@@ -13963,8 +13963,8 @@ pre code {
 		position:relative
 	}
 	.topbar .topbar-wrap {
-		max-width:85.7142857143rem;
-		width:85.7142857143rem;
+		max-width:1200px;
+		width:1200px;
 		margin:0 auto;
 		padding-left:3.5714285714rem;
 		padding-right:3.5714285714rem;
@@ -14140,8 +14140,8 @@ pre code {
 		display:flex;
 		-webkit-box-pack:justify;
 		justify-content:space-between;
-		max-width:85.7142857143rem;
-		width:85.7142857143rem;
+		max-width:1200px;
+		width:1200px;
 		margin:0 auto;
 		padding-left:3.5714285714rem;
 		padding-right:3.5714285714rem;
@@ -15855,7 +15855,7 @@ svg.yellow-color {
 	min-width:111.4285714286rem
 }
 .questions-new .topbar .topbar-wrap,.questions-new .headerbar .headerbar-wrap,.questions-new .content .content-wrap,.questions-edit .topbar .topbar-wrap,.questions-edit .headerbar .headerbar-wrap,.questions-edit .content .content-wrap,.answers-edit .topbar .topbar-wrap,.answers-edit .headerbar .headerbar-wrap,.answers-edit .content .content-wrap,.edit_requests .topbar .topbar-wrap,.edit_requests .headerbar .headerbar-wrap,.edit_requests .content .content-wrap,.edit_requests-new .topbar .topbar-wrap,.edit_requests-new .headerbar .headerbar-wrap,.edit_requests-new .content .content-wrap {
-	max-width:111.4285714286rem;
+	max-width:1560px;
 	width:111.4285714286rem;
 	margin:0 auto;
 	padding-left:3.5714285714rem;
@@ -16056,7 +16056,7 @@ svg.yellow-color {
 	font-weight:400;
 	font-size:1.0714285714rem;
 	line-height:1.6428571429rem;
-	min-width:111.4285714286rem
+	min-width:1560px;
 }
 .questions-new footer.hidden-sm-down .footer-wrap .topbar .topbar-wrap,.questions-new footer.hidden-sm-down .footer-wrap .headerbar .headerbar-wrap,.questions-new footer.hidden-sm-down .footer-wrap .content .content-wrap,.questions-edit footer.hidden-sm-down .footer-wrap .topbar .topbar-wrap,.questions-edit footer.hidden-sm-down .footer-wrap .headerbar .headerbar-wrap,.questions-edit footer.hidden-sm-down .footer-wrap .content .content-wrap,.answers-edit footer.hidden-sm-down .footer-wrap .topbar .topbar-wrap,.answers-edit footer.hidden-sm-down .footer-wrap .headerbar .headerbar-wrap,.answers-edit footer.hidden-sm-down .footer-wrap .content .content-wrap,.edit_requests footer.hidden-sm-down .footer-wrap .topbar .topbar-wrap,.edit_requests footer.hidden-sm-down .footer-wrap .headerbar .headerbar-wrap,.edit_requests footer.hidden-sm-down .footer-wrap .content .content-wrap,.edit_requests-new footer.hidden-sm-down .footer-wrap .topbar .topbar-wrap,.edit_requests-new footer.hidden-sm-down .footer-wrap .headerbar .headerbar-wrap,.edit_requests-new footer.hidden-sm-down .footer-wrap .content .content-wrap {
 	max-width:111.4285714286rem;
