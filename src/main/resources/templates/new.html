@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta charset="utf-8">
+<title>질문하기 | Hashcode</title>
+<link rel="stylesheet" media="all" href="CSS/newStyle.css" />
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+
+</head>
+<body class="questions questions-new" data-controller="questions" data-action="new">
+  
+
+<div class="main">
+  
+<div class="headerbar hidden-sm-down">
+	<div class="headerbar-wrap">
+		<h1>질문하기</h1>
+	</div>
+</div>
+<h5 class="hidden-md-up">
+	질문하기
+</h5>
+
+<div class="content">
+  <div class="content-wrap">
+    <form class="new_question" id="new_question" role="form" action="/questions" accept-charset="UTF-8" data-remote="true" method="post">
+      <input name="utf8" type="hidden" value="&#x2713;" />
+
+  <div class="form-group form-question-title">
+    <div class="form-title">
+      <label class="control-label" for="question_title">제목</label>
+      <span class="title-tips" id="btn-title-tips" data-toggle="popover" datat-placement="bottom" data-popover-content=".popover-title-tips">
+        <span class="hc-icons-bulb">TitleTip</span>더 많은 답변을 얻는 방법
+      </span>
+    </div>
+
+    <input class="form-control" required="required" autofocus="autofocus" placeholder="제목 입력" type="text" name="question[title]" id="question_title" value="">
+
+    <div class="popover-title-tips">
+  <h1 class="title">
+    ( ° ∀ ° )ﾉﾞ<br>
+    좋은 제목 만들기
+  </h1>
+
+  <div class="popover-body">
+    <h6 class="title--sub">고수님들은 질문의 제목을 보고 답변을 달지 말지 결정합니다. 고수님들의 답변을 받고 싶으면 제목을 잘써야겠지요?</h6>
+    <ul>
+      <li>제목에는 질문의 내용을 구체적으로 드러내주세요.</li>
+      <li>제목을 적기가 어렵나요? 그렇다면 아래에서, 질문 내용을 먼저 적어보세요. 내용을 다 적고나면 알맞는 제목이 떠오를 수 있습니다.</li>
+    </ul>
+
+    <h6 class="title--sub">좋은 예</h6>
+    <ul>
+      <li>int 배열에 들어있는 값을 평균냈는데 소숫점 둘째자리에서 반올림 하려면?</li>
+      <li>Java += 연산자가 다른 타입에서는 이상하게 동작합니다.</li>
+      <li>Javascript에서 Closure는 어떻게 동작하나요?</li>
+    </ul>
+
+    <h6 class="title--sub">나쁜 예</h6>
+    <ul>
+      <li>C언어 문제</li>
+      <li>Java 프로그래밍 도와주세요.</li>
+      <li>[급함] 고수님들께 도움 요청합니다.</li>
+    </ul>
+  </div>
+
+</div>
+  </div>
+  
+  <div class="form-group">
+    <label class="required" for="question_tags">태그</label>
+    <input class="form-control" name="question[tags][]"placeholder="추가할 태그를 입력하세요" value="" type="text"/>
+  </div>
+
+  <div class="alert alert-info alert-tag-inspection fade in" role="alert" id="alert-tags" style="display:none;"></div>
+
+  <div class="form-group form-question-content" id="form-group" data-type="question">
+
+    <div class="wmd-preview-box" style="display: flex; -webkit-box-pack: justify; justify-content: flex-end;">
+        <ul class="header-tips">
+          <li><span class="hc-icons-bulb">TitleTip</span></li>
+          <li id="btn-question-tips" data-placement="bottom" data-toggle="popover" data-popover-content='.popover-question-tips'>
+            작성 팁
+          </li>
+          <li id="btn-markdown-tips" data-placement="bottom" data-toggle="popover" data-popover-content='.popover-markdown-tips'>
+            마크다운 문법
+          </li>
+        </ul>
+      </div>
+      <div id="editor" style="margin-bottom: 10px;"></div>
+  </div>
+  <div class="popover-question-tips">
+    <h1 class="title">
+      작성 팁
+    </h1>
+  
+    <div class="popover-body">
+      <h6 class="title--sub">배경을 충분하게 설명해주세요.</h6>
+      <ul>
+        <li>문제를 어떻게 재현할 수 있는지 설명해주셔야 답변을 할 수 있어요.</li>
+        <li>사용하는 언어나 프레임워크가 있다면 태그로 달아 주시고 사용중인 툴과 버전 등을 명시하는 것도 도움이 됩니다.</li>
+      </ul>
+      <h6 class="title--sub">에러 메시지를 알려주세요.</h6>
+      <ul>
+        <li>오류 메시지가 있다면 같이 적어주세요. 답변 작성자에게 많은 도움이 된답니다.</li>
+      </ul>
+      <h6 class="title--sub">소스 코드를 올려주세요.</h6>
+      <ul>
+        <li>소스 코드를 스크린샷으로 올리면 답변을 하기 어렵습니다. 스크린샷이 아니라 <a target="_blank" href="https://hashcode.co.kr/questions/1772/">마크다운 문법 </a>을 이용해서
+          코드를 넣어 주세요.
+        </li>
+        <li>소스 코드를 꼭 붙여넣어야 하는건 아닙니다.</li>
+        <li>문제의 이해에 도움이 되는 경우에만 소스 코드를 첨부해 주세요.</li>
+      </ul>
+      <h6 class="title--sub">프로그램의 전체 소스 코드를 붙여넣는건 도움이 안됩니다. 코드가 길어질수록 읽고 싶지 않아져요.</h6>
+    </div>
+  
+  </div>
+        <div class="popover-markdown-tips">
+    <h1 class="title">
+      Markdown 활용
+    </h1>
+  
+    <div class="popover-body">
+      <h6 class="title--sub">헤더</h6>
+      <div class="sample">
+        # 이것은 'h1' 태그입니다.<br/>
+        ## 이것은 'h2' 태그입니다.
+      </div>
+  
+      <h6 class="title--sub">강조</h6>
+      <div class="sample">**이렇게 작성하면 볼드체가 됩니다.**</div>
+  
+      <h6 class="title--sub">코드</h6>
+      <div class="sample">
+        ```<br/>
+        // 코드는 이렇게 ```로 감싸주세요.
+        if (isAwesome) {<br/>
+        &nbsp; return true <br/>
+        }<br/>
+        ```
+      </div>
+  
+      <h6 class="title--sub">인라인 코드</h6>
+      <div class="sample">인라인 코드를 작성할때는 `code`요소를 사용합니다.</div>
+    </div>
+  
+    <a class="btn btn-default btn-sm btn-more" target="_blank" href="https://hashcode.co.kr/questions/1772/">마크다운 문법 더 알아보기</a>
+  </div>
+  <input type="submit" name="commit" value="질문 작성하기" class="btn btn-primary btn-submit" data-disable-with="처리 중" id="btn-submit-question" />
+  <a class="btn btn-default btn-cancel" href="https://hashcode.co.kr/questions/14129/%EC%9D%B4%EC%83%81%ED%95%9C-%EA%B2%B0%EA%B3%BC%EA%B0%92">취소하기</a>
+  <br><br>* 답변이 달린 질문은 수정/삭제할 수 없도록 정책이 변경되었습니다.<br><br><br>
+</form>
+  </div>
+</div>
+
+</div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+
+<script src="JS/new.js"></script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MKZX39V" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+</body>
+</html>
