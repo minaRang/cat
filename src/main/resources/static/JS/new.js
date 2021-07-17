@@ -52,12 +52,27 @@ $(function(){
       }
   });
 });
-const Editor = toastui.Editor;
-const editor = new Editor({
-  el: document.querySelector('#editor'),
-  height: '600px',
-  initialEditType: 'markdown',
-  previewStyle: 'vertical'
+const { Editor } = toastui;
+const { codeSyntaxHighlight } = Editor.plugin;
+const content = [].join('\n');
+
+ const editor = new Editor({
+    el: document.querySelector('#editor'),
+    previewStyle: 'vertical',
+    height: '500px',
+    initialEditType: 'markdown',
+        initialValue: content,
+    plugins: [[codeSyntaxHighlight, { highlighter: Prism }]]
 });
 
-editor.getHtml();
+//const viewer = Editor.factory({
+//    el: document.querySelector('#viewer'),
+//    viewer: true,
+//    height: '500px',
+//    initialEditType: 'markdown',
+//    initialValue: content,
+//    plugins: [[codeSyntaxHighlight, { highlighter: Prism }]]
+//});
+
+//viewer.setMarkdown(editor.getMarkdown());
+

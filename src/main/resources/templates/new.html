@@ -1,17 +1,28 @@
 <!DOCTYPE html>
-<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="ko" xml:lang="ko"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/default_layout">
+
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta charset="utf-8">
 <title>질문하기 | Hashcode</title>
 <link rel="stylesheet" media="all" href="CSS/newStyle.css" />
-<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+  <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+  <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css"
+  />
+  <link
+          rel="stylesheet"
+          href="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight.min.css"
+  />
 
 </head>
 <body class="questions questions-new" data-controller="questions" data-action="new">
   
 
-<div class="main">
+<div class="main" layout:fragment="content">
   
 <div class="headerbar hidden-sm-down">
 	<div class="headerbar-wrap">
@@ -69,7 +80,7 @@
   </div>
   
   <div class="form-group">
-    <label class="required" for="question_tags">태그</label>
+    <label class="required">태그</label>
     <input class="form-control" name="question[tags][]"placeholder="추가할 태그를 입력하세요" value="" type="text"/>
   </div>
 
@@ -150,21 +161,21 @@
   </div>
   <input type="submit" name="commit" value="질문 작성하기" class="btn btn-primary btn-submit" data-disable-with="처리 중" id="btn-submit-question" />
   <a class="btn btn-default btn-cancel" href="https://hashcode.co.kr/questions/14129/%EC%9D%B4%EC%83%81%ED%95%9C-%EA%B2%B0%EA%B3%BC%EA%B0%92">취소하기</a>
-  <br><br>* 답변이 달린 질문은 수정/삭제할 수 없도록 정책이 변경되었습니다.<br><br><br>
+  <br><br>* 답변이 달린 질문은 수정/삭제할 수 없도록 정책이 변경되었습니다.
 </form>
   </div>
 </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
+  <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-clojure.min.js"></script>
+  <script src="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight-all.min.js"></script>
+  <script src="JS/new.js"></script>
 </div>
-
-
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
-
-<script src="JS/new.js"></script>
 
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MKZX39V" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
