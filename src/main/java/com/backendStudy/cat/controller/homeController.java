@@ -16,4 +16,9 @@ public class homeController {
         return "signup";
     }
 
+    @GetMapping("/myPage")
+    public String myPage(){
+        return "myPage";
+    }
+
 }

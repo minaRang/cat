@@ -227,7 +227,6 @@ h1, h2, h3, h4, h5, h6 {
 
 h5, h6 {
     font-weight: 400;
-    font-size: 14px;
     line-height: 1.5;
 }
 
@@ -269,8 +268,8 @@ input[type="checkbox"] {
     vertical-align: middle;
 }
 input[type="checkbox"]:checked {
-        border-color: #263747;
-        background: #263747 !important;
+        border-color: #80bdff;
+        background: #80bdff !important;
         baackground-size: 0.625rem 0.5rem !important;
     }
 
@@ -363,4 +362,12 @@ button, [type="button"], [type="reset"], [type="submit"] {
 #btn-sign-up:hover{
     background: #0053F4;
 
+}
+.integrated-sign {
+    margin-top: 2rem;
+}
+.integrated-sign .integrated-sign-inner .sign-title, .integrated-sign .integrated-sign-inner .sign-service-name {
+    -webkit-font-smoothing: antialiased;
+    font-weight: 700;
+    text-align: center;
 }

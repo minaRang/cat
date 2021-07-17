@@ -1,0 +1,182 @@
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" class=""
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default_layout}">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>김다빈님의 정보 | Hashcode</title>
+    <link rel="shortcut icon" type="image/x-icon" href="https://hashcode.co.kr/assets/favicon/favicon-5256b45a294911c4573434fd8c57b7c2e4b0958bb2a10266d27a240360691767.ico">
+    <link rel="apple-touch-icon" type="image/png" href="https://hashcode.co.kr/assets/favicon/apple-touch-icon-d5908b1dee004f60c43142ddf9c90297c5ff1c0df11450cc7d038cea90fef1a1.png">
+    <meta name="theme-color" content="#5C6BC0">
+
+<!--    부트스트랩-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" media="all" href="CSS/myPage.css">
+    <meta name="csrf-param" content="authenticity_token">
+    <meta name="csrf-token" content="0jUKSZjoRD8A1VmNJx6f8VHZIPsjHPmEjfpeutB1AU4Bd2W/rNAkbI4Vh8wiJOLLYCsf3DuzBu1/TMqCvIlIlA==">
+    </head>
+
+<body class="users users-show" data-controller="users" data-action="show" layout:fragment="content">
+<div class="main">
+    <div class="content clearfix">
+        <div class="content-wrap clearfix">
+            <div class="info">
+      <span class="file-upload m-b-40">
+        <div class="clickable-area">
+          <div id="preview" class="preview m-b-10">
+            <h5 class="upload"><span class="hc-icons-camera white-color">사진업로드</span> 사진 업로드</h5>
+            <img alt="김다빈" class="profile-image" src="https://res.cloudinary.com/eightcruz/image/upload/c_lfill,h_220,w_220/ubevjgwgfypffgeiaaf5">
+          </div>
+          <input type="file" name="file" data-url="https://api.cloudinary.com/v1_1/eightcruz/auto/upload" data-form-data="{&quot;callback&quot;:&quot;https://hashcode.co.kr/cloudinary_cors.html&quot;,&quot;timestamp&quot;:1626482845,&quot;upload_preset&quot;:&quot;athena&quot;,&quot;signature&quot;:&quot;84e795f718b67a2c45a5834ae39e33395f342730&quot;,&quot;api_key&quot;:&quot;689685655922254&quot;}" data-cloudinary-field="image_id" class="cloudinary-fileupload">
+        </div>
+      </span>
+                <h5 class="float-xs-right settings"><a href="https://hashcode.co.kr/user/edit">설정</a></h5>
+                <div class="name-edit">
+                    <h1 class="name">
+                        김다빈
+                    </h1>
+                    <a data-remote="true" href="/user/edit_name">수정</a>
+                </div>
+                <div class="detail-info">
+                    <!--id, title, value, user-->
+                    <div id="introduction" class="user-information">
+                        <span class="hc-icons-introduction hc-icons">id</span>
+                        <span>
+                            <a data-remote="true" href="/user/info?property=introduction">등록</a>
+                        </span>
+                    </div>
+
+                    <!--id, title, value, user-->
+                    <div id="homepage" class="user-information">
+                        <span class="hc-icons-homepage hc-icons">id</span>
+                        <span>
+                            <a data-remote="true" href="/user/info?property=homepage">등록</a>
+                        </span>
+                    </div>
+
+                    <!--id, title, value, user-->
+                    <div id="location" class="user-information">
+                        <span class="hc-icons-location hc-icons">id</span>
+                        <span>
+                            <a data-remote="true" href="/user/info?property=location">등록</a>
+                        </span>
+                    </div>
+
+                    <!--id, title, value, user-->
+                    <div id="organization" class="user-information">
+                        <span class="hc-icons-organization hc-icons">id</span>
+                        <span>
+                            <a data-remote="true" href="/user/info?property=organization">등록</a>
+                        </span>
+                    </div>
+
+                    <!--id, title, value, user-->
+                    <div id="github" class="user-information">
+                        <span class="hc-icons-github hc-icons">id</span>
+                        <span>
+                            <a target="_blank" href="https://programmers.co.kr/users/account">github 연결하기</a>
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+
+            <ul class="activities">
+                <!--user -->
+                <li class="activity activity-chart">
+                    <h6> 점수 </h6>
+                    <div class="img-center"><img src="../image/egg01.gif"></div>
+                </li>
+                <!--user, questions_count, answers_count-->
+                <li class="activity activity-count">
+                    <h6> 활동 </h6>
+                    <div class="img-center"><img src="../image/egg02.gif"></div>
+                </li>
+                <!--top_tags-->
+                <li class="activity activity-tags">
+                    <h6>태그</h6>
+                    <div class="img-center"><img src="../image/egg03.gif"></div>
+                </li>
+            </ul>
+
+            <!--메뉴-->
+            <ul class="nav nav-tabs" id="tab" role="tablist">
+                <!--질문-->
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="question-tab" data-bs-toggle="tab" data-bs-target="#question" type="button" role="tab" aria-controls="question" aria-selected="true">질문 0</button>
+                </li>
+                <!--답변-->
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="answer-tab" data-bs-toggle="tab" data-bs-target="#answer" type="button" role="tab" aria-controls="answer" aria-selected="false">답변 0</button>
+                </li>
+                <!--편집요청-->
+                <li class="nav-item">
+                    <button class="nav-link" id="edit_request-tab" data-bs-toggle="tab" data-bs-target="#edit_request" type="button" role="tab" aria-controls="edit_request" aria-selected="false">편집 요청 0</button>
+                </li>
+                <!--북마크-->
+                <li class="nav-item">
+                    <button class="nav-link" id="bookmark-tab" data-bs-toggle="tab" data-bs-target="#bookmark" type="button" role="tab" aria-controls="contact" aria-selected="false">북마크 1</button>
+                </li>
+                <!--정렬-->
+                <li class="nav-item dropdown float-xs-right">
+                    <a class="nav-link dropdown-toggle" id="actions" data-toggle="dropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        최신순
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="actions">
+                        <a class="dropdown-item" href="/users/187759/%EA%B9%80%EB%8B%A4%EB%B9%88?sortby=newest">최신순</a>
+                        <a class="dropdown-item" href="/users/187759/%EA%B9%80%EB%8B%A4%EB%B9%88?sortby=votes">추천순</a>
+                    </div>
+                </li>
+            </ul>
+
+            <!--출력-->
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="question" role="tabpanel" aria-labelledby="question-tab">
+                    <ul class="question-list">
+                        <h5 class="m-t-30">등록한 질문이 없습니다.</h5>
+                    </ul>
+                </div>
+                <div class="tab-pane fade" id="answer" role="tabpanel" aria-labelledby="answer-tab">
+                    <ul class="answer-list">
+                        <h5 class="m-t-30">등록한 답변이 없습니다.</h5>
+                    </ul>
+                </div>
+                <div class="tab-pane fade" id="edit_request" role="tabpanel" aria-labelledby="edit_request-tab">
+                    <ul class="question-list">
+                        <h5 class="m-t-30">요청한 편집글이 없습니다.</h5>
+                    </ul>
+                </div>
+                <div class="tab-pane fade" id="bookmark" role="tabpanel" aria-labelledby="bookmark-tab">
+                    <ul class="question-list">
+                        <li id="question-14042" class="question-list-item hidden-sm-down">
+                            <div class="question-vote-count" data-id="14042">
+                                <div class="question-number">0</div>
+                                <h6>좋아요</h6>
+                            </div>
+                            <div class="question-answer-count accepted" data-id="14042">
+                                <div class="question-number">✓1</div>
+                                <h6>답변</h6>
+                            </div>
+                            <div class="question">
+                                <div class="top">
+                                    <h4><a href="/questions/14042/%ED%8C%8C%EC%9D%B4%EC%8D%AC-%EC%B4%88%EB%B3%B4-list-insert-%EA%B4%80%EB%A0%A8-%EC%A7%88%EB%AC%B8-indexerror-list-assignment-index-out-of-range">파이썬 초보. list insert 관련 질문. IndexError: list assignment index out of range</a></h4>
+                                </div>
+                                <ul class="question-tags">
+                                </ul>
+
+                                <ul class="question-info float-xs-right">
+                                    <li><time datetime="2021-06-27T13:14:21+09:00">20일 전</time></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
