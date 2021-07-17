@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="ko" xml:lang="ko"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/default_layout">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <meta charset="utf-8">
@@ -8,8 +10,8 @@
 <link rel="stylesheet" media="all" href="CSS/index.css" />
 
 </head>
-<body class="root root-index">
-<div class="main">
+<body class="root root-index" >
+<div class="main" layout:fragment="content">
 <div class="content">
   <div class="content-wrap">
     <div class="center">
@@ -90,7 +92,10 @@
      </div>
     </div>
    </div>
-
+    </div>
+  </div>
+</div>
+</div>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MKZX39V" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 </body>
