@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta charset="utf-8">
 <title>질문하기 | Hashcode</title>
-<link rel="stylesheet" media="all" href="CSS/newStyle.css" />
+<link rel="stylesheet" media="all" href="CSS/write.css" />
   <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
   <link
           rel="stylesheet"
@@ -35,7 +35,7 @@
 
 <div class="content">
   <div class="content-wrap">
-    <form class="new_question" id="new_question" role="form" action="/questions" accept-charset="UTF-8" data-remote="true" method="post">
+    <form class="new_question" id="new_question" role="form" action="/questions" accept-charset="UTF-8" method="post" enctype="multipart/form-data">
       <input name="utf8" type="hidden" value="&#x2713;" />
 
   <div class="form-group form-question-title">
@@ -90,6 +90,7 @@
 
     <div class="wmd-preview-box" style="display: flex; -webkit-box-pack: justify; justify-content: flex-end;">
         <ul class="header-tips">
+          <li style="text-align:right">첨부파일  <input type="file" name="attachFile" ></li>
           <li><span class="hc-icons-bulb">TitleTip</span></li>
           <li id="btn-question-tips" data-placement="bottom" data-toggle="popover" data-popover-content='.popover-question-tips'>
             작성 팁
@@ -99,7 +100,10 @@
           </li>
         </ul>
       </div>
-      <div id="editor" style="margin-bottom: 10px;"></div>
+    <div style="margin-bottom:10px;">
+        <textarea class="form-control" name="content" style="width:100%; height:500px;"></textarea>
+    </div>
+<!--      <div id="editor" style="margin-bottom: 10px;"></div>-->
   </div>
   <div class="popover-question-tips">
     <h1 class="title">
@@ -169,12 +173,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-  <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-clojure.min.js"></script>
-  <script src="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight-all.min.js"></script>
-  <script src="JS/new.js"></script>
+<!--  <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>-->
+<!--  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>-->
+<!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>-->
+<!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-clojure.min.js"></script>-->
+<!--  <script src="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight-all.min.js"></script>-->
+  <script src="JS/write.js"></script>
 </div>
 
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MKZX39V" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>

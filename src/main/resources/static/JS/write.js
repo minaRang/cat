@@ -52,27 +52,76 @@ $(function(){
       }
   });
 });
-const { Editor } = toastui;
-const { codeSyntaxHighlight } = Editor.plugin;
-const content = [].join('\n');
-
- const editor = new Editor({
-    el: document.querySelector('#editor'),
-    previewStyle: 'vertical',
-    height: '500px',
-    initialEditType: 'markdown',
-        initialValue: content,
-    plugins: [[codeSyntaxHighlight, { highlighter: Prism }]]
-});
-
-//const viewer = Editor.factory({
-//    el: document.querySelector('#viewer'),
-//    viewer: true,
+//const { Editor } = toastui;
+//const { codeSyntaxHighlight } = Editor.plugin;
+//const content = [].join('\n');
+//function uploadImage(blob) {
+//    let formData = new FormData();
+//    formData.append('image', blob);
+//    return axios('http://localhost:8080/questions', {
+//        method: 'Post',
+//        data: formData,
+//        headers : {'Content-type' : 'multipart/form-data' }
+//
+//    }).then(function (response) {
+//        if (response.data) {
+//              if(this.state.thumbnailcheck === 0) {
+//                this.setState({
+//                  thumbnailchekc : 1,
+//                  thumbnail : response.data
+//                })
+//              }
+//                return response.data;
+//            }
+//            throw new Error('Server or network error');
+//            });
+//        };
+//function onAddImageBlob(blob, callback) {
+//    this.uploadImage(blob)
+//        .then(function(response){
+//            if (!response) {
+//                throw new Error('Validation error');
+//            }
+//            else callback(response, "alt text");
+//        }).catch(error => {
+//            console.log(error);
+//        });
+//};
+////async function uploadImage (blob) {
+////	const formData = new FormData();
+////    formData.append('image', blob);
+////
+////    // 서버로부터 이미지 주소 받아옴
+////    const url = await fetch('http://localhost:8080/new', {
+////    	method: 'POST',
+////        body : formData
+////    });
+////
+////    return url;
+////};
+// const editor = new Editor({
+//    el: document.querySelector('#editor'),
+//    previewStyle: 'vertical',
 //    height: '500px',
 //    initialEditType: 'markdown',
-//    initialValue: content,
-//    plugins: [[codeSyntaxHighlight, { highlighter: Prism }]]
+//        initialValue: content,
+//    plugins: [[codeSyntaxHighlight, { highlighter: Prism }]],
+//    hooks:{ addImageBlobHook: async function (blob, callback){
+//            const img_url = await uploadImage(blob);
+//            callback(img_url, 'alt_text');
+//            return false
+//            }}
 //});
-
-//viewer.setMarkdown(editor.getMarkdown());
-
+//
+//
+////const viewer = Editor.factory({
+////    el: document.querySelector('#viewer'),
+////    viewer: true,
+////    height: '500px',
+////    initialEditType: 'markdown',
+////    initialValue: content,
+////    plugins: [[codeSyntaxHighlight, { highlighter: Prism }]]
+////});
+//
+////viewer.setMarkdown(editor.getMarkdown());
+//

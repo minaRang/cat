@@ -2,11 +2,19 @@ package com.backendStudy.cat.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class newController {
+public class WriteController {
     @GetMapping("/new")
     public String mainForm(){
         return "new";
+    }
+
+    @PostMapping("/questions")
+    public String newQuestion(BoardForm form){
+
+
+        return "redirect:/";
     }
 }
