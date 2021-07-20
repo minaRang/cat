@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.backendStudy.cat.mapper.BoardMapper">
+    <sql id="boardListColumn">
+        u.user_name,
+        b.board_idx,
+        b.board_title,
+        b.board_content,
+        b.board_view,
+        b.date,
+        b.update_time,
+        a.answer_is_adopted,
+        f.fond_score
+    </sql>
+
+    <sql id="boardDetail">
+        board_idx,
+        board_title,
+        board_content,
+        board_view,
+        date,
+        update_time,
+        file_path;
+    </sql>
+
+    <sql id="insertBoard">
+        user_idx,
+        board_title,
+        board_content,
+        board_view,
+        date,
+        update_time
+    </sql>
+
+    <insert id="insertBoard" useGeneratedKeys="true" keyProperty="boardIdx" parameterType="DTOBoard">
+        INSERT INTO board(<include refid="insertBoard"/>)
+        VALUES(
+        #{userIdx},
+        #{boardTitle},
+        #{boardContent},
+        0,
+        NOW(),
+        NULL
+        )
+    </insert>
+
+<!--    <select id="selectBoardDetail" parameterType="long" resultType="DTOBoard">-->
+<!--        SELECT <include refid="boardDetail"/>-->
+<!--        FROM (SELECT * FROM board WHERE board_idx=#{boardIndex}) LEFT JOIN file on board_idx=board_idx-->
+<!--    </select>-->
+
+    <select id="findByBoardIdx" parameterType="long" resultType="DTOBoard">
+        SELECT *
+        FROM board
+        WHERE board_idx=#{boardIdx}
+    </select>
+
+    <update id="updateBoard" parameterType="DTOBoard">
+        UPDATE board
+        SET
+            user_idx=#{userIdx},
+            board_title=#{boardTitle},
+            board_content=#{boardContent},
+            update_time=NOW()
+        WHERE board_idx=#{boardIdx}
+    </update>
+
+    <delete id ="deleteBoard" parameterType="long">
+        DELETE FROM board
+        WHERE board_idx=#{boardIdx}
+    </delete>
+
+    <select id="findAllBoard" parameterType="DTOBoard" resultType="DTOBoard">
+        SELECT <include refid="boardListColumn"/>, count(a.board_idx) as cnt_board_answer
+        FROM (board b LEFT JOIN user u on b.user_idx=u.user_idx) LEFT JOIN answer a on b.board_idx=a.board_idx LEFT JOIN fond f on b.board_idx=f.board_idx
+        GROUP BY b.board_idx
+    </select>
+
+    <select id="selectBoardTotalCount" parameterType="DTOBoard" resultType="Long">
+        SELECT count(*)
+        FROM board
+    </select>
+
+    <update id="updateBoardView" parameterType="Long">
+        UPDATE board
+        SET
+            board_view=board_view+1
+        WHERE board_idx=#{boardIdx}
+    </update>
+
+</mapper>
