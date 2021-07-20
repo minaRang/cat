@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="ko" xml:lang="ko"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="layout/default_layout">
+      layout:decorate="layout/default_layout" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <meta charset="utf-8">
 <title>개발자를 위한 QA 서비스 | Hashcode</title>
 
-<link rel="stylesheet" media="all" href="CSS/index.css" />
+<link rel="stylesheet" media="all" href="CSS/board/home.css" />
 
 </head>
 <body class="root root-index" >
@@ -23,45 +23,55 @@
       <span class="input-group-addon form-control-clear"><span class="hc-icons-l-x">Close</span> </span>
     </div>
 </form></div>
-      <ul class="nav nav-tabs" role="tablist">
-          <li class="nav-item"><a class="nav-link active" href="#">최신</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">인기</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">답변 필요</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">태그 선택</a></li>
+      <ul class="nav nav-tabs" role="tablist" >
+          <li class="nav-item"><a class="nav-link active" href="/" th:if="${tap}=='home'">최신</a></li>
+          <li class="nav-item"><a class="nav-link " href="/" th:unless="${tap}=='home'">최신</a></li>
+
+          <li class="nav-item"><a class="nav-link active" href="/popular" th:if="${tap}=='popular'"}>인기</a></li>
+          <li class="nav-item"><a class="nav-link" href="/popular" th:unless="${tap}=='popular'">인기</a></li>
+
+          <li class="nav-item"><a class="nav-link active" href="/needAnswer" th:if="${tap}=='needAnswer'">답변 필요</a></li>
+          <li class="nav-item"><a class="nav-link" href="/needAnswer" th:unless="${tap}=='needAnswer'">답변 필요</a></li>
+
+          <li class="nav-item"><a class="nav-link" href="/selectTag">태그 선택</a></li>
       </ul>
 
-      <ul class="question-list">
-          <li id="question-14062" class="question-list-item">
-    <div class="question-view-count">
-      <div class="question-number">32</div>
-      <h6>조회</h6>
-   </div>
-	<div class="question-vote-count" data-id="14062">
-		<div class="question-number">-1</div>
-		<h6>좋아요</h6>
-	</div>
-	<div class="question-answer-count accepted" data-id="14062">
-		<div class="question-number">✓1</div>
-		<h6>답변</h6>
-	</div>
-	<div class="question">
-		<div class="top">
-			<h4><a href="#">제목</a></h4>
-		</div>
-		<ul class="question-tags">
-            <li class="label label-tag ">
-              <a rel="tag" href="#">
-                  <span data-tag="#">태그</span>
-</a>            </li>
-		</ul>
+      <ul class="question-list" th:each="board:${boardList}">
+          <li class="question-list-item" th:scope="board">
+            <div class="question-view-count">
+                <div class="question-number" th:text="${board.boardView}"></div>
+                    <h6>조회</h6>
+                </div>
+	        <div class="question-vote-count">
+		        <div class="question-number" th:text="${board.fondScore}"></div>
+		        <h6>좋아요</h6>
+	        </div>
+	        <div class="question-answer-count accepted" th:if="${board.answerIsAdopted==1}">
+		        <div class="question-number"  th:text="'✓'+${board.cntBoardAnswer}"></div>
+                <h6>답변</h6>
+	        </div>
+            <div class="question-answer-count" th:unless="${board.answerIsAdopted==1}">
+              <div class="question-number" th:text="${board.cntBoardAnswer}"></div>
+              <h6>답변</h6>
+            </div>
+	        <div class="question">
+		        <div class="top">
+			    <h4><a href="@{|/board/detail/{boardIdx}|}" th:text='${board.boardTitle}'></a></h4>
+		        </div>
+                <ul class="question-tags">
+                    <li class="label label-tag ">
+                        <a rel="tag" href="#">
+                            <span data-tag="#">태그</span>
+                        </a>
+                    </li>
+                </ul>
 
-		<ul class="question-info float-xs-right">
-					<li><a title="작성자" href="#">작성자</a></li>
-					<li><time datetime="">날짜</time></li>
-		</ul>
-	</div>
-</li>
-
+                <ul class="question-info float-xs-right">
+                    <li><a title="작성자" href="/userPage(userIdx=${board.userIdx})" th:text='${board.userName}'></a></li>
+                    <li th:text="${board.timeInterval}"></li>
+                </ul>
+	        </div>
+          </li>
       </ul>
       <nav class="">
 		  <ul class="pagination">
