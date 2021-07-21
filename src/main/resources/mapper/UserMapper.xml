@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.backendStudy.cat.mapper.UserMapper">
+    <sql id="userDefault">
+        user_name,
+        user_email,
+        user_password,
+        date
+    </sql>
+ 
+<!--    유저 생성-->
+    <insert id="insertUser" parameterType="com.backendStudy.cat.domain.DTOUser" useGeneratedKeys="true" keyProperty="userIdx">
+        insert into user (user_name,user_email,user_password,date)
+        values (#{userName},#{userEmail},#{userPassword},now());
+    </insert>
+
+    <!--    유저 조회-->
+    <select id="selectUser" parameterType="com.backendStudy.cat.domain.DTOUser" resultType="com.backendStudy.cat.domain.DTOUser">
+        select * FROM user WHERE user_idx=#{userIdx}
+    </select>
+
+<!--    유저 수정-->
+    <update id="updateUser">
+        update user set user_password=#{userPassword}, user_ntc_answer=#{userNtcAnswer}, user_ntc_news=#{userNtcNews}, user_ntc_comment=#{userNtcComment} where user_idx=#{userIdx}
+    </update>
+    <update id="updateUserDetail" >
+        update user set user_name = #{userName}, user_bio=#{userBio}, user_homepage=#{userHomepage}, user_address=#{userAddress}, user_company=#{userCompany} where user_idx=#{userIdx}
+    </update>
+    <update id="updateUserScore">
+        update user set user_score = #{userScore} where user_idx=#{userIdx}
+    </update>
+
+<!--    유저 삭제-->
+    <update id="deleteUser" parameterType="com.backendStudy.cat.domain.DTOUser">
+        update user set is_account_non_expired = #{isAccountNonExpired} where user_idx=#{userIdx}
+    </update>
+
+    <!--로그인-->
+    <select id="loginUser" parameterType="com.backendStudy.cat.domain.DTOUser" resultType="int">
+        select COUNT(*) FROM user WHERE user_idx=#{userIdx} and user_passwd=#{userPasswd}
+    </select>
+</mapper>
