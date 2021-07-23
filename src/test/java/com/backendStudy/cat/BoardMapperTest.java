@@ -2,6 +2,7 @@ package com.backendStudy.cat;
 
 
 import com.backendStudy.cat.domain.DTOBoard;
+import com.backendStudy.cat.domain.paging.Criteria;
 import com.backendStudy.cat.mapper.BoardMapper;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -79,9 +80,9 @@ public class BoardMapperTest {
     }
     @Test
     public void testSelectALL(){
-        Long total = boardMapper.selectBoardTotalCount();
+        int total = boardMapper.selectBoardTotalCount(new DTOBoard());
         if(total>0){
-            List<DTOBoard> boardList=boardMapper.findAllBoard();
+            List<DTOBoard> boardList=boardMapper.findAllBoardOrderByDate(new DTOBoard());
             log.info("total={}",boardList.size());
             for (DTOBoard board : boardList){
                 log.info("title : {}",board.getBoardTitle());
