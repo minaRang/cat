@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class DTOBoard {
+public class DTOBoard extends DTOCommon {
     private Long boardIdx;        // 인덱스
     private Long userIdx;        // 유저인덱스
     private String boardTitle;          // 제목
