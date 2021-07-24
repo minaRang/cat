@@ -48,4 +48,9 @@
         WHERE answer_idx=#{answerIdx}
     </delete>
 
+    <select id="selectCountAnswer" parameterType="DTOAnswer" resultType="Long">
+        SELECT count(*)
+        FROM answer
+    </select>
+
 </mapper>
