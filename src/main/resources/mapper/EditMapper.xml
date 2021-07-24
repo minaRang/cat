@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.backendStudy.cat.mapper.CommentMapper">
+
+    <!-- edit 테이블 전체 컬럼 -->
+    <sql id="answerColumns">
+        edit_idx,
+        board_idx,
+        user_idx,
+        edit_title,
+        edit_content,
+        date
+    </sql>
+
+    <!--편집 요청 내용 등록-->
+    <insert id="insertEditContent" parameterType="DTOEdit">
+        INSERT INTO edit(<include refid="answerColumns"/>)
+        VALUES (
+            #{edit_idx},
+            #{board_idx},
+            #{user_idx},
+            #{edit_title},
+            #{edit_content},
+            NOW()
+        )
+    </insert>
+
+    <!--편집 요청 개수-->
+   <select id="selectCountEdit" parameterType="long">
+        SELECT COUNT (*)
+        FROM edit
+    </select>
+
+
+</mapper>
