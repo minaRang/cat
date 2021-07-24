@@ -20,23 +20,45 @@
     </select>
 
 <!--    유저 수정-->
+    <!--비밀번호, 이메일 알림 여부-->
     <update id="updateUser">
         update user set user_password=#{userPassword}, user_ntc_answer=#{userNtcAnswer}, user_ntc_news=#{userNtcNews}, user_ntc_comment=#{userNtcComment} where user_idx=#{userIdx}
     </update>
+    <!-- 상세 정보 이름, 주소 등...-->
     <update id="updateUserDetail" >
-        update user set user_name = #{userName}, user_bio=#{userBio}, user_homepage=#{userHomepage}, user_address=#{userAddress}, user_company=#{userCompany} where user_idx=#{userIdx}
+        update user set user_name = #{userName}, user_bio=#{userBio}, user_homepage=#{userHomepage}, user_address=#{userAddress}, user_company=#{userCompany}, update_time = now() where user_idx=#{userIdx}
     </update>
+    <!--점수-->
     <update id="updateUserScore">
-        update user set user_score = #{userScore} where user_idx=#{userIdx}
+        update user set user_score = #{userScore} , update_time = now() where user_idx=#{userIdx}
+    </update>
+    <!-- 계정 사용 변경-->
+    <update id="enableChangeUser">
+        update user set is_enabled = 1 , update_time = now() where user_idx=#{userIdx}
     </update>
 
 <!--    유저 삭제-->
-    <update id="deleteUser" parameterType="com.backendStudy.cat.domain.DTOUser">
-        update user set is_account_non_expired = #{isAccountNonExpired} where user_idx=#{userIdx}
+    <update id="deleteUser">
+        update user set is_account_non_expired = 1 , update_time = now() where user_idx=#{userIdx}
     </update>
 
     <!--로그인-->
     <select id="loginUser" parameterType="com.backendStudy.cat.domain.DTOUser" resultType="int">
-        select COUNT(*) FROM user WHERE user_idx=#{userIdx} and user_passwd=#{userPasswd}
+        select COUNT(*) FROM user WHERE user_email=#{userEmail} and user_password=#{userPassword}
+    </select>
+
+    <!--이메일 중복 확인-->
+    <select id="overlapEmailUser" resultType="int">
+        select COUNT(*) FROM user WHERE user_email=#{userEmail}
+    </select>
+
+    <!--권한 확인-->
+    <select id="getAuthority" resultType="string">
+        select user_authority from user where user_idx = #{userIdx}
+    </select>
+
+    <!--모든 회원 데이터-->
+    <select id="getAllUser" resultType="com.backendStudy.cat.domain.DTOUser">
+        select * FROM user
     </select>
 </mapper>
