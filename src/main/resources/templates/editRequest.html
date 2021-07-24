@@ -1,0 +1,307 @@
+<html lang="ko" xml:lang="ko" xmlns="" class="">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <title>편집 요청 작성 | Hashcode</title>
+  <meta name="theme-color" content="#5C6BC0">
+  <link rel="stylesheet" media="all" href="CSS/style.css">
+
+</head>
+<body class="edit_requests edit_requests-new" data-controller="edit_requests" data-action="new">
+
+    <div class="main">
+      <!--질문 편집 요청 헤더-->
+      <div class="headerbar">
+        <div class="headerbar-wrap">
+          <h1>질문 편집 요청</h1>
+          <div class="edit-request-guide">
+            <ul>
+              <li>질문이나 답변이 명확하지 않거나</li>
+              <li>질문이나 답변이 오래되어 업데이트가 필요하거나</li>
+              <li>추가하고 싶은 자료가 있다면</li>
+            </ul>
+            <h6>글을 어떻게 바꾸고 싶은지 알려주세요.</h6>
+            <h6>편집을 요청하면 원 작성자에게 알림이 갑니다. 원작자나 다수의 사용자가 요청을 승인하면 편집한 내용이 반영됩니다.</h6>
+          </div>
+          <a class="btn-edit-request-guide" data-show="편집하는 방법 접기 ▲" data-hide="편집하는 방법 열기 ▼" href="#">
+            편집하는 방법 접기▲
+          </a>
+        </div>
+      </div>
+      <div class="content">
+        <div class="content-wrap">
+          <form class="new_edit_request" id="new_edit_request" role="form" action="/edit_requests"
+                accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓">
+
+            <div class="form-group form-question-title">
+              <div class="form-title">
+                <label class="control-label" for="question_title">제목</label>
+                <span class="title-tips" id="btn-title-tips" data-popover=".popover-title-tips"><span
+                        class="hc-icons-bulb">TitleTip</span>좋은 제목을 만들려면?</span>
+              </div>
+
+              <input required="required" autofocus="autofocus" class="form-control" placeholder="입력하세요."
+                     type="text" name="edit_request[title]" id="question_title"
+                     value="질문 제목">
+
+              <div class="popover-title-tips">
+                <h1 class="title">
+                  ( ° ∀ ° )ﾉﾞ<br>
+                  좋은 제목 만들기
+                </h1>
+
+                <div class="popover-body">
+                  <h6 class="title--sub">고수님들은 질문의 제목을 보고 답변을 달지 말지 결정합니다. 고수님들의 답변을 받고 싶으면 제목을 잘써야겠지요?
+                  </h6>
+                  <ul>
+                    <li>제목에는 질문의 내용을 구체적으로 드러내주세요.</li>
+                    <li>제목을 적기가 어렵나요? 그렇다면 아래에서, 질문 내용을 먼저 적어보세요. 내용을 다 적고나면 알맞는 제목이 떠오를 수 있습니다.</li>
+                  </ul>
+
+                  <h6 class="title--sub">좋은 예</h6>
+                  <ul>
+                    <li>int 배열에 들어있는 값을 평균냈는데 소숫점 둘째자리에서 반올림 하려면?</li>
+                    <li>Java += 연산자가 다른 타입에서는 이상하게 동작합니다.</li>
+                    <li>Javascript에서 Closure는 어떻게 동작하나요?</li>
+                  </ul>
+
+                  <h6 class="title--sub">나쁜 예</h6>
+                  <ul>
+                    <li>C언어 문제</li>
+                    <li>Java 프로그래밍 도와주세요.</li>
+                    <li>[급함] 고수님들께 도움 요청합니다.</li>
+                  </ul>
+                </div>
+
+              </div>
+            </div>
+
+            <!--태그영역-->
+
+            <div class="form-group">
+              <label for="edit_request_tags">태그</label>
+              <input name="edit_request[tags][]" type="hidden" value="">
+              <select required="required" multiple="" size="5"
+                      class="form-control tagselect select2-hidden-accessible" data-url="/tags/autocomplete"
+                      data-placeholder="추가할 태그를 입력하세요"
+                      data-saved="[{&quot;id&quot;:&quot;python&quot;,&quot;text&quot;:&quot;python&quot;},
+                      {&quot;id&quot;:&quot;matplotlib&quot;,&quot;text&quot;:&quot;matplotlib&quot;},
+                      {&quot;id&quot;:&quot;graph&quot;,&quot;text&quot;:&quot;graph&quot;}]"
+                      name="edit_request[tags][]" id="edit_request_tags" tabindex="-1" aria-hidden="true">
+              <option data-select2-tag="true" selected="selected" value="python">태그1</option>
+              <option data-select2-tag="true" selected="selected" value="matplotlib">태그2</option>
+              <option data-select2-tag="true" selected="selected" value="graph">태그3</option>
+            </select>
+              <span class="select2 select2-container select2-container--default" dir="ltr" style="width: 1460px;">
+                                <span class="selection">
+                                    <span class="select2-selection select2-selection--multiple" role="combobox"
+                                          aria-haspopup="true" aria-expanded="false" tabindex="-1">
+                                        <ul class="select2-selection__rendered">
+
+                                            <li class="select2-selection__choice" title="태그1">
+                                                <span>태그1</span>
+                                                <span class="select2-selection__choice__remove" role="presentation">
+                                                    <span class="hc-icons-s-x">Remove</span>
+                                                </span>
+                                            </li>
+
+                                            <li class="select2-selection__choice" title="태그2">
+                                                <span>태그2</span>
+                                                <span class="select2-selection__choice__remove" role="presentation">
+                                                    <span class="hc-icons-s-x">Remove</span>
+                                                </span>
+                                            </li>
+
+                                            <li class="select2-selection__choice" title="태그3">
+                                                <span>태그3</span>
+                                                <span class="select2-selection__choice__remove" role="presentation">
+                                                    <span class="hc-icons-s-x">Remove</span>
+                                                </span>
+                                            </li>
+
+                                            <li class="select2-search select2-search--inline">
+                                                <input class="select2-search__field" type="search" tabindex="0"
+                                                       autocomplete="off" autocorrect="off" autocapitalize="off"
+                                                       spellcheck="false" role="textbox" aria-autocomplete="list"
+                                                       placeholder="" style="width: 0.75em;">
+                                            </li>
+                                        </ul>
+                                    </span>
+                                </span>
+                                <span class="dropdown-wrapper" aria-hidden="true"></span>
+                            </span>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label" for="question_content">내용</label>
+              <div class="resizable-textarea"><span>
+                                    <div class="wmd-box wmd-Question processed">
+                                        <div class="wmd-editor-box">
+                                            <div class="wmd-editor-header" id="wmd-button-bar">
+                                                <ul class="wmd-button-row">
+                                                    <li class="wmd-button wmd-bold-button hc-icons-bold"
+                                                        title="Strong <strong> Ctrl+B"></li>
+                                                    <li class="wmd-button wmd-italic-button hc-icons-italic"
+                                                        title="Emphasis <em> Ctrl+I"></li>
+                                                    <li class="wmd-spacer"></li>
+                                                    <li class="wmd-button wmd-link-button hc-icons-link"
+                                                        title="Hyperlink <a> Ctrl+L"></li>
+                                                    <li class="wmd-button wmd-image-button hc-icons-image"
+                                                        title="Image <img> Ctrl+G"></li>
+                                                    <li class="wmd-button wmd-quote-button hc-icons-quotation"
+                                                        title="Blockquote <blockquote> Ctrl+Q"></li>
+                                                    <li class="wmd-button wmd-code-button hc-icons-code"
+                                                        title="Code Sample <pre><code> Ctrl+K"></li>
+                                                    <li class="wmd-spacer"></li>
+                                                    <li class="wmd-button wmd-ulist-button hc-icons-u-list"
+                                                        title="Bulleted List <ul> Ctrl+U"></li>
+                                                    <li class="wmd-button wmd-olist-button hc-icons-o-list"
+                                                        title="Numbered List <ol> Ctrl+O"></li>
+                                                    <li class="wmd-spacer"></li>
+                                                </ul>
+                                            </div>
+                                            <textarea required="required" rows="10" class="form-control wmd-textarea "
+                                                      name="edit_request[content]" id="wmd-input" placeholder=""> 질문 내용 </textarea>
+                                        </div>
+                                        <div class="wmd-preview-box">
+                                            <div class="wmd-preview-header">
+                                                <div class="wmd-preview-header-titles">
+                                                    <h5>미리 보기</h5>
+                                                    <ul class="header-tips">
+                                                        <li><span class="hc-icons-bulb">TitleTip</span></li>
+                                                        <li id="btn-question-tips" data-popover=".popover-question-tips">
+                                                            작성 팁
+                                                        </li>
+                                                        <li id="btn-markdown-tips" data-popover=".popover-markdown-tips">
+                                                            마크다운 문법
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="popover-question-tips">
+                                                    <h1 class="title">
+                                                        작성 팁
+                                                    </h1>
+
+                                                    <div class="popover-body">
+                                                        <h6 class="title--sub">배경을 충분하게 설명해주세요.</h6>
+                                                        <ul>
+                                                            <li>문제를 어떻게 재현할 수 있는지 설명해주셔야 답변을 할 수 있어요.</li>
+                                                            <li>사용하는 언어나 프레임워크가 있다면 태그로 달아 주시고 사용중인 툴과 버전 등을 명시하는 것도 도움이
+                                                                됩니다.</li>
+                                                        </ul>
+                                                        <h6 class="title--sub">에러 메시지를 알려주세요.</h6>
+                                                        <ul>
+                                                            <li>오류 메시지가 있다면 같이 적어주세요. 답변 작성자에게 많은 도움이 된답니다.</li>
+                                                        </ul>
+                                                        <h6 class="title--sub">소스 코드를 올려주세요.</h6>
+                                                        <ul>
+                                                            <li>소스 코드를 스크린샷으로 올리면 답변을 하기 어렵습니다. 스크린샷이 아니라 <a target="_blank"
+                                                                                                             href="">마크다운 문법
+                                                                </a>을 이용해서
+                                                                코드를 넣어 주세요.
+                                                            </li>
+                                                            <li>소스 코드를 꼭 붙여넣어야 하는건 아닙니다.</li>
+                                                            <li>문제의 이해에 도움이 되는 경우에만 소스 코드를 첨부해 주세요.</li>
+                                                        </ul>
+                                                        <h6 class="title--sub">프로그램의 전체 소스 코드를 붙여넣는건 도움이 안됩니다. 코드가 길어질수록 읽고
+                                                            싶지 않아져요.</h6>
+                                                    </div>
+
+                                                </div>
+                                                <div class="popover-markdown-tips">
+                                                    <h1 class="title">
+                                                        Markdown 활용
+                                                    </h1>
+
+                                                    <div class="popover-body">
+                                                        <h6 class="title--sub">헤더</h6>
+                                                        <div class="sample">
+                                                            # 이것은 'h1' 태그입니다.<br>
+                                                            ## 이것은 'h2' 태그입니다.
+                                                        </div>
+
+                                                        <h6 class="title--sub">강조</h6>
+                                                        <div class="sample">**이렇게 작성하면 볼드체가 됩니다.**</div>
+
+                                                        <h6 class="title--sub">코드</h6>
+                                                        <div class="sample">
+                                                            ```<br>
+                                                            // 코드는 이렇게 ```로 감싸주세요.
+                                                            if (isAwesome) {<br>
+                                                            &nbsp; return true <br>
+                                                            }<br>
+                                                            ```
+                                                        </div>
+
+                                                        <h6 class="title--sub">인라인 코드</h6>
+                                                        <div class="sample">인라인 코드를 작성할때는 `code`요소를 사용합니다.</div>
+                                                    </div>
+
+                                                    <a class="btn btn-default btn-sm btn-more" target="_blank"
+                                                       href="">마크다운 문법 더 알아보기</a>
+                                                </div>
+                                            </div>
+                                            <div class="wmd-preview" id="wmd-preview">
+                                                <p class="pre">test 본문 내용</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="grippie" style="margin-right: 0px;">
+                                        <span class="hc-icons-grippie">Grippie</span>
+                                    </div>
+                                </span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="required" for="edit_request_message">
+                편집 요청 메시지
+              </label>
+              <textarea required="required" rows="3"
+                        placeholder="편집 요청하는 이유를 설명해주면 상대방이 요청을 받아들이기 더 쉽겠죠?"
+                        class="form-control edit-request-message m-b-40" name="edit_request[message]"
+                        id="edit_request_message">
+                            </textarea>
+            </div>
+
+            <input value="Question" type="hidden" name="edit_request[model_type]" id="edit_request_model_type">
+            <input value="14165" type="hidden" name="edit_request[model_id]" id="edit_request_model_id">
+            <input value="11329" type="hidden" name="edit_request[user_id]" id="edit_request_user_id">
+            <input value="218198" type="hidden" name="edit_request[requested_user_id]"
+                   id="edit_request_requested_user_id">
+
+
+            <input type="submit" name="commit" value="편집 요청하기" class="btn btn-primary btn-submit" data-disable-with="처리 중">
+            <a class="btn btn-default btn-cancel" href="">취소하기</a>
+          </form>
+        </div>
+      </div>
+
+
+    </div>
+
+
+    <div class="modal fade" id="modal-dialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true"></div>
+
+    <div id="popover-content-login" class="popover-content-login" style="display: none;">
+      <div class="popover-body">
+        <h1 class="title">
+          ᕕ( ᐛ )ᕗ<br>
+          로그인이 필요합니다
+        </h1>
+        <h6 class="description">Hashcode는 개발자들을 위한 무료 QnA사이트 입니다. 계정을 생성하셔야만 글을 작성하실 수 있습니다.<br></h6>
+        <div class="btn-wrap">
+          <a class="btn btn-sm btn-default" href="">로그인</a>
+          <a class="btn btn-sm btn-default" href="">가입하기</a>
+        </div>
+      </div>
+    </div>
+
+    <script src="JS/hashcode.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default_layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주제명(ex.Java) - 질문제목 | Hashcode</title>
+    <link rel="stylesheet" href="CSS/style.css">
+
+</head>
+
+<body class="questions questions-show" data-controller="questions" data-action="show" layout:fragment="content">
+
+    <div class="main">
+        <div class="content">
+            <div class="content-wrap" itemscope="" itemtype="">
+                <div class="center">
+                    <h2 itemprop="name" class="question-title">
+                        <a href="">질문 제목</a>
+                    </h2>
+                    <h5 class="number-views">조회수 n회</h5>
+                    <!--선택된 태그 노출-->
+                    <div class="question-tags">
+                        <a rel="tag" href="/questions/tagged/python">
+                            <h6 class="tag ">python</h6>
+                        </a>
+                        <a rel="tag" href="/questions/tagged/loops">
+                            <h6 class="tag ">loops</h6>
+                        </a>
+                        <a rel="tag" href="/questions/tagged/continue">
+                            <h6 class="tag ">continue</h6>
+                        </a>
+                    </div>
+                    <div class="content question-body">
+                        <div class="vote">
+                            <a id="question-upvote-14122" title="좋아요" data-remote="true" rel="nofollow"
+                               data-method="put" href="/question/14122/upvote">
+                                <span class="hc-icons-thumb-up ">좋아요</span>
+                            </a>
+                            <h2 itemprop="upvoteCount" id="question-vote-sum-14122">0</h2>
+                            <a id="question-downvote-14122" title="싫어요" data-remote="true" rel="nofollow"
+                               data-method="put" href="/question/14122/downvote">
+                                <span class="hc-icons-thumb-down ">싫어요</span>
+                            </a>
+                        </div>
+                        <div class="markdown" itemprop="text">
+                            <p class="pre">질문글 내용</p>
+                            <pre>
+                                <code class="hljs python">
+                                <!-- 질문글 코드 영역
+                                    <span class="hljs-comment"># 위 code 생략</span>
+                                    <span class="hljs-keyword">while</span> <span class="hljs-keyword">True</span>:
+                                    <span class="hljs-comment"># 돌아가고 싶은 지점</span>
+                                    <span class="hljs-comment"># while code 생략</span>
+                                    <span class="hljs-keyword">for</span> i, ad <span class="hljs-keyword">in</span> zip(df, adsl):
+                                    logger.debug(<span class="hljs-string">'i.drop(0, axis=0, inplace=True)'</span>)
+                                    ni = i.drop(<span class="hljs-number">0</span>, axis=<span class="hljs-number">0</span>)
+                                    ni = ni.drop(<span class="hljs-number">0</span>, axis=<span class="hljs-number">1</span>)
+                                    <span class="hljs-keyword">if</span> ni.empty:
+                                    logger.info(f<span class="hljs-string">'{ad}에 NOTAM 없음'</span>)
+                                    dins[ad]
+                                    <span class="hljs-keyword">else</span>:
+                                    <span class="hljs-keyword">for</span> idx, row <span class="hljs-keyword">in</span> ni.iterrows():
+                                    <span class="hljs-keyword">if</span> pd.isna(row).any() != <span class="hljs-keyword">True</span>:
+                                    row.dropna(inplace=<span class="hljs-keyword">True</span>, axis=<span class="hljs-number">0</span>)
+                                    logger.debug(<span class="hljs-string">"row.str.extract(r'(.*)').iloc[0].iloc[0]"</span>)
+                                    notam = row.str.extract(<span class="hljs-string">r'(.*)'</span>).iloc[<span class="hljs-number">0</span>].iloc[<span class="hljs-number">0</span>]
+                                    notam_nbr = notam[:<span class="hljs-number">8</span>]  <span class="hljs-comment"># 노탐번호</span>
+                                    notam_content = notam[<span class="hljs-number">11</span>:]  <span class="hljs-comment"># 노탐본분</span>
+                                    dins[ad][notam_nbr] = notam_content
+                                    <span class="hljs-keyword">else</span>:
+                                    logger.info(<span class="hljs-string">'처음으로 돌아갑니다.'</span>)
+                                    <span class="hljs-keyword">continue</span> <span class="hljs-comment">#### 여기서 while 반목문의 처음으로 돌아가고 싶어요</span>
+                                -->
+                                </code>
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="actions-and-contributors">
+                        <div class="actions">
+                            <h5 class="bookmark" id="bookmark">북마크 추가하기</h5>
+                            <a href="">편집 요청</a>
+                        </div>
+
+                        <!--질문글 작성자 프로필-->
+                        <ul class="contributors">
+                            <li class="question">
+                                <a class="user-card hover" href="">
+                                    <div class="user-image"><img alt="사용자명"
+                                                                 src="https://res.cloudinary.com/eightcruz/image/upload/c_lfill,h_32,w_32/rhs564ljn1o7eoak9qhg">
+                                    </div>
+                                    <div class="user-info">
+                                        <h6 class="user-name">질문글 작성자명<span class="user-score">n points</span></h6>
+                                        <h6 class="contribution-time">YYYY-MM-DD HH:MM:SS에 작성됨</h6>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!--답변 영역-->
+                    <div class="comments-wrap" id="14135" data-question-id="14135">
+                        <ul class="comments" id="question-comments-14135"></ul>
+
+                        <div class="comment-text btn-add-comment" style="display: none;">
+                            <h6 class="btn-comment">댓글 입력</h6>
+                        </div>
+
+                        <div class="comment-text new-comment-form" style="">
+                            <form class="new-comment" id="new-comment" role="form" action="/question/14135/comments"
+                                  accept-charset="UTF-8" data-remote="true" method="post">
+                                <input name="utf8" type="hidden" value="✓">
+                                <div class="form-group">
+                                        <textarea required="required" placeholder="댓글 입력" rows="1" class="form-control"
+                                                  name="comment[comment]" id="comment_comment" style="height: 57px;">
+                                        </textarea>
+                                </div>
+                                <span>
+                                        <input type="submit" name="commit" value="입력"
+                                               class="btn btn-sm btn-primary btn-submit" data-disable-with="처리 중">
+                                    </span>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--답변글-->
+            <div class="answer-wrap">
+                <!--test-->
+                <div class="section-title">
+                    <h4>
+                        <span itemprop="answerCount" id="answers-count">n</span> 답변
+                    </h4>
+                </div>
+                <ul class="answers-list">
+
+                    <li class="answer-item" id="answer-10827" itemprop="acceptedAnswer" itemscope="" itemtype="">
+                        <div class="vote">
+                            <a id="answer-upvote-10827" title="좋아요" data-remote="true" rel="nofollow" data-method="put" href="">
+                                <span class="hc-icons-thumb-up ">좋아요</span>
+                            </a>
+                            <h2 itemprop="upvoteCount" id="answer-vote-sum-10827">n</h2>
+
+                            <a class=" " id="answer-downvote-10827" title="싫어요" data-remote="true" rel="nofollow" data-method="put" href="">
+                                <span class="hc-icons-thumb-down ">싫어요</span>
+                            </a>
+
+                            <div class="answer-accept"><span class="hc-icons-check active">채택 취소하기</span></div>
+                        </div>
+
+                        <div class="center">
+                            <div class="markdown" itemprop="text">
+                                    <pre>
+                                        <!-- 답변글 코드 영역
+                                        <code class="hljs python">
+                                            <span class="hljs-keyword">while</span>
+                                            <span class="hljs-keyword">True</span>:
+                                            condition=<span class="hljs-keyword">False</span>
+                                            <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">10</span>):
+                                            <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(<span class="hljs-number">10</span>):
+                                            <span class="hljs-keyword">if</span> j==<span class="hljs-number">5</span>:
+                                            condition=<span class="hljs-keyword">True</span>
+                                            <span class="hljs-keyword">break</span>
+
+                                            <span class="hljs-keyword">if</span> condition==<span class="hljs-keyword">True</span>:
+                                                <span class="hljs-keyword">break</span>
+                                            </code>
+                                        -->
+                                        </pre>
+                                <p class="pre"> 답변글 내용 1 </p>
+                                <p class="pre"> 답변글 내용 2 </p>
+                                <pre>
+                                            <!-- 답변글 코드 내용
+                                            <code class="hljs python">
+                                                <span class="hljs-comment"># 위 code 생략</span>
+                                                <span class="hljs-keyword">while</span> <span class="hljs-keyword">True</span>:
+                                                condition=<span class="hljs-keyword">False</span>
+                                                <span class="hljs-comment"># 돌아가고 싶은 지점</span>
+                                                <span class="hljs-comment"># while code 생략</span>
+
+                                                <span class="hljs-keyword">for</span> i, ad <span class="hljs-keyword">in</span> zip(df, adsl):
+                                                logger.debug(<span class="hljs-string">'i.drop(0, axis=0, inplace=True)'</span>)
+                                                ni = i.drop(<span class="hljs-number">0</span>, axis=<span class="hljs-number">0</span>)
+                                                ni = ni.drop(<span class="hljs-number">0</span>, axis=<span class="hljs-number">1</span>)
+
+                                                <span class="hljs-keyword">if</span> ni.empty:
+                                                    logger.info(f<span class="hljs-string">'{ad}에 NOTAM 없음'</span>)
+                                                    dins[ad]
+                                                <span class="hljs-keyword">else</span>:
+                                                    <span class="hljs-keyword">for</span> idx, row <span class="hljs-keyword">in</span> ni.iterrows():
+                                                <span class="hljs-keyword">if</span> pd.isna(row).any() != <span class="hljs-keyword">True</span>:
+                                                    row.dropna(inplace=<span class="hljs-keyword">True</span>, axis=<span class="hljs-number">0</span>)
+                                                    logger.debug(<span class="hljs-string">"row.str.extract(r'(.*)').iloc[0].iloc[0]"</span>)
+                                                    notam = row.str.extract(<span class="hljs-string">r'(.*)'</span>).iloc[<span class="hljs-number">0</span>].iloc[<span class="hljs-number">0</span>]
+                                                    notam_nbr = notam[:<span class="hljs-number">8</span>]  <span class="hljs-comment"># 노탐번호</span>
+                                                    notam_content = notam[<span class="hljs-number">11</span>:]  <span class="hljs-comment"># 노탐본분</span>
+                                                    dins[ad][notam_nbr] = notam_content
+                                                <span class="hljs-keyword">else</span>:
+                                                    logger.info(<span class="hljs-string">'처음으로 돌아갑니다.'</span>)
+                                                    <span class="hljs-comment">#continue #### 여기서 while 반목문의 처음으로 돌아가고 싶어요</span>
+                                                    condition=<span class="hljs-keyword">True</span>
+                                                    <span class="hljs-keyword">break</span>
+                                            <span class="hljs-keyword">if</span> condition==<span class="hljs-keyword">True</span>:
+                                                <span class="hljs-keyword">break</span>
+
+                                            </code>
+                                            -->
+                                        </pre>
+                            </div>
+
+                            <!--답변글 작성자 프로필-->
+                            <div class="actions-and-contributors">
+                                <div class="actions">
+                                    <a href="">편집 요청</a>
+                                </div>
+                                <ul class="contributors">
+                                    <li class="answer">
+                                        <a class="user-card hover" href="">
+                                            <div class="user-image"><img alt="답변글 작성자명"
+                                                                         src="https://res.cloudinary.com/eightcruz/image/upload/c_lfill,h_32,w_32/wbacpfydjhpra5xtc0iy">
+                                            </div>
+                                            <div class="user-info">
+                                                <h6 class="user-name">질문글 작성자명<span class="user-score">n,nnn points</span></h6>
+                                                <h6 class="contribution-time">YYYY-MM-DD HH:MM:SS에 작성됨</h6>
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+
+                            <!--답변글 댓글 목록-->
+                            <div id="10827" data-answer-id="10827">
+                                <ul class="comments" id="answer-comments-10827">
+                                    <li id="comment-17318" class="comment">
+                                        <span class="comment-content">댓글 1</span>
+                                        <a class="comment-author" href="">질문글 작성자명</a>
+                                        <span class="comment-date">YYYY.M.D HH:MM</span>
+
+                                    </li>
+                                    <li id="comment-17319" class="comment">
+                                        <span class="comment-content">댓글 2</span>
+                                        <a class="comment-author" href="">질문글 작성자명</a>
+                                        <span class="comment-date">YYYY.M.D HH:MM</span>
+
+                                    </li>
+                                    <li id="comment-17320" class="comment">
+                                        <span class="comment-content">댓글 3</span>
+                                        <a class="comment-author" href="">답변글 작성자명</a>
+                                        <span class="comment-date">YYYY.M.D HH:MM</span>
+
+                                    </li>
+                                    <li id="comment-17321" class="comment">
+                                        <span class="comment-content">댓글 4</span>
+                                        <a class="comment-author" href="">답변글 작성자명</a>
+                                        <span class="comment-date">YYYY.M.D HH:MM</span>
+
+                                    </li>
+                                    <li id="comment-17322" class="comment">
+                                        <span class="comment-content">댓글 5</span>
+                                        <a class="comment-author" href="">질문글 작성자명</a>
+                                        <span class="comment-date">YYYY.M.D HH:MM</span>
+
+                                    </li>
+                                </ul>
+
+                                <div class="comment-text btn-add-comment">
+                                    <h6 class="btn-comment">댓글 달기</h6>
+                                </div>
+
+                                <div class="comment-text new-comment-form" style="display: none;">
+                                    <form class="new_comment" id="new_comment" role="form"
+                                          action="/question/14122/answers/10827/comments" accept-charset="UTF-8"
+                                          data-remote="true" method="post"><input name="utf8" type="hidden" value="✓">
+                                        <div class="form-group">
+                                                <textarea auto_focus="true" required="required"
+                                                          placeholder="댓글을 입력하세요" rows="1" class="form-control"
+                                                          name="comment[comment]" id="comment_comment"
+                                                          style="height: 56px;"></textarea>
+                                        </div>
+                                        <span><input type="submit" name="commit" value="입력"
+                                                     class="btn btn-sm btn-primary btn-submit"
+                                                     data-disable-with="처리 중"></span>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="right">
+                            <h5 class="info"></h5>
+                        </div>
+                    </li>
+                </ul>
+                <!--test-->
+            </div>
+        </div>
+
+        <!--로그인 하지 않았을 경우 뜨는 창-->
+        <div class="need-login">
+            <h2 class="title">
+                답변을 하려면 로그인이 필요합니다.
+            </h2>
+            <p>
+                Hashcode는 개발자들을 위한 무료 QnA 사이트입니다. 계정을 생성하셔야만 답변을 작성하실 수 있습니다.
+            </p>
+            <div class="btn-wrap">
+                <a class="btn btn-primary" href="https://hashcode.co.kr/users/login">로그인</a><br>
+                <a class="btn btn-primary" href="https://hashcode.co.kr/users/signup">가입하기</a>
+            </div>
+            <div class="background-texture firm">(ಠ_ಠ)</div>
+            <div class="background-texture smile">(ಠ‿ಠ)</div>
+        </div>
+
+        <!--답변 작성란-->
+        <form class="new_answer" id="new_answer" role="form" action="/question/14122/answers" accept-charset="UTF-8"
+              data-remote="true" method="post"><input name="utf8" type="hidden" value="✓">
+            <div class="section-title">
+                <h5>답변 작성</h5>
+                <h5 class="draft-label" data-question-id="14122">임시 저장 중...</h5>
+            </div>
+
+            <div class="resizable-textarea"><span>
+                        <div class="wmd-box wmd-Answer processed">
+                            <div class="wmd-editor-box">
+                                <div class="wmd-editor-header" id="wmd-button-bar">
+                                    <ul class="wmd-button-row">
+                                        <li class="wmd-button wmd-bold-button hc-icons-bold" title="Strong <strong> Ctrl+B"></li>
+                                        <li class="wmd-button wmd-italic-button hc-icons-italic" title="Emphasis <em> Ctrl+I"></li>
+                                        <li class="wmd-spacer"></li>
+                                        <li class="wmd-button wmd-link-button hc-icons-link" title="Hyperlink <a> Ctrl+L"></li>
+                                        <li class="wmd-button wmd-image-button hc-icons-image" title="Image <img> Ctrl+G"></li>
+                                        <li class="wmd-button wmd-quote-button hc-icons-quotation" title="Blockquote <blockquote> Ctrl+Q"></li>
+                                        <li class="wmd-button wmd-code-button hc-icons-code" title="Code Sample <pre><code> Ctrl+K"></li>
+                                        <li class="wmd-spacer"></li>
+                                        <li class="wmd-button wmd-ulist-button hc-icons-u-list" title="Bulleted List <ul> Ctrl+U"></li>
+                                        <li class="wmd-button wmd-olist-button hc-icons-o-list" title="Numbered List <ol> Ctrl+O"></li>
+                                        <li class="wmd-spacer"></li>
+                                    </ul>
+                                </div>
+                                <textarea required="required" rows="7" class="form-control wmd-textarea "
+                                          name="answer[content]" id="wmd-input" placeholder=""></textarea>
+                            </div>
+                            <!--미리보기 박스-->
+                            <div class="wmd-preview-box">
+                                <div class="wmd-preview-header">
+                                    <div class="wmd-preview-header-titles">
+                                        <h5>미리 보기</h5>
+                                        <ul class="header-tips">
+                                            <li><span class="hc-icons-bulb">TitleTip</span></li>
+                                            <li id="btn-question-tips" data-popover=".popover-question-tips">
+                                                작성 팁
+                                            </li>
+                                            <li id="btn-markdown-tips" data-popover=".popover-markdown-tips">
+                                                마크다운 문법
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!--드롭다운 글 작성팁-->
+                                    <div class="popover-question-tips">
+                                        <h4 class="m-b-20">답변은 이렇게 해 주세요.</h4>
+                                        <h5>질문자의 질문에 직접적인 도움이 되거나, 이슈 해결 방향을 제시할 수 있는 경우에만 답변해 주세요.</h5>
+                                        <ul>
+                                            <li>질문을 이해하기 어렵거나 추가 설명이 필요하다면 ‘댓글’로 물어보세요.</li>
+                                            <li>질문의 내용을 보완하고 싶으면 질문을 직접 ‘편집’하실 수도 있습니다.</li>
+                                            <li>모든 질문에 답변을 달지 않아도 됩니다. 답변을 달고 싶은 ‘좋은’ 질문에만 답변을 다시면 됩니다.</li>
+                                            <li>질문자가 너무 모르는 것 같더라도 존중해 주세요. 우리 모두 언젠가는 초보였으니까요.</li>
+                                            <li>질문을 다는 건 생각보다 재밌습니다. 지금 참여해 보세요!</li>
+                                        </ul>
+                                    </div>
+                                    <div class="popover-markdown-tips open">
+                                        <h1 class="title">
+                                            Markdown 활용
+                                        </h1>
+
+                                        <div class="popover-body">
+                                            <h6 class="title--sub">헤더</h6>
+                                            <div class="sample">
+                                                # 이것은 'h1' 태그입니다.<br>
+                                                ## 이것은 'h2' 태그입니다.
+                                            </div>
+
+                                            <h6 class="title--sub">강조</h6>
+                                            <div class="sample">**이렇게 작성하면 볼드체가 됩니다.**</div>
+
+                                            <h6 class="title--sub">코드</h6>
+                                            <div class="sample">
+                                                ```<br>
+                                                // 코드는 이렇게 ```로 감싸주세요.
+                                                if (isAwesome) {<br>
+                                                &nbsp; return true <br>
+                                                }<br>
+                                                ```
+                                            </div>
+
+                                            <h6 class="title--sub">인라인 코드</h6>
+                                            <div class="sample">인라인 코드를 작성할때는 `code`요소를 사용합니다.</div>
+                                        </div>
+
+                                        <a class="btn btn-default btn-sm btn-more" target="_blank"
+                                           href="">마크다운 문법 더 알아보기</a>
+                                    </div>
+                                </div>
+                                <div class="wmd-preview" id="wmd-preview"></div>
+                            </div>
+                        </div>
+                        <div class="grippie" style="margin-right: 0px;"><span class="hc-icons-grippie">Grippie</span></div>
+                    </span></div>
+
+            <input type="submit" name="commit" value="답변하기" class="btn btn-primary btn-submit" data-disable-with="처리 중">
+        </form>
+
+    </div>
+
+    <!--푸터 영역
+    -->
+
+    <div class="modal fade" id="modal-dialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true"></div>
+
+    <div id="popover-content-login" class="popover-content-login" style="display: none;">
+        <div class="popover-body">
+            <h1 class="title">
+                ᕕ( ᐛ )ᕗ<br>
+                로그인이 필요합니다
+            </h1>
+            <h6 class="description">Hashcode는 개발자들을 위한 무료 QnA사이트 입니다. 계정을 생성하셔야만 글을 작성하실 수 있습니다.<br></h6>
+            <div class="btn-wrap">
+                <a class="btn btn-sm btn-default" href="https://hashcode.co.kr/users/login">로그인</a>
+                <a class="btn btn-sm btn-default" href="https://hashcode.co.kr/users/signup">가입하기</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="account-integration-modal" tabindex="-1" role="dialog" aria-labelledby="mLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h5 class="modal-title">하나의 계정으로 통합되었습니다</h5>
+                </div>
+                <div class="modal-body">
+                    <img width="540" height="200"
+                         src="/assets/img-integrated-modal-19c1e9fb2bafdaf1be4b22132c2c60e2ea7dad7984e4a7bbc805aa84cf6abda4.png">
+
+                    <div class="integration-message">
+                        <div>안녕하세요. 프로그래머스팀입니다.</div>
+                        <div class="m-b-20">
+                            더 향상된 서비스를 제공하고자 핼로월드(<a href="https://tryhelloworld.co.kr">tryhelloworld.co.kr</a>),
+                            해시코드(<a href="https://hashcode.co.kr">hashcode.co.kr</a>), 프로그래머스(<a
+                                href="https://programmers.co.kr">programmers.co.kr</a>)를 하나의 계정으로 통합하였습니다. 앞으로 하나의 무료
+                            계정으로 프로그래머스의 모든 서비스를 이용하실 수 있습니다. 앞으로 개발자들을 위한 서비스가 될 수 있도록 꾸준히 노력하겠습니다. 변경된 약관 내용은 아래에서 확인할
+                            수 있습니다.
+                        </div>
+                        <a href="https://hashcode.co.kr/tos">서비스 약관 보기 &gt;</a>
+                        <a href="https://hashcode.co.kr/privacy">개인정보 보호정책 보기 &gt;</a>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="term-modal" tabindex="-1" role="dialog" aria-labelledby="mLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h2 class="modal-title">하나의 계정으로 통합되었습니다</h2>
+                </div>
+                <div class="modal-body">
+                    <img width="540" height="200"
+                         src="/assets/img-integrated-modal-19c1e9fb2bafdaf1be4b22132c2c60e2ea7dad7984e4a7bbc805aa84cf6abda4.png">
+
+                    <div class="integration-message">
+                        <div class="m-b-20">
+                            (주)그렙에서 운영하는 개발자 서비스를 하나로 이용하실 수 있도록 계정이 통합됩니다. 이제 해시코드(<a
+                                href="https://hashcode.co.kr">hashcode.co.kr</a>), 핼로월드(<a
+                                href="https://tryhelloworld.co.kr">tryhelloworld.co.kr</a>), 프로그래머스(<a
+                                href="https://programmers.co.kr">programmers.co.kr</a>)를 하나의 계정으로 이용할 수 있습니다. 앞으로도 개발자를
+                            위한 더 좋은 서비스가 될 수 있도록 노력하겠습니다. 변경된 약관 내용을 아래에서 확인하세요.
+                        </div>
+                        <div><a href="https://hashcode.co.kr/tos">서비스 약관 보기 &gt;</a></div>
+                        <div><a href="https://hashcode.co.kr/privacy">개인정보 보호정책 보기 &gt;</a></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary" data-remote="true" rel="nofollow" data-method="POST"
+                       href="/user/agreed_term">확인</a>
+                    <a class="btn " rel="nofollow" data-method="delete"
+                       href="https://hashcode.co.kr/users/logout">취소</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="JS/hashcode.js"></script>
+
+
+</body>
+
+</html>
