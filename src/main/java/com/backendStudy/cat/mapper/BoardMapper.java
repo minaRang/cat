@@ -2,7 +2,6 @@ package com.backendStudy.cat.mapper;
 
 import com.backendStudy.cat.domain.DTOBoard;
 import com.backendStudy.cat.domain.paging.Criteria;
-import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
