@@ -1,14 +1,13 @@
 package com.backendStudy.cat.service;
 
 import com.backendStudy.cat.domain.DTOBoard;
+import com.backendStudy.cat.domain.paging.PageInfo;
 import com.backendStudy.cat.mapper.BoardMapper;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
-import java.util.LinkedList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -46,10 +45,30 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public List<DTOBoard> getBoardList() {
-        Long totalBoard = boardMapper.selectBoardTotalCount();
+    public List<DTOBoard> getBoardListOrderByDate(DTOBoard board) {
+//        PageHelper.startPage(pageNo,10);
+//        return boardMapper.findAllBoardOrderByDate();
+        int totalBoard = boardMapper.selectBoardTotalCount(board);
+        PageInfo pageInfo = new PageInfo(board);
+        pageInfo.SetTotalData(totalBoard);
+        board.setPageInfo(pageInfo);
         if (totalBoard>0){
-            List<DTOBoard> boardList = boardMapper.findAllBoard();
+            List<DTOBoard> boardList = boardMapper.findAllBoardOrderByDate(board);
+            boardList.forEach(b->b.setTimeInterval(CalDate(b.getDate())));
+            return boardList;
+        }
+        else return null;
+    }
+
+    @Override
+    public List<DTOBoard> getBoardListOrderByNeedAnswer(DTOBoard board) {
+        int totalBoard = boardMapper.selectBoardTotalCount(board);
+        PageInfo pageInfo = new PageInfo(board);
+        pageInfo.SetTotalData(totalBoard);
+        board.setPageInfo(pageInfo);
+        if (totalBoard>0){
+            List<DTOBoard> boardList = boardMapper.findAllNeedAnswer(board);
+            boardList.forEach(b->b.setTimeInterval(CalDate(b.getDate())));
             return boardList;
         }
         else return null;
@@ -58,5 +77,32 @@ public class BoardServiceImpl implements BoardService{
     @Override
     public Integer setBoardView(Long index) {
         return boardMapper.updateBoardView(index);
+    }
+
+    @Override
+    public List<DTOBoard> getBoardListOrderByPopular(DTOBoard board) {
+        int totalBoard = boardMapper.selectBoardTotalCount(board);
+        PageInfo pageInfo = new PageInfo(board);
+        pageInfo.SetTotalData(totalBoard);
+        board.setPageInfo(pageInfo);
+        if (totalBoard>0){
+            List<DTOBoard> boardList = boardMapper.findAllBoardOrderByPopular(board);
+            boardList.forEach(b->b.setTimeInterval(CalDate(b.getDate())));
+            return boardList;
+        }
+        else return null;
+    }
+    //날짜 계산 함수
+    public String CalDate(Date date) {
+        Date now = new Date();
+        Long calDate = now.getTime() - date.getTime();
+
+        Long calTime = calDate / (60 * 1000);
+
+        if (calTime <= 60) return calTime + "분 전";
+        else if (calTime <= 60*24) return calTime/60+ "시간 전";
+        else if(calTime<=60*24*30) return calTime/(60*24)+"일 전";
+        else if (calTime<=60*24*30*12) return calTime/(60*24*30) +"달 전";
+        else return calTime/(60*24*30*12) +"년 전";
     }
 }

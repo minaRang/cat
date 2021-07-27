@@ -1,6 +1,7 @@
 package com.backendStudy.cat.mapper;
 
 import com.backendStudy.cat.domain.DTOBoard;
+import com.backendStudy.cat.domain.paging.Criteria;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -12,7 +13,9 @@ public interface BoardMapper {
     public Optional<DTOBoard> findByBoardIdx(Long index);
     public int updateBoard(DTOBoard board);
     public int deleteBoard(Long index);
-    public List<DTOBoard> findAllBoard();
-    public Long selectBoardTotalCount();
+    public List<DTOBoard> findAllBoardOrderByDate(DTOBoard board);
+    public List<DTOBoard> findAllBoardOrderByPopular(DTOBoard board);
+    public List<DTOBoard> findAllNeedAnswer(DTOBoard board);
+    public int selectBoardTotalCount(DTOBoard board);
     public int updateBoardView(Long index);
 }
