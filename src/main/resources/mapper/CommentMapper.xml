@@ -10,7 +10,7 @@
         answer_idx,
         comment_content,
         date,
-        update
+        update_time
     </sql>
 
     <!-- 댓글 개수 -->
@@ -22,14 +22,13 @@
 
     <!-- 댓글 정보 저장 -->
     <insert id="insertComment" parameterType="DTOComment">
-        INSERT INTO comment (
-        <include refid="commentColumns"/>
-        ) VALUE (
-        #{comment_idx},
-        #{user_idx},
-        #{board_idx},
-        #{answer_idx},
-        #{comment_content},
+        INSERT INTO comment (<include refid="commentColumns"/>)
+        VALUES (
+        #{commentIdx},
+        #{userIdx},
+        #{boardIdx},
+        #{answerIdx},
+        #{commentContent},
         NOW(),
         NULL
         )
