@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.backendStudy.cat.mapper.TagMapper">
+
+    <sql id="insertTag">
+
+        board_idx,
+        user_idx,
+        tag_name,
+        date,
+        update_time
+    </sql>
+
+    <insert id="insertTag" useGeneratedKeys="true" keyProperty="tagIdx" keyColumn="tag_idx" parameterType="DTOTag" >
+        INSERT INTO tag(<include refid="insertTag"/>)
+        VALUES(
+        #{boardIdx},
+        #{userIdx},
+        #{tagName},
+        NOW(),
+        NULL
+        )
+    </insert>
+
+    <select id="findByTagIdx" parameterType="long" resultType="DTOTag">
+        SELECT *
+        FROM tag
+        WHERE tag_idx=#{tagIdx}
+    </select>
+
+    <select id="findByTagName" parameterType="String" resultType="DTOTag">
+        SELECT *
+        FROM tag
+        WHERE tag_name=#{tagName}
+    </select>
+    <select id="findByBoardIdx" parameterType="Long" resultType="DTOTag">
+        SELECT *
+        FROM tag
+        WHERE board_idx=#{BoardIdx}
+    </select>
+    <update id="updateTag" parameterType="DTOTag">
+        UPDATE tag
+        SET
+            board_idx=#{boardIdx},
+            user_idx=#{userIdx},
+            tag_Name=#{tagName},
+            update_time=NOW()
+        WHERE tag_idx=#{tagIdx}
+    </update>
+
+    <delete id ="deleteTag" parameterType="long">
+        DELETE FROM tag
+        WHERE tag_idx=#{tagIdx}
+    </delete>
+
+    <select id="findAllMatchingTag" parameterType="String" resultType="DTOTag">
+        SELECT DISTINCT tag_name
+        FROM tag
+        WHERE tag_name like CONCAT('%',#{tag},'%')
+        ORDER BY tag_name
+    </select>
+
+    <select id="findTagName" parameterType="String" resultType="int">
+        SELECT count(*)
+        FROM tag
+        WHERE tag_name=#{tag_name}
+    </select>
+
+
+</mapper>
