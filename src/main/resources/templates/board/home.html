@@ -56,12 +56,12 @@
             </div>
 	        <div class="question">
 		        <div class="top">
-			    <h4><a href="@{|/board/detail/{boardIdx}|}" th:text='${board.boardTitle}'></a></h4>
+			    <h4><a th:href="@{/{boardIdx}(boardIdx=${board.boardIdx})}" th:text='${board.boardTitle}'></a></h4>
 		        </div>
-                <ul class="question-tags">
-                    <li class="label label-tag ">
+                <ul class="question-tags" th:each="tag:${board.tagList}">
+                    <li class="label label-tag " th:scope="tag">
                         <a rel="tag" href="#">
-                            <span data-tag="#">태그</span>
+                            <span data-tag="#" th:text="${tag.tagName}">태그</span>
                         </a>
                     </li>
                 </ul>

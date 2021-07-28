@@ -1,6 +1,8 @@
 package com.backendStudy.cat.domain;
 
 import java.util.Date;
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,4 +25,5 @@ public class DTOBoard extends DTOCommon {
 
     //지난 시간 계산(시간 간격)
     private String timeInterval;
+    private List<DTOTag> tagList;
 }

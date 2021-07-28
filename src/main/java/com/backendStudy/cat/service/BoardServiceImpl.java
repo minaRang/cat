@@ -1,8 +1,11 @@
 package com.backendStudy.cat.service;
 
 import com.backendStudy.cat.domain.DTOBoard;
+import com.backendStudy.cat.domain.DTOTag;
 import com.backendStudy.cat.domain.paging.PageInfo;
 import com.backendStudy.cat.mapper.BoardMapper;
+import com.backendStudy.cat.mapper.TagMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,11 +13,15 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 
+@Slf4j
 @Service
 @Transactional
 public class BoardServiceImpl implements BoardService{
     @Autowired
     private BoardMapper boardMapper;
+
+    @Autowired
+    private TagMapper tagMapper;
 
     @Override
     public Long registerBoard(DTOBoard board) {
@@ -29,9 +36,12 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public DTOBoard getBoardDetail(Long index) {
-        return boardMapper.findByBoardIdx(index).orElseGet(
+        DTOBoard board= boardMapper.findByBoardIdx(index).orElseGet(
                 ()->{throw new IllegalStateException("존재하지 않는 게시글 입니다");
         });
+        board.setTimeInterval(CalDate(board.getDate()));
+        board.setTagList(tagMapper.findByBoardIdx(board.getBoardIdx()));
+        return board;
     }
 
     @Override
@@ -46,8 +56,6 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public List<DTOBoard> getBoardListOrderByDate(DTOBoard board) {
-//        PageHelper.startPage(pageNo,10);
-//        return boardMapper.findAllBoardOrderByDate();
         int totalBoard = boardMapper.selectBoardTotalCount(board);
         PageInfo pageInfo = new PageInfo(board);
         pageInfo.SetTotalData(totalBoard);
@@ -55,6 +63,7 @@ public class BoardServiceImpl implements BoardService{
         if (totalBoard>0){
             List<DTOBoard> boardList = boardMapper.findAllBoardOrderByDate(board);
             boardList.forEach(b->b.setTimeInterval(CalDate(b.getDate())));
+            boardList.forEach(b->b.setTagList(tagMapper.findByBoardIdx(b.getBoardIdx())));
             return boardList;
         }
         else return null;
