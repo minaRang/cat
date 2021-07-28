@@ -20,19 +20,13 @@
             <div class="content-wrap" itemscope="" itemtype="">
                 <div class="center">
                     <h2 itemprop="name" class="question-title">
-                        <a href="">질문 제목</a>
+                        <a href="" th:text="${boardDetail.boardTitle}">질문 제목</a>
                     </h2>
-                    <h5 class="number-views">조회수 n회</h5>
+                    <h5 class="number-views" th:text="|조회수 ${boardDetail.boardView}회|">조회수 n회</h5>
                     <!--선택된 태그 노출-->
-                    <div class="question-tags">
-                        <a rel="tag" href="/questions/tagged/python">
-                            <h6 class="tag ">python</h6>
-                        </a>
-                        <a rel="tag" href="/questions/tagged/loops">
-                            <h6 class="tag ">loops</h6>
-                        </a>
-                        <a rel="tag" href="/questions/tagged/continue">
-                            <h6 class="tag ">continue</h6>
+                    <div class="question-tags" >
+                        <a rel="tag" href="#"th:each="tag:${boardDetail.tagList}" th:scope="tag">
+                            <h6 class="tag " th:text="${tag.tagName}">python</h6>
                         </a>
                     </div>
                     <div class="content question-body">
@@ -41,13 +35,13 @@
                                data-method="put" href="/question/14122/upvote">
                                 <span class="hc-icons-thumb-up ">좋아요</span>
                             </a>
-                            <h2 itemprop="upvoteCount" id="question-vote-sum-14122">0</h2>
+                            <h2 itemprop="upvoteCount" id="question-vote-sum-14122" th:text="${boardDetail.fondScore}">0</h2>
                             <a id="question-downvote-14122" title="싫어요" data-remote="true" rel="nofollow"
                                data-method="put" href="/question/14122/downvote">
                                 <span class="hc-icons-thumb-down ">싫어요</span>
                             </a>
                         </div>
-                        <div class="markdown" itemprop="text">
+                        <div class="markdown" itemprop="text" th:text="${boardDetail.boardContent}">
                             <p class="pre">질문글 내용</p>
                             <pre>
                                 <code class="hljs python">
@@ -94,7 +88,7 @@
                                                                  src="https://res.cloudinary.com/eightcruz/image/upload/c_lfill,h_32,w_32/rhs564ljn1o7eoak9qhg">
                                     </div>
                                     <div class="user-info">
-                                        <h6 class="user-name">질문글 작성자명<span class="user-score">n points</span></h6>
+                                        <h6 class="user-name" >질문글 작성자명<span class="user-score">n points</span></h6>
                                         <h6 class="contribution-time">YYYY-MM-DD HH:MM:SS에 작성됨</h6>
                                     </div>
                                 </a>

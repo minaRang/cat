@@ -125,3 +125,19 @@ $(function(){
 //
 ////viewer.setMarkdown(editor.getMarkdown());
 //
+
+$(document).ready(function() {
+    $('#tags').autocomplete({
+        serviceUrl: '/searchTag',
+        paramName: "tagName",
+        delimiter: ",",
+        transformResult: function(response) {
+            console.log(response);
+            return {
+                suggestions: $.map($.parseJSON(response), function(item) {
+                    return { value: item.tagName, data: item.id };
+                })
+            };
+       }
+    });
+});

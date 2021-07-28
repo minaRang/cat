@@ -529,12 +529,7 @@ button, input, optgroup, select, textarea {
     border-color: #66afe9;
     outline: none;
 }
-.form-control:focus {
-    color: #55595c;
-    background-color: #fff;
-    border-color: #66afe9;
-    outline: none;
-}
+
 .grippie {
     border-bottom-left-radius: 0.2142857143rem;
     border-bottom-right-radius: 0.2142857143rem;
@@ -543,6 +538,37 @@ button, input, optgroup, select, textarea {
     height: 1.4285714286rem;
     overflow: hidden;
     text-align: center;
+}
+.autocomplete-suggestion{
+    height: 3rem;
+    -webkit-transition: .16s;
+    transition: .16s;
+    font-family: 'Roboto', '맑은 고딕', malgun gothic, '돋움', Dotum, 'Helvetica Neue', Helvetica, verdana, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 1.0714285714rem;
+    line-height: 1.6428571429rem;
+    display: block;
+    width: 100%;
+    font-size: 1rem;
+    line-height: 1.25;
+    color: #55595c;
+    background-color: #fff;
+    background-image: none;
+    background-clip: padding-box;
+    padding: 8px 12px;
+    border-left: 1px solid rgba(0,0,0,0.15);
+    border-right: 1px solid rgba(0,0,0,0.15);
+}
+.autocomplete-suggestion:last-child{
+    border-bottom: 1px solid rgba(0,0,0,0.15);
+}
+.autocomplete-suggestion:hover{
+    background-color: #0275d8;
+    color:white;
+}
+.autocomplete-suggestions:focus{
+    background-color: #0275d8;
+    color:white;
 }
 .form-control.select2-hidden-accessible {
     position: absolute !important;
