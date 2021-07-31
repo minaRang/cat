@@ -3,9 +3,11 @@ package com.backendStudy.cat.domain;
 import java.util.Date;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class DTOComment {
 
     private long commentIdx;// 인덱스
@@ -15,5 +17,6 @@ public class DTOComment {
     private String commentContent;// 내용
     private Date date;// 등록일
     private Date update;// 수정일
+    private long commentExist; //댓글 존재여부
 
 }

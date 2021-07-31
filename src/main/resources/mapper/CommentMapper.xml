@@ -10,27 +10,22 @@
         answer_idx,
         comment_content,
         date,
-        update_time
+        update_time,
+        comment_exist
     </sql>
-
-    <!-- 댓글 개수 -->
-    <select id="selectCountComment" resultType="long">
-        SELECT
-            COUNT(*)
-        FROM comment
-    </select>
 
     <!-- 댓글 정보 저장 -->
     <insert id="insertComment" parameterType="DTOComment">
         INSERT INTO comment (<include refid="commentColumns"/>)
         VALUES (
-        #{commentIdx},
-        #{userIdx},
-        #{boardIdx},
-        #{answerIdx},
-        #{commentContent},
-        NOW(),
-        NULL
+            #{commentIdx},
+            #{userIdx},
+            #{boardIdx},
+            #{answerIdx},
+            #{commentContent},
+            NOW(),
+            NULL,
+            1
         )
     </insert>
 
@@ -38,12 +33,26 @@
     <select id="selectCommentIdx" parameterType="long" resultType="DTOComment">
         SELECT *
         FROM comment
-        WHERE comment_idx = #{commentIdx}
+        WHERE comment_exist = 1
+        AND comment_idx = #{commentIdx}
     </select>
-    
-    <select id="getAllComment">
-        <!-- TODO 글쓴이, 질문글 or 답변글 구분 쿼리문 추가 -->
 
+    <!-- 댓글 개수 조회-->
+    <select id="selectCountComment" resultType="long">
+        SELECT
+            COUNT(*)
+        FROM comment
+        WHERE comment_exist = 1
+    </select>
+
+    <!-- 댓글 리스트 조회 -->
+    <select id="selectCommentList" parameterType="DTOComment" resultType="DTOComment">
+        SELECT <include refid="commentColumns"/>
+        FROM comment
+        WHERE comment_exist = 1
+        ORDER BY
+            comment_idx ASC,
+            date ASC
     </select>
 
     <!-- 댓글 수정 -->
@@ -52,14 +61,15 @@
         SET
             user_idx = #{userIdx},
             comment_content = #{commentContent},
-            update = NOW()
+            update_time = NOW()
         WHERE comment_idx = #{commentIdx}
     </update>
 
     <!-- 댓글 삭제 -->
-    <delete id ="deleteComment" parameterType="long">
-        DELETE FROM comment
+    <update id ="deleteComment" parameterType="long">
+        UPDATE comment
+        SET comment_exist = 0
         WHERE comment_idx = #{commentIdx}
-    </delete>
+    </update>
 
 </mapper>
