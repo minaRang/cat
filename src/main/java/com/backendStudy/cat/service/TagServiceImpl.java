@@ -17,8 +17,21 @@ public class TagServiceImpl implements TagService {
     TagMapper tagMapper;
 
     @Override
-    public List<DTOTag> autoMatchingTag(String term) {
-        return tagMapper.findAllMatchingTag(term);
+    public List<DTOTag> autoMatchingTag(String tagName) {
+        List<DTOTag> dtoTags =tagMapper.findAllMatchingTag(tagName);
+        DTOTag tag = new DTOTag();
+        tag.setTagName(tagName);
+        if (dtoTags.isEmpty()) {
+            dtoTags.add(tag);
+            return dtoTags;
+        }
+        for (DTOTag t : dtoTags) {
+            if (!t.getTagName().equalsIgnoreCase(tagName)) {
+                dtoTags.add(0, tag);
+                break;
+            }
+        }
+        return dtoTags;
     }
 
     @Override

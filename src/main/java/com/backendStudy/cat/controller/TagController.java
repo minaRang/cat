@@ -20,6 +20,6 @@ public class TagController {
     @GetMapping
     public List<DTOTag> autoTagName(@RequestParam String tagName){
         List<DTOTag> dtoTags=tagService.autoMatchingTag(tagName);
-        return tagService.autoMatchingTag(tagName);
+        return dtoTags;
     }
 }
