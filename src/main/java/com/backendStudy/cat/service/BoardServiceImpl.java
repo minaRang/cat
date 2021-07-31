@@ -24,8 +24,20 @@ public class BoardServiceImpl implements BoardService{
     private TagMapper tagMapper;
 
     @Override
-    public Long registerBoard(DTOBoard board) {
-            boardMapper.insertBoard(board);
+    public Long registerBoard(DTOBoard board, List<String> tagNameList) {
+        boardMapper.insertBoard(board);
+        DTOTag dtoTag = new DTOTag();
+
+        //TODO : 로그인한 계정의 idx 값 저장으로 수정
+        for (String tagName:tagNameList) {
+            dtoTag.setUserIdx(Long.valueOf(2));
+            dtoTag.setBoardIdx(board.getBoardIdx());
+            dtoTag.setTagName(tagName);
+            tagMapper.insertTag(dtoTag);
+        }
+
+        //TODO: file 구현
+        //TODO: 게시글 작성시 작성자를 편집 히스토리에 추가
             return board.getBoardIdx();
     }
     @Override
@@ -78,6 +90,7 @@ public class BoardServiceImpl implements BoardService{
         if (totalBoard>0){
             List<DTOBoard> boardList = boardMapper.findAllNeedAnswer(board);
             boardList.forEach(b->b.setTimeInterval(CalDate(b.getDate())));
+            boardList.forEach(b->b.setTagList(tagMapper.findByBoardIdx(b.getBoardIdx())));
             return boardList;
         }
         else return null;
@@ -97,6 +110,7 @@ public class BoardServiceImpl implements BoardService{
         if (totalBoard>0){
             List<DTOBoard> boardList = boardMapper.findAllBoardOrderByPopular(board);
             boardList.forEach(b->b.setTimeInterval(CalDate(b.getDate())));
+            boardList.forEach(b->b.setTagList(tagMapper.findByBoardIdx(b.getBoardIdx())));
             return boardList;
         }
         else return null;

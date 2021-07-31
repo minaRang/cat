@@ -6,17 +6,10 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta charset="utf-8">
+  <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+  <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
 <title>질문하기 | Hashcode</title>
 <link rel="stylesheet" media="all" href="CSS/board/write.css" />
-<!--  <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />-->
-<!--  <link-->
-<!--          rel="stylesheet"-->
-<!--          href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css"-->
-<!--  />-->
-<!--  <link-->
-<!--          rel="stylesheet"-->
-<!--          href="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight.min.css"-->
-<!--  />-->
   <link th:rel="stylesheet" th:href="@{//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css}">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
@@ -36,7 +29,7 @@
 
 <div class="content">
   <div class="content-wrap">
-    <form class="new_question" id="new_question" role="form" th:action="@{/form}" th:object="${board}" accept-charset="UTF-8" method="post" enctype="multipart/form-data">
+    <form class="new_question" id="new_question" role="form" accept-charset="UTF-8" enctype="multipart/form-data">
       <input name="utf8" type="hidden" value="&#x2713;" />
 
   <div class="form-group form-question-title">
@@ -47,7 +40,7 @@
       </span>
     </div>
 
-    <input class="form-control" required="required" autofocus="autofocus" placeholder="제목 입력" type="text" th:field="*{boardTitle}" id="question_title" value="">
+    <input class="form-control" required="required" autofocus="autofocus" placeholder="제목 입력" type="text" id="question_title" value="">
 
     <div class="popover-title-tips">
   <h1 class="title">
@@ -80,16 +73,10 @@
 </div>
   </div>
 
-<!--  <div class="col-md-4">-->
-    <div class="form-group" th:object="${tag}">
+    <div class="form-group" id="tag-form-group">
       <label class="required">태그</label>
-      <input class="form-control" type="text" id="tags" value="" style="width:100%;" th:field="*{tagName}">
-<!--      <select class="form-control select2-single" id="tags">-->
-<!--        <option>Search tag</option>-->
-      </select>
+      <input class="form-control" type="text" id="tags" value="" style="max-width:1445.73px;">
     </div>
-<!--  </div>-->
-
   <div class="alert alert-info alert-tag-inspection fade in" role="alert" id="alert-tags" style="display:none;"></div>
 
   <div class="form-group form-question-content" id="form-group" data-type="question">
@@ -107,9 +94,8 @@
         </ul>
       </div>
     <div style="margin-bottom:10px;">
-        <textarea class="form-control" th:field="*{boardContent}" style="width:100%; height:500px;"></textarea>
+        <textarea class="form-control" style="width:100%; height:500px;" id="question_content"></textarea>
     </div>
-<!--      <div id="editor" style="margin-bottom: 10px;"></div>-->
   </div>
   <div class="popover-question-tips">
     <h1 class="title">
@@ -169,21 +155,19 @@
   
     <a class="btn btn-default btn-sm btn-more" target="_blank" href="https://hashcode.co.kr/questions/1772/">마크다운 문법 더 알아보기</a>
   </div>
-  <input type="submit" name="commit" value="질문 작성하기" class="btn btn-primary btn-submit" data-disable-with="처리 중" id="btn-submit-question" />
+      <button type="button" name="commit" value="질문 작성하기" class="btn btn-primary btn-submit" data-disable-with="처리 중" id="btn-submit-question" >제출하기</button>
   <a class="btn btn-default btn-cancel" href="https://hashcode.co.kr/questions/14129/%EC%9D%B4%EC%83%81%ED%95%9C-%EA%B2%B0%EA%B3%BC%EA%B0%92">취소하기</a>
   <br><br>* 답변이 달린 질문은 수정/삭제할 수 없도록 정책이 변경되었습니다.
 </form>
   </div>
 </div>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://code.jquery.com/jquery-migrate-3.0.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  <script th:src="@{//cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.2.26/jquery.autocomplete.min.js}"></script>
-<!--  <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>-->
-<!--  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>-->
-<!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>-->
-<!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-clojure.min.js"></script>-->
-<!--  <script src="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight-all.min.js"></script>-->
+<script th:src="@{//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js}"></script>
+  <script th:src="@{JS/jquery.autocomplete.multiselect.js}"></script>
+
   <script src="JS/write.js"></script>
 </div>
 

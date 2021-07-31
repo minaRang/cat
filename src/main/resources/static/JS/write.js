@@ -125,19 +125,63 @@ $(function(){
 //
 ////viewer.setMarkdown(editor.getMarkdown());
 //
-
-$(document).ready(function() {
+$(function(){
+var list=[];
     $('#tags').autocomplete({
-        serviceUrl: '/searchTag',
-        paramName: "tagName",
-        delimiter: ",",
-        transformResult: function(response) {
-            console.log(response);
-            return {
-                suggestions: $.map($.parseJSON(response), function(item) {
-                    return { value: item.tagName, data: item.id };
-                })
-            };
-       }
+        appendTo:"#tag-form-group",
+        source: function(request,response) {
+            $.ajax({
+                url:"/searchTag",
+                type:"GET",
+                dataType:"json",
+                data:{tagName:request.term},
+                success: function(data){
+                    response(
+                        $.map(data, function(item){
+                            return{
+                                label: item.tagName,
+                                value:item.tagName
+                            };
+                        })
+                    );
+                }
+            });
+       },
+        multiselect:true,
+        minLength:1,
+        close:function(evt){}
+    });
+});
+$("#btn-submit-question").click(function(){
+ var token = $("meta[name='_csrf']").attr("content");
+ var header = $("meta[name='_csrf_header']").attr("content");
+    var tagNameList =[];
+    $('.ui-autocomplete-multiselect-item').each(function(i){
+        tagNameList.push($(this).text());
+    });
+    if(tagNameList.length>5){
+        alert("태그는 최대 5개만 선택 가능합니다.");
+        return;
+    }
+    var objParams={
+        "boardTitle" : $("#question_title").val(),
+        "boardContent" : $("#question_content").val(),
+        "tagNameList" : tagNameList
+    };
+    console.log(objParams);
+    $.ajax({
+        url:"/form",
+        contentType:"application/x-www-form-urlencoded; charset=UTF-8",
+        type:"post",
+        data : objParams,
+        beforeSend : function(xhr){
+            xhr.setRequestHeader(header, token);
+        },
+        success:function(data){
+            window.location = data;
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+                console.log("code:"+textStatus+":"+errorThrown);
+        }
     });
 });

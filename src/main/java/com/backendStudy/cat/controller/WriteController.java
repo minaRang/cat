@@ -12,6 +12,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -30,10 +35,13 @@ public class WriteController {
     }
 
     @PostMapping("/form")
-    public String NewQuestion(@RequestParam String boardTitle,
-                              @RequestParam String boardContent,
-                              @RequestParam String tagName,
-                              Model model){
+    @ResponseBody
+    public String registerTag (@RequestParam(value = "tagNameList[]") List<String> tagNameList,
+                               @RequestParam(value="boardTitle") String boardTitle,
+                               @RequestParam(value = "boardContent") String boardContent,
+                               HttpServletResponse response,
+                               Model model){
+
         DTOBoard board = new DTOBoard();
         board.setBoardTitle(boardTitle);
         board.setBoardContent(boardContent);
@@ -41,19 +49,8 @@ public class WriteController {
         //test용
         //TODO : 로그인한 계정의 idx 값 저장으로 수정
         board.setUserIdx(Long.valueOf(2));
-        boardService.registerBoard(board);
+        boardService.registerBoard(board,tagNameList);
 
-        DTOTag dtoTag = new DTOTag();
-
-        //TODO : 로그인한 계정의 idx 값 저장으로 수정
-        dtoTag.setUserIdx(Long.valueOf(2));
-        dtoTag.setBoardIdx(board.getBoardIdx());
-        dtoTag.setTagName(tagName);
-
-        //TODO: file 구현
-        //TODO: 게시글 작성시 작성자를 편집 히스토리에 추가
-
-        tagService.registerTag(dtoTag);
-        return "redirect:/";
+        return "/";
     }
 }

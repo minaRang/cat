@@ -539,7 +539,26 @@ button, input, optgroup, select, textarea {
     overflow: hidden;
     text-align: center;
 }
-.autocomplete-suggestion{
+.ui-autocomplete-multiselect-item{
+        font-weight: 400;
+        font-size: 0.9285714286rem;
+        line-height: 1.4285714286rem;
+        word-spacing: -0.0142857143rem;
+        -webkit-transition: .16s;
+        transition: .16s;
+        font-family: 'Roboto Mono', "Source Code Pro", Monaco, monospace;
+        box-shadow: 0 0 rgb(50 50 100 / 0%);
+        display:inline-block;
+        -webkit-box-align: center;
+        align-items: center;
+        margin: 0 0.5714285714rem 0 0;
+        padding: 0 0 0 0.5714285714rem;
+        border: none;
+        border-radius: 0.1428571429rem;
+        background-color: #2979FF;
+        color: white;
+}
+.ui-menu-item{
     height: 3rem;
     -webkit-transition: .16s;
     transition: .16s;
@@ -559,14 +578,14 @@ button, input, optgroup, select, textarea {
     border-left: 1px solid rgba(0,0,0,0.15);
     border-right: 1px solid rgba(0,0,0,0.15);
 }
-.autocomplete-suggestion:last-child{
+.ui-menu-item:last-child{
     border-bottom: 1px solid rgba(0,0,0,0.15);
 }
-.autocomplete-suggestion:hover{
+.ui-menu-item:hover{
     background-color: #0275d8;
     color:white;
 }
-.autocomplete-suggestions:focus{
+.ui-menu-item:focus{
     background-color: #0275d8;
     color:white;
 }
