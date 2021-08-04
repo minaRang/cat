@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/default_layout" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta charset="utf-8">
+    <title>태그 보기 | Hashcode</title>
+    <link rel="stylesheet" media="all" href="/CSS/tag/selectTag.css"/>
+</head>
+<body class="tags tags-index" data-controller="tags" data-action="index">
+    <div class="main" layout:fragment="content">
+        <div class="headerbar hidden-sm-down">
+            <div class="headerbar-wrap">
+                <h1>Tags</h1>
+            </div>
+        </div>
+        <h5 class="hidden-md-up">Tags</h5>
+
+        <div class="content">
+            <div class="content-wrap">
+                <div class="tag-guide m-b-20">
+                    <h5>태그를 검색해 보세요 :</h5>
+                    <h5>태그란 질문을 분류하기 위해 사용하는 키워드 또는 라벨입니다. 주로 Language, Framework, Library 이름으로 등록되어 있지요. 태그를 적절하게 사용하면 원하는 질문 또는 해답에 더 쉽게 접근할 수 있습니다.</h5>
+                </div>
+
+                <div class="searchbar">
+                    <form role="form" action="https://hashcode.co.kr/tags/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+                        <div class="input-group has-clear">
+                            <span class="input-group-addon icon-search"><span class="hc-icons-search">Search</span></span>
+                            <input placeholder="태그 검색" class="form-control input" name="text" id="text" type="text" value="">
+                            <span class="input-group-addon form-control-clear"><span class="hc-icons-l-x">Close</span> </span>
+                        </div>
+                    </form>
+                </div>
+
+                <h4 class="title-with-bottom-line">관심 태그</h4>
+                <ul class="tag-list favorite-tags">
+                      <h5 class="tag-introduce m-t-20">별을 눌러서 관심 태그를 등록해보세요.</h5>
+                </ul>
+                <h4 class="title-with-bottom-line" th:text="|모든 태그 (${totalTagNum}개)|">모든 태그(2585개)</h4>
+                <ul class="tag-list" >
+                    <li th:each="tag:${tagList}" th:scope="tag">
+                        <a rel="tag" th:href="@{/tagItem/{tagName}(tagName=${tag.tagName})}">
+                            <h4 th:utext="|${tag.tagName} <a class='toggle-tag-link' data-remote='true' rel='nofollow' data-method='post' href='#'>☆</a>|">
+                                태그 이름
+                            </h4>
+                            <h6 th:text="|질문 ${tag.cntBoard}개|">질문 n개</h6>
+                        </a>
+                    </li>
+                </ul>
+                <nav class="" th:if="${tag != null and tag.pageInfo.totalData >0}" th:object="${tag.pageInfo}" th:with="info=${tag.pageInfo}">
+                    <ul class="pagination">
+                        <li class="prev previous_page page-item" th:if="*{hasPrePage==true}" th:onclick="movePage([[ ${#request.requestURI} ]], [[ ${tag.makeQueryString(1)} ]])">
+                            <a class="page-link" href="javascript:void(0)"><span aria-hidden="true">&laquo;</span></a>
+                        </li>
+                        <li class="prev previous_page page-item" th:if="*{hasPrePage==true}" th:onclick="movePage([[ ${#request.requestURI} ]], [[ ${tag.makeQueryString(info.firstPage - 1)} ]])">
+                            <a class="page-link" href="javascript:void(0)"><span aria-hidden="true">&lsaquo;</span></a>
+                        </li>
+                        <li class="page-item" th:each="pageNo:*{#numbers.sequence(firstPage,lastPage,1)}" th:classappend="${pageNo==tag.page} ? 'active'">
+                            <a class="page-link" href="javascript:void(0)" th:text="${pageNo}" th:onclick="movePage([[ ${#request.requestURI} ]], [[ ${tag.makeQueryString(pageNo)} ]])"></a>
+                        </li>
+                        <li class="next next_page  page-item" th:if="*{hasNextPage==true}" th:onclick="movePage([[ ${#request.requestURI} ]], [[ ${tag.makeQueryString(info.lastPage + 1)} ]])">
+                            <a class="page-link" href="javascript:void(0)"><span aria-hidden="true">&rsaquo;</span></a>
+                        </li>
+                        <li class="next next_page  page-item"th:if="*{hasNextPage==true}" th:onclick="movePage([[ ${#request.requestURI} ]], [[ ${tag.makeQueryString(info.totalData)} ]])">다음</a>
+                            <a class="page-link" rel="next" href="javascript:void(0)">&raquo;</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <th:block block layout:fragment="script">
+            <script th:inline="javascript">
+            function movePage(uri,queryString){
+                location.href=uri+queryString;
+            }
+        </script>
+        </th:block>
+    </div>
+    <noscript>
+      이 사이트의 기능을 모두 활용하기 위해서는 자바스크립트를 활성화 시킬 필요가 있습니다.
+      <a href="http://www.enable-javascript.com/ko/" target="_blank">
+        브라우저에서 자바스크립트를 활성화하는 방법</a>을 참고 하세요.
+    </noscript>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MKZX39V" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+</body>
+</html>

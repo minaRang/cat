@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/default_layout" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta charset="utf-8">
+    <title th:text="${tagItem.tagName}+ ' 태그 | Hashcode'">개발자를 위한 QA 서비스 | Hashcode</title>
+    <link rel="stylesheet" type="text/css" media="all" href="/CSS/tag/tagItem.css" />
+</head>
+
+<body class="questions questions-tagged" data-controller="questions" data-action="tagged">
+    <div class="main" layout:fragment="content">
+        <div class="headerbar">
+            <div class="headerbar-wrap hidden-sm-down">
+                <h1 th:text="${tagItem.tagName}">python</h1>
+                <a format="js" class="toggle-tag-link " data-tag="python" data-remote="true" rel="nofollow" data-method="post" href="#">☆</a>
+            </div>
+            <h2 class="hidden-md-up" th:text="${tagItem.tagName}">태그 이름<!--tag-->
+                <a format="js" class="toggle-tag-link " data-tag="python" data-remote="true" rel="nofollow" data-method="post" href="#">☆</a>
+            </h2>
+        </div>
+
+        <div class="content">
+          <div class="content-wrap">
+            <div class="center">
+                <div class="searchbar">
+                  <form role="form" action="/questions/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+                    <div class="input-group has-clear">
+                      <span class="input-group-addon icon-search"><span class="hc-icons-search">Search</span></span>
+                      <input required="required" placeholder="질문을 검색하세요." class="form-control input" name="text" id="text" type="text" value="">
+                      <span class="input-group-addon form-control-clear"><span class="hc-icons-l-x">Close</span> </span>
+                    </div>
+                </form>
+                </div>
+                <ul class="nav nav-tabs" role="tablist" >
+                    <li class="nav-item"><a class="nav-link " th:href="@{/tagItem/{tagName}(tagName=${tagItem.tagName})}" th:classappend="${tab}=='home'?active">최신</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/tagItem/popular/{tagName}(tagName=${tagItem.tagName})}" th:classappend="${tab}=='popular'?active">인기</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/tagItem/needAnswer/{tagName}(tagName=${tagItem.tagName})}" th:classappend="${tab}=='needAnswer'?active">답변 필요</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/selectTag}" th:classappend="${tab}=='selectTag'?active">태그 선택</a></li>
+                </ul>
+
+              <ul class="question-list" th:each="board:${boardList}">
+                  <li class="question-list-item" th:scope="board">
+                    <div class="question-view-count">
+                        <div class="question-number" th:text="${board.boardView}"></div>
+                            <h6>조회</h6>
+                        </div>
+                    <div class="question-vote-count">
+                        <div class="question-number" th:text="${board.fondScore}"></div>
+                        <h6>좋아요</h6>
+                    </div>
+                    <div class="question-answer-count accepted" th:if="${board.answerIsAdopted==1}">
+                        <div class="question-number"  th:text="'✓'+${board.cntBoardAnswer}"></div>
+                        <h6>답변</h6>
+                    </div>
+                    <div class="question-answer-count" th:unless="${board.answerIsAdopted==1}">
+                      <div class="question-number" th:text="${board.cntBoardAnswer}"></div>
+                      <h6>답변</h6>
+                    </div>
+                    <div class="question">
+                        <div class="top">
+                        <h4><a th:href="@{/{boardIdx}(boardIdx=${board.boardIdx})}" th:text='${board.boardTitle}'></a></h4>
+                        </div>
+                        <ul class="question-tags" th:each="tag:${board.tagList}">
+                            <li class="label label-tag " th:scope="tag">
+                                <a rel="tag" th:href="@{/tagItem/{tagName}(tagName=${tag.tagName})}">
+                                    <span data-tag="#" th:text="${tag.tagName}">태그</span>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <ul class="question-info float-xs-right">
+                            <li><a title="작성자" href="/userPage(userIdx=${board.userIdx})" th:text='${board.userName}'></a></li>
+                            <li th:text="${board.timeInterval}"></li>
+                        </ul>
+                    </div>
+                  </li>
+              </ul>
+              <nav class="" th:if="${board != null and board.pageInfo.totalData >0}" th:object="${board.pageInfo}" th:with="info=${board.pageInfo}">
+                  <ul class="pagination">
+                      <li class="prev previous_page page-item" th:if="*{hasPrePage==true}" th:onclick="movePage([[ ${#request.requestURI} ]], [[ ${board.makeQueryString(1)} ]])">
+                          <a class="page-link" href="javascript:void(0)"><span aria-hidden="true">&laquo;</span></a>
+                      </li>
+                      <li class="prev previous_page page-item" th:if="*{hasPrePage==true}" th:onclick="movePage([[ ${#request.requestURI} ]], [[ ${board.makeQueryString(info.firstPage - 1)} ]])">
+                          <a class="page-link" href="javascript:void(0)"><span aria-hidden="true">&lsaquo;</span></a>
+                      </li>
+                      <li class="page-item" th:each="pageNo:*{#numbers.sequence(firstPage,lastPage,1)}" th:classappend="${pageNo==board.page} ? 'active'">
+                          <a class="page-link" href="javascript:void(0)" th:text="${pageNo}" th:onclick="movePage([[ ${#request.requestURI} ]], [[ ${board.makeQueryString(pageNo)} ]])"></a>
+                      </li>
+                      <li class="next next_page  page-item" th:if="*{hasNextPage==true}" th:onclick="movePage([[ ${#request.requestURI} ]], [[ ${board.makeQueryString(info.lastPage + 1)} ]])">
+                          <a class="page-link" href="javascript:void(0)"><span aria-hidden="true">&rsaquo;</span></a>
+                      </li>
+                      <li class="next next_page  page-item"th:if="*{hasNextPage==true}" th:onclick="movePage([[ ${#request.requestURI} ]], [[ ${board.makeQueryString(info.totalData)} ]])">다음</a>
+                            <a class="page-link" rel="next" href="javascript:void(0)">&raquo;</a>
+                      </li>
+                  </ul>
+            </nav>
+            </div>
+              <div class="right">
+                  <div class="tags-info m-b-40">
+                      <h5>태그 정보</h5>
+                      <div class="tags-info-box">
+                          <div>
+                              <h2 th:text="${tagInfo.totalRegister}">0</h2>
+                              <h6>태그 등록자 수</h6>
+                          </div>
+                          <div>
+                              <h2 th:text="${tagInfo.totalQuestions}">0</h2>
+                              <h6>총 질문 수</h6>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="leaders">
+                      <div class="leaders-header">
+                          <h5><a class="info" href="#">태그 랭킹 ⓘ</a></h5>
+                      </div>
+
+                      <ul class="leaders-content">
+                          <li>
+                              <h5 class="leader-rank">1</h5>
+                              <a title="정영훈" href="#"><img alt="정영훈" class="leader-image" src="#"></a>
+                              <div class="leader-info">
+                                  <a href="#">
+                                      <h6 class="leader-name">유저 이름</h6>
+                                      <h6 class="leader-score">점수</h6>
+                                  </a>
+                                  <h6 class="leader-tags">
+                                  <a href="#">태그1</a>, <a href="#">태그2</a>, <a href="#">태그3</a>
+                              </h6>
+                              </div>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+            </div>
+          </div>
+    </div>
+    <th:block block layout:fragment="script">
+        <script th:inline="javascript">
+            function movePage(uri,queryString){
+                location.href=uri+queryString;
+            }
+        </script>
+    </th:block>
+</div>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MKZX39V" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+</body>
+</html>
