@@ -10,8 +10,7 @@
   <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
 <title>질문하기 | Hashcode</title>
 <link rel="stylesheet" media="all" href="CSS/board/write.css" />
-  <link th:rel="stylesheet" th:href="@{//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css}">
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link type="text/css" th:rel="stylesheet" th:href="@{//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css}">
 </head>
 <body class="questions questions-new">
   
@@ -161,15 +160,17 @@
 </form>
   </div>
 </div>
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-  <script src="https://code.jquery.com/jquery-migrate-3.0.0.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script th:src="@{//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js}"></script>
-  <script th:src="@{JS/jquery.autocomplete.multiselect.js}"></script>
-
-  <script src="JS/write.js"></script>
+    <th:block layout:fragment="script">
+      <script type="text/javascript" th:src="@{//code.jquery.com/jquery-3.3.1.js}"></script>
+      <script type="text/javascript" th:src="@{//code.jquery.com/jquery-migrate-3.0.0.min.js}"></script>
+      <script type="text/javascript" th:src="@{//cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js}"></script>
+      <script type="text/javascript" th:src="@{//stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+      <script type="text/javascript" th:src="@{//code.jquery.com/ui/1.11.4/jquery-ui.js}"></script>
+      <script type="text/javascript" src="/JS/jquery.autocomplete.multiselect.js"></script>
+      <script type="text/javascript" src="/JS/write.js"></script>
+  </th:block>
 </div>
+
 
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MKZX39V" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 

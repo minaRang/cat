@@ -8,8 +8,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>주제명(ex.Java) - 질문제목 | Hashcode</title>
-    <link rel="stylesheet" href="CSS/style.css">
+    <title th:text="${boardDetail.boardTitle}">주제명(ex.Java) - 질문제목 | Hashcode</title>
+    <link rel="stylesheet" type="text/css" href="/CSS/style.css"/>
 
 </head>
 
@@ -25,7 +25,7 @@
                     <h5 class="number-views" th:text="|조회수 ${boardDetail.boardView}회|">조회수 n회</h5>
                     <!--선택된 태그 노출-->
                     <div class="question-tags" >
-                        <a rel="tag" href="#"th:each="tag:${boardDetail.tagList}" th:scope="tag">
+                        <a rel="tag" th:href="@{/tagItem/{tagName}(tagName=${tag.tagName})}" th:each="tag:${boardDetail.tagList}" th:scope="tag">
                             <h6 class="tag " th:text="${tag.tagName}">python</h6>
                         </a>
                     </div>

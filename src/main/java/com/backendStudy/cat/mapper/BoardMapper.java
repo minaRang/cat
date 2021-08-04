@@ -18,4 +18,6 @@ public interface BoardMapper {
     public List<DTOBoard> findAllNeedAnswer(DTOBoard board);
     public int selectBoardTotalCount(DTOBoard board);
     public int updateBoardView(Long index);
+    public int selectAnswerCount(DTOBoard board);
+    public Optional<Integer> selectAnswerIsAdopted(DTOBoard board);
 }

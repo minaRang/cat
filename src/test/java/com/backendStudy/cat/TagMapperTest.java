@@ -23,7 +23,7 @@ public class TagMapperTest {
     public void testInsert(){
         DTOTag tag = new DTOTag();
         tag.setTagName("Java");
-        tag.setBoardIdx(1);
+        tag.setBoardIdx(Long.valueOf(1));
         tag.setUserIdx(Long.valueOf(1));
 
         tagMapper.insertTag(tag);
@@ -37,7 +37,7 @@ public class TagMapperTest {
         DTOTag tag = new DTOTag();
         tag.setTagName("Java Script");
         tag.setUserIdx(Long.valueOf(1));
-        tag.setBoardIdx(1);
+        tag.setBoardIdx(Long.valueOf(1));
         tagMapper.insertTag(tag);
         log.info("before update tag index {}",tag.getTagIdx());
         log.info("tag Idx : {}",tag.getBoardIdx());
@@ -67,7 +67,7 @@ public class TagMapperTest {
         DTOTag tag = new DTOTag();
         tag.setTagName("C");
         tag.setUserIdx(Long.valueOf(1));
-        tag.setBoardIdx(2);
+        tag.setBoardIdx(Long.valueOf(2));
         tagMapper.insertTag(tag);
 
         int result = tagMapper.deleteTag(tag.getTagIdx());

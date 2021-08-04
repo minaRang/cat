@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Date;
 import java.util.List;
@@ -23,27 +24,25 @@ public class HomeController {
     @GetMapping("/")
     public String Home(@ModelAttribute("board")DTOBoard board,
                        Model model){
-        List<DTOBoard> boardList= boardService.getBoardListOrderByDate(board);
+        List<DTOBoard> boardList= boardService.getBoardList(board,"home");
         model.addAttribute("boardList",boardList);
-        model.addAttribute("tap","home");
+        model.addAttribute("tab","home");
         return "board/home";
     }
     @GetMapping("/popular")
     public String PopularList(@ModelAttribute("board")DTOBoard board,
                               Model model){
-        List<DTOBoard> boardList= boardService.getBoardListOrderByPopular(board);
+        List<DTOBoard> boardList= boardService.getBoardList(board,"popular");
         model.addAttribute("boardList",boardList);
-        model.addAttribute("tap","popular");
+        model.addAttribute("tab","popular");
         return "board/home";
     }
     @GetMapping("/needAnswer")
     public String NeedAnswerList(@ModelAttribute("board")DTOBoard board,
                                  Model model){
-        List<DTOBoard> boardList= boardService.getBoardListOrderByNeedAnswer(board);
+        List<DTOBoard> boardList= boardService.getBoardList(board,"needAnswer");
         model.addAttribute("boardList",boardList);
-        model.addAttribute("tap","needAnswer");
+        model.addAttribute("tab","needAnswer");
         return "board/home";
     }
-
-
 }

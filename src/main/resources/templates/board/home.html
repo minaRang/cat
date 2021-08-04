@@ -24,16 +24,10 @@
     </div>
 </form></div>
       <ul class="nav nav-tabs" role="tablist" >
-          <li class="nav-item"><a class="nav-link active" href="/" th:if="${tap}=='home'">최신</a></li>
-          <li class="nav-item"><a class="nav-link " href="/" th:unless="${tap}=='home'">최신</a></li>
-
-          <li class="nav-item"><a class="nav-link active" href="/popular" th:if="${tap}=='popular'"}>인기</a></li>
-          <li class="nav-item"><a class="nav-link" href="/popular" th:unless="${tap}=='popular'">인기</a></li>
-
-          <li class="nav-item"><a class="nav-link active" href="/needAnswer" th:if="${tap}=='needAnswer'">답변 필요</a></li>
-          <li class="nav-item"><a class="nav-link" href="/needAnswer" th:unless="${tap}=='needAnswer'">답변 필요</a></li>
-
-          <li class="nav-item"><a class="nav-link" href="/selectTag">태그 선택</a></li>
+          <li class="nav-item"><a class="nav-link" href="/" th:classappend="${tab}=='home' ? active">최신</a></li>
+          <li class="nav-item"><a class="nav-link" href="/popular" th:classappend="${tab}=='popular'? active">인기</a></li>
+          <li class="nav-item"><a class="nav-link" href="/needAnswer" th:classappend="${tab}=='needAnswer'? active">답변 필요</a></li>
+          <li class="nav-item"><a class="nav-link" href="/selectTag" th:classappend="${tab}=='selectTag'? active">태그 선택</a></li>
       </ul>
 
       <ul class="question-list" th:each="board:${boardList}">
@@ -56,12 +50,12 @@
             </div>
 	        <div class="question">
 		        <div class="top">
-			    <h4><a th:href="@{/{boardIdx}(boardIdx=${board.boardIdx})}" th:text='${board.boardTitle}'></a></h4>
+			    <h4><a th:href="@{/board/{boardIdx}(boardIdx=${board.boardIdx})}" th:text='${board.boardTitle}'></a></h4>
 		        </div>
                 <ul class="question-tags" th:each="tag:${board.tagList}">
                     <li class="label label-tag " th:scope="tag">
-                        <a rel="tag" href="#">
-                            <span data-tag="#" th:text="${tag.tagName}">태그</span>
+                        <a rel="tag" th:href="@{/tagItem/{tagName}(tagName=${tag.tagName})}">
+                            <span th:text="${tag.tagName}">태그</span>
                         </a>
                     </li>
                 </ul>
