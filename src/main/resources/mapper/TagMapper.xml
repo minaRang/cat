@@ -3,7 +3,6 @@
 <mapper namespace="com.backendStudy.cat.mapper.TagMapper">
 
     <sql id="insertTag">
-
         board_idx,
         user_idx,
         tag_name,
@@ -22,22 +21,55 @@
         )
     </insert>
 
+    <sql id="boardListColumn">
+        u.user_name,
+        b.board_idx,
+        b.board_title,
+        b.board_content,
+        b.board_view,
+        b.date,
+        b.update_time,
+        f.fond_score,
+        t.tag_name,
+        t.tag_idx
+    </sql>
+
     <select id="findByTagIdx" parameterType="long" resultType="DTOTag">
         SELECT *
         FROM tag
         WHERE tag_idx=#{tagIdx}
     </select>
 
-    <select id="findByTagName" parameterType="String" resultType="DTOTag">
-        SELECT *
-        FROM tag
-        WHERE tag_name=#{tagName}
+    <select id="findBoardByTagName" parameterType="map" resultType="DTOBoard">
+        SELECT <include refid="boardListColumn"></include>
+        FROM (board b LEFT JOIN user u on b.user_idx=u.user_idx) LEFT JOIN fond f on b.board_idx=f.board_idx LEFT JOIN tag t on b.board_idx=t.board_idx
+        WHERE t.tag_name=#{tagName}
+        Order By b.date DESC
+        LIMIT #{board.pageInfo.firstIndex}, #{board.recordsPerPage}
     </select>
+
+    <select id="findBoardByTagNamePopular" parameterType="map" resultType="DTOBoard">
+        SELECT <include refid="boardListColumn"></include>
+        FROM (board b LEFT JOIN user u on b.user_idx=u.user_idx) LEFT JOIN fond f on b.board_idx=f.board_idx LEFT JOIN tag t on b.board_idx=t.board_idx
+        WHERE t.tag_name=#{tagName}
+        Order By b.board_view DESC
+        LIMIT #{board.pageInfo.firstIndex}, #{board.recordsPerPage}
+    </select>
+
     <select id="findByBoardIdx" parameterType="Long" resultType="DTOTag">
         SELECT *
         FROM tag
         WHERE board_idx=#{BoardIdx}
     </select>
+
+    <select id="findAllTagName" parameterType="DTOTag" resultType="DTOTag">
+        SELECT tag_name, count(board_idx) as cnt_board
+        FROM tag
+        GROUP BY tag_name
+        Order By tag_name
+        LIMIT #{pageInfo.firstIndex}, #{recordsPerPage}
+    </select>
+
     <update id="updateTag" parameterType="DTOTag">
         UPDATE tag
         SET
@@ -58,12 +90,24 @@
         FROM tag
         WHERE tag_name like CONCAT('%',#{tag},'%')
         ORDER BY tag_name
+        LIMIT 5
     </select>
 
-    <select id="findTagName" parameterType="String" resultType="int">
-        SELECT count(*)
+    <select id="findByTagNameTotalCount" parameterType="DTOTag" resultType="Integer">
+        SELECT count(distinct board_idx)
         FROM tag
-        WHERE tag_name=#{tag_name}
+        WHERE tag_name=#{tagName}
+    </select>
+
+    <select id="findAllTagCount" parameterType="DTOTag" resultType="Integer">
+        SELECT count(distinct tag_name)
+        FROM tag
+    </select>
+
+    <select id="findTotalRegister" parameterType="DTOTag" resultType="Integer">
+        SELECT  count(distinct user_idx)
+        FROM tag
+        WHERE tag_name=#{tagName}
     </select>
 
 
