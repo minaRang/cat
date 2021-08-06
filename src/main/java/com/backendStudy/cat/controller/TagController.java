@@ -75,6 +75,6 @@ public class TagController {
         List<DTOTag> tagList = tagService.findAllTagList(tag);
         model.addAttribute("totalTagNum",totalTagNum);
         model.addAttribute("tagList",tagList);
-        return "/tag/selectTag";
+        return "tag/selectTag";
     }
 }
