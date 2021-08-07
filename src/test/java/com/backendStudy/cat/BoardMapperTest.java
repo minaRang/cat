@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.*;
@@ -19,6 +20,7 @@ import java.util.List;
 //user table이 존재해야합니다!
 @Slf4j
 @SpringBootTest
+@ActiveProfiles("dev") // 운영 환경 테스트시 @ActiveProfiles("prod")
 public class BoardMapperTest {
     @Autowired
     private BoardMapper boardMapper;
