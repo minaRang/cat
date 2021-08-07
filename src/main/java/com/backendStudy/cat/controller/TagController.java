@@ -37,7 +37,7 @@ public class TagController {
         model.addAttribute("tab","home");
         model.addAttribute("tagItem",tag);
         model.addAttribute("tagInfo",tagInfo);
-        return "/tag/tagItem";
+        return "tag/tagItem";
     }
 
     @GetMapping("/tagItem/popular/{tagName}")
@@ -51,7 +51,7 @@ public class TagController {
         model.addAttribute("tab","popular");
         model.addAttribute("tagItem",tag);
         model.addAttribute("tagInfo",tagInfo);
-        return "/tag/tagItem";
+        return "tag/tagItem";
     }
 
     @GetMapping("/tagItem/needAnswer/{tagName}")
@@ -65,7 +65,7 @@ public class TagController {
         model.addAttribute("tab","needAnswer");
         model.addAttribute("tagItem",tag);
         model.addAttribute("tagInfo",tagInfo);
-        return "/tag/tagItem";
+        return "tag/tagItem";
     }
 
     @GetMapping("/selectTag")
