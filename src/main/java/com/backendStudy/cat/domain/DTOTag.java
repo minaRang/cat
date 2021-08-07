@@ -16,4 +16,6 @@ public class DTOTag extends DTOCommon{
     private String tagName;     // 태그명
     private Date date;     // 등록일
     private Date update;        // 수정일
+
+    private int cntBoard; // 등록된 board의 수
 }

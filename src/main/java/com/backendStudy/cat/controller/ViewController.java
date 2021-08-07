@@ -21,6 +21,6 @@ public class ViewController {
 
         //TODO: 답변 내용 및 편집 히스토리(작성자) 내용 표시
         model.addAttribute("boardDetail",board);
-        return "/questions";
+        return "questions";
     }
 }
