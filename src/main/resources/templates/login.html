@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
       layout:decorate="layout/default_layout">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="CSS/login.css"/>
+    <link rel="stylesheet" href="/CSS/login.css"/>
 </head>
 <body>
 <div class="main" layout:fragment="content">
@@ -20,16 +21,20 @@
                 계속하려면 로그인하거나 가입해주세요.
             </div>
             
-            <form role="form" class="new_user" id="new_user" action="/users/login" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="VMw1InFZ17Jiho0ps4ugUsQ6R2UdE807Tdg7PbQEHw1SJ2gG7-kLUIz7bVKoSUyzmdKTBQ_7JoXOv9_A0CuXJw">
+            <form role="form" class="new_user" id="new_user" action="/users/login" accept-charset="UTF-8" method="post">
+                <input type="hidden" name="authenticity_token" value="VMw1InFZ17Jiho0ps4ugUsQ6R2UdE807Tdg7PbQEHw1SJ2gG7-kLUIz7bVKoSUyzmdKTBQ_7JoXOv9_A0CuXJw" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                 <div class="input-area">
                     <label class="control-label required" for="user_email">이메일</label>
-                    <div class="form-group"><input required="required" autofocus="autofocus" placeholder="이메일" type="email" tabindex="1" class="form-control" value="" name="user[email]" id="user_email"></div>
+                    <div class="form-group">
+                        <input required="required" autofocus="autofocus" placeholder="이메일" type="email" tabindex="1" class="form-control" value="" name="username" id="user_email">
+                    </div>
 
                     <label class="control-label required" for="user_email">비밀번호 <a class="float-right" href="/users/password/new.user">비밀번호 재설정</a></label>
-                    <div class="form-group"><input required="required" placeholder="비밀번호" class="form-control form-control" tabindex="2" type="password" name="user[password]" id="user_password"></div>
+                    <div class="form-group">
+                        <input required="required" placeholder="비밀번호" class="form-control form-control" tabindex="2" type="password" name="password" id="user_password">
+                    </div>
 
                 </div>
-
                 <button name="button" type="submit" id="btn-sign-in" class="btn btn-primary btn-block" data-disable-with="처리 중" tabindex="3">
                     로그인 하기
                 </button>

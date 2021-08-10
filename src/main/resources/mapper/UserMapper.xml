@@ -15,8 +15,11 @@
     </insert>
 
     <!--    유저 조회-->
-    <select id="selectUser" parameterType="com.backendStudy.cat.domain.DTOUser" resultType="com.backendStudy.cat.domain.DTOUser">
-        select * FROM user WHERE user_idx=#{userIdx}
+    <select id="selectUserByIdx" parameterType="com.backendStudy.cat.domain.DTOUser" resultType="com.backendStudy.cat.domain.DTOUser">
+    select * FROM user WHERE user_idx=#{userIdx}
+</select>
+    <select id="selectUserByEmail" parameterType="com.backendStudy.cat.domain.DTOUser" resultType="com.backendStudy.cat.domain.DTOUser">
+        select * FROM user WHERE user_email=#{userEmail}
     </select>
 
 <!--    유저 수정-->

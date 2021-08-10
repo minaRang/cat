@@ -10,7 +10,8 @@ public interface UserMapper {
 
     public int insertUser(DTOUser user);    //유저 정보 생성
 
-    public DTOUser selectUser(long userIdx); //유저 정보 조회
+    public DTOUser selectUserByIdx(long userIdx); //유저 정보 조회
+    public DTOUser selectUserByEmail(String userEmail);
 
     public int updateUser(DTOUser user);  //유저 정보 수정
     public int updateUserDetail(DTOUser user); //유저 정보 수정 디테일

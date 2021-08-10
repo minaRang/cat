@@ -3,15 +3,14 @@ package com.backendStudy.cat.service;
 import com.backendStudy.cat.domain.DTOUser;
 import com.backendStudy.cat.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
+@Component
 @Service
-@Transactional
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
-    @Autowired
+    //@Autowired
     private DTOUser user;
 
     //회원가입

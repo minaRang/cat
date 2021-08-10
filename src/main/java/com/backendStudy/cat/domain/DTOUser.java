@@ -3,7 +3,10 @@ package com.backendStudy.cat.domain;
 import java.util.Date;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
+
+@ToString
 @Getter
 @Setter
 public class DTOUser {
@@ -24,30 +27,6 @@ public class DTOUser {
     private long isAccountNonExpired;// 계정만료
     private String userAuthority;// 권한
     private Date date;// 등록일
-    private Date update;// 수정일
-
-    @Override
-    public String toString() {
-        return "DTOUser{" +
-                "userIdx=" + userIdx +
-                ", userName='" + userName + '\'' +
-                ", userEmail='" + userEmail + '\'' +
-                ", userPassword='" + userPassword + '\'' +
-                ", userNtcAnswer=" + userNtcAnswer +
-                ", userNtcNews=" + userNtcNews +
-                ", userNtcComment=" + userNtcComment +
-                ", userScore=" + userScore +
-                ", userBio='" + userBio + '\'' +
-                ", userHomepage='" + userHomepage + '\'' +
-                ", userAddress='" + userAddress + '\'' +
-                ", userCompany='" + userCompany + '\'' +
-                ", isEnabled=" + isEnabled +
-                ", isAccountNonExpired=" + isAccountNonExpired +
-                ", userAuthority='" + userAuthority + '\'' +
-                ", date=" + date +
-                ", update=" + update +
-                '}';
-    }
-
+    private Date update_time;// 수정일
 
 }

@@ -30,14 +30,14 @@ public class UserMapperTest {
     //유저 정보 조회
     @Test
     public void selectTest(){
-        DTOUser user=userMapper.selectUser(1);
+        DTOUser user=userMapper.selectUserByIdx(1);
         log.info("결과는"+user.getUserIdx()+" "+user.getUserName());
     }
 
     //유저 정보 수정 (비밀번호, 이메일 알림 여부)
     @Test
     public void updateTest(){
-        DTOUser user=userMapper.selectUser(5);
+        DTOUser user=userMapper.selectUserByIdx(5);
         user.setUserPassword("1111");
         user.setUserNtcAnswer(0);
         user.setUserNtcComment(0);
@@ -47,7 +47,7 @@ public class UserMapperTest {
     //유저 정보 수정 상세 정보
     @Test
     public void updateDetailTest(){
-        DTOUser user=userMapper.selectUser(5);
+        DTOUser user=userMapper.selectUserByIdx(5);
         user.setUserName("홍씨");
         user.setUserBio("소개");
         user.setUserHomepage(".com");
