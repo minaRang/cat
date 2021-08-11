@@ -80,7 +80,8 @@ public class BoardMapperTest {
     }
     @Test
     public void testSelectALL(){
-        int total = boardMapper.selectBoardTotalCount(new DTOBoard());
+        int total = boardMapper.selectBoardTotalCount(new DTOBoard()).orElseGet(()->{
+            return 0;});
         if(total>0){
             List<DTOBoard> boardList=boardMapper.findAllBoardOrderByDate(new DTOBoard());
             log.info("total={}",boardList.size());

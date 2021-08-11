@@ -49,43 +49,40 @@ public class TagServiceImpl implements TagService {
         DTOTag tag = new DTOTag();
         tag.setTagName(tagName);
         int totalBoard = tagMapper.findByTagNameTotalCount(tag).orElseGet(()->{return 0;});
+
         PageInfo pageInfo = new PageInfo(board);
         pageInfo.SetTotalData(totalBoard);
         board.setPageInfo(pageInfo);
-        if (totalBoard>0) {
-            List<DTOBoard> boardList = new ArrayList<>();
-            if (tab.equalsIgnoreCase("home")|| tab.equalsIgnoreCase("needAnswer"))
-                boardList = tagMapper.findBoardByTagName(board, tagName);
-            else if (tab.equalsIgnoreCase("popular"))
-                boardList = tagMapper.findBoardByTagNamePopular(board, tagName);
-            boardList.forEach(b -> b.setTimeInterval(CalDate(b.getDate())));
-            boardList.forEach(b -> b.setTagList(tagMapper.findByBoardIdx(b.getBoardIdx())));
-            boardList.forEach(b -> b.setCntBoardAnswer(boardMapper.selectAnswerCount(b)));
-            boardList.forEach(b -> b.setAnswerIsAdopted(boardMapper.selectAnswerIsAdopted(b).orElseGet(() -> {
-                return 0;
-            })));
+        if (totalBoard==0)return new ArrayList<>();
+        List<DTOBoard> boardList = new ArrayList<>();
+        if (tab.equalsIgnoreCase("home")|| tab.equalsIgnoreCase("needAnswer"))
+            boardList = tagMapper.findBoardByTagName(board, tagName);
+        else if (tab.equalsIgnoreCase("popular"))
+            boardList = tagMapper.findBoardByTagNamePopular(board, tagName);
+        boardList.forEach(b -> b.setTimeInterval(CalDate(b.getDate())));
+        boardList.forEach(b -> b.setTagList(tagMapper.findByBoardIdx(b.getBoardIdx())));
+        boardList.forEach(b -> b.setCntBoardAnswer(boardMapper.selectAnswerCount(b)));
+        boardList.forEach(b -> b.setAnswerIsAdopted(boardMapper.selectAnswerIsAdopted(b).orElseGet(() -> {
+            return 0;
+        })));
 
-            if(tab.equalsIgnoreCase("needAnswer"))
-                boardList.removeIf(b->b.getCntBoardAnswer()>0);
-            return boardList;
-        }
-        return null;
+        if(tab.equalsIgnoreCase("needAnswer"))
+            boardList.removeIf(b->b.getCntBoardAnswer()>0);
+        return boardList;
     }
     @Override
     public List<DTOTag> findAllTagList(DTOTag tag){
         int totalTag = tagMapper.findAllTagCount(tag).orElseGet(()-> {
             return 0;
         });
+
         tag.setRecordsPerPage(12); // 일단 페이징 테스트를 위해 추후 수정 될 수 있음
         PageInfo pageInfo = new PageInfo(tag);
         pageInfo.SetTotalData(totalTag);
         tag.setPageInfo(pageInfo);
-        if (totalTag>0) {
-            List<DTOTag> tagList = tagMapper.findAllTagName(tag);
-            return tagList;
-        }
-
-        return null;
+        if (totalTag==0) return new ArrayList<>();
+        List<DTOTag> tagList = tagMapper.findAllTagName(tag);
+        return tagList;
     }
 
     @Override

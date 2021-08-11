@@ -21,7 +21,7 @@ public class TagController {
 
     @GetMapping("/searchTag")
     @ResponseBody
-    public List<DTOTag> autoTagName(@RequestParam String tagName){
+    public List<DTOTag> AutoTagName(@RequestParam String tagName){
         List<DTOTag> dtoTags=tagService.autoMatchingTag(tagName);
         return dtoTags;
     }

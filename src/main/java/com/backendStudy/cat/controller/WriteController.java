@@ -36,7 +36,7 @@ public class WriteController {
 
     @PostMapping("/form")
     @ResponseBody
-    public String registerTag (@RequestParam(value = "tagNameList[]") List<String> tagNameList,
+    public String RegisterTag (@RequestParam(value = "tagNameList[]") List<String> tagNameList,
                                @RequestParam(value="boardTitle") String boardTitle,
                                @RequestParam(value = "boardContent") String boardContent,
                                HttpServletResponse response,
@@ -48,7 +48,7 @@ public class WriteController {
 
         //test용
         //TODO : 로그인한 계정의 idx 값 저장으로 수정
-        board.setUserIdx(Long.valueOf(2));
+        board.setUserIdx(2L);
         boardService.registerBoard(board,tagNameList);
 
         return "/";

@@ -1,12 +1,16 @@
 .main .content {
     padding-top: 2.8571428571rem;
 }
+
 .main>.content>.content-wrap {
     max-width: 85.7142857143rem;
     width: 85.7142857143rem;
     margin: 0 auto;
     padding-left: 3.5714285714rem;
     padding-right: 3.5714285714rem;
+}
+.p-t-30 {
+    padding-top: 2.1428571429rem !important;
 }
 .root-index .main>.content>.content-wrap>.center {
     -webkit-box-flex: 0;
