@@ -6,10 +6,13 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+@Slf4j
 @ToString
 @Getter
 @Setter
@@ -23,10 +26,11 @@ public class CustomUserDetails implements UserDetails {
 
     public CustomUserDetails(String userEmail, String password, long isAccountNonExpired, long isEnabled, List<GrantedAuthority> auth) {
         this.userEmail = userEmail;
-        this.password = password;
+        this.password = new BCryptPasswordEncoder().encode(password);
         this.isAccountNonExpired = isAccountNonExpired;
         this.isEnabled = isEnabled;
         this.auth = auth;
+        log.info("CustomUserDetails= "+toString());
     }
 
     //계정이 갖고 있는 권한을 목록으로 리턴하기 위한 설정
@@ -50,16 +54,18 @@ public class CustomUserDetails implements UserDetails {
     //계정 만료되었는지 리턴 (true: 만료x)
     @Override
     public boolean isAccountNonExpired() {
-        if(isAccountNonExpired==1)
-            return false;
-        else return true;
+        return true;
+//        if(isAccountNonExpired==1)
+//            return false;
+//        else return true;
     }
     //계정 사용가능한지 (활성화 되었는지) 리턴 (true: 활성화)
     @Override
     public boolean isEnabled() {
-        if (isEnabled==1)
-            return true;
-        else return false;
+        return true;
+//        if (isEnabled==1)
+//            return true;
+//        else return false;
     }
 
     //아래는 우리 프로젝트에서는 쓰지 않는 것

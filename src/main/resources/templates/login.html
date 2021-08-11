@@ -21,7 +21,7 @@
                 계속하려면 로그인하거나 가입해주세요.
             </div>
             
-            <form role="form" class="new_user" id="new_user" action="/users/login" accept-charset="UTF-8" method="post">
+            <form role="form" class="new_user" id="new_user" action="/users/login" accept-charset="UTF-8" method="POST">
                 <input type="hidden" name="authenticity_token" value="VMw1InFZ17Jiho0ps4ugUsQ6R2UdE807Tdg7PbQEHw1SJ2gG7-kLUIz7bVKoSUyzmdKTBQ_7JoXOv9_A0CuXJw" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                 <div class="input-area">
                     <label class="control-label required" for="user_email">이메일</label>
