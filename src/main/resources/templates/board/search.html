@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/default_layout" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta charset="utf-8">
+    <title>질문 검색</title>
+    <link rel="stylesheet" type="text/css" media="all" href="/CSS/tag/tagItem.css" />
+</head>
+
+<body class="questions questions-search" data-controller="questions" data-action="tagged">
+    <div class="main" layout:fragment="content">
+        <div class="headerbar">
+            <div class="headerbar-wrap hidden-sm-down">
+                <h1>Search</h1>
+            </div>
+        </div>
+
+        <div class="content">
+          <div class="content-wrap p-t-30">
+                <div class="searchbar">
+                  <form role="form" action="/questions/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+                    <div class="input-group has-clear">
+                      <span class="input-group-addon icon-search"><span class="hc-icons-search">Search</span></span>
+                      <input required="required" placeholder="질문을 검색하세요." class="form-control input" name="text" id="text" type="text" value="">
+                      <span class="input-group-addon form-control-clear"><span class="hc-icons-l-x">Close</span> </span>
+                    </div>
+                </form>
+                </div>
+                <h4 class="title-with-bottom-line" th:text="|${board.pageInfo.totalData}개의 검색 결과|">679개의 검색 결과</h4>
+
+              <ul class="question-list" th:each="item:${boardList}">
+                  <li class="question-list-item" th:scope="item">
+                    <div class="question-view-count">
+                      <div class="question-number" th:text="${item.boardView}"></div>
+                        <h6>조회</h6>
+                      </div>
+                      <div class="question-vote-count">
+                          <div class="question-number" th:text="${item.fondScore}"></div>
+                          <h6>좋아요</h6>
+                      </div>
+                      <div class="question-answer-count accepted" th:if="${board.answerIsAdopted==1}">
+                          <div class="question-number"  th:text="'✓'+${board.cntBoardAnswer}"></div>
+                          <h6>답변</h6>
+                      </div>
+                      <div class="question-answer-count" th:unless="${board.answerIsAdopted==1}">
+                          <div class="question-number" th:text="${board.cntBoardAnswer}"></div>
+                          <h6>답변</h6>
+                      </div>
+                    <div class="question">
+                        <div class="top">
+                        <h4><a th:href="@{/board/{boardIdx}(boardIdx=${item.boardIdx})}" th:text='${item.boardTitle}'></a></h4>
+                        </div>
+                        <ul class="question-tags" th:each="tag:${item.tagList}">
+                            <li class="label label-tag " th:scope="tag">
+                                <a rel="tag" th:href="@{/tagItem/{tagName}(tagName=${tag.tagName})}">
+                                    <span data-tag="#" th:text="${tag.tagName}">태그</span>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <ul class="question-info float-xs-right">
+                            <li><a title="작성자" href="/userPage(userIdx=${item.userIdx})" th:text='${item.userName}'></a></li>
+                            <li th:text="${item.timeInterval}"></li>
+                        </ul>
+                    </div>
+                  </li>
+              </ul>
+              <nav class="" th:if="${board != null and board.pageInfo.totalData >0}" th:object="${board.pageInfo}" th:with="info=${board.pageInfo}">
+                  <ul class="pagination">
+                      <li class="prev previous_page page-item" th:if="*{hasPrePage==true}" th:onclick="movePage([[ ${#request.requestURI} ]], [[ ${board.makeQueryString(1)} ]])">
+                          <a class="page-link" href="javascript:void(0)"><span aria-hidden="true">&laquo;</span></a>
+                      </li>
+                      <li class="prev previous_page page-item" th:if="*{hasPrePage==true}" th:onclick="movePage([[ ${#request.requestURI} ]], [[ ${board.makeQueryString(info.firstPage - 1)} ]])">
+                          <a class="page-link" href="javascript:void(0)"><span aria-hidden="true">&lsaquo;</span></a>
+                      </li>
+                      <li class="page-item" th:each="pageNo:*{#numbers.sequence(firstPage,lastPage,1)}" th:classappend="${pageNo==board.page} ? 'active'">
+                          <a class="page-link" href="javascript:void(0)" th:text="${pageNo}" th:onclick="movePage([[ ${#request.requestURI} ]], [[ ${board.makeQueryString(pageNo)} ]])"></a>
+                      </li>
+                      <li class="next next_page  page-item" th:if="*{hasNextPage==true}" th:onclick="movePage([[ ${#request.requestURI} ]], [[ ${board.makeQueryString(info.lastPage + 1)} ]])">
+                          <a class="page-link" href="javascript:void(0)"><span aria-hidden="true">&rsaquo;</span></a>
+                      </li>
+                      <li class="next next_page  page-item"th:if="*{hasNextPage==true}" th:onclick="movePage([[ ${#request.requestURI} ]], [[ ${board.makeQueryString(info.totalData)} ]])">다음</a>
+                            <a class="page-link" rel="next" href="javascript:void(0)">&raquo;</a>
+                      </li>
+                  </ul>
+            </nav>
+          </div>
+    </div>
+    <th:block block layout:fragment="script">
+        <script th:inline="javascript">
+            function movePage(uri,queryString){
+                location.href=uri+queryString;
+            }
+            function press(form){
+                if (form.keyCode==13){
+                    search.submit();
+                }
+            }
+
+            function searchBoard(form){
+                if (isEmpty(form.text.value)==true){
+                    alert("검색어를 입력해주세요")
+                    form.text.focus();
+                    return false;
+                }
+            }
+        </script>
+    </th:block>
+</div>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MKZX39V" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+</body>
+</html>

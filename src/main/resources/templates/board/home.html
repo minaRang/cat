@@ -16,13 +16,14 @@
   <div class="content-wrap">
     <div class="center">
       <div class="searchbar">
-  <form role="form" action="/questions/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
-    <div class="input-group has-clear">
-      <span class="input-group-addon icon-search"><span class="hc-icons-search">Search</span></span>
-      <input required="required" placeholder="질문을 검색하세요." class="form-control input" name="text" id="text" type="text" value="">
-      <span class="input-group-addon form-control-clear"><span class="hc-icons-l-x">Close</span> </span>
-    </div>
-</form></div>
+          <form role="form" action="/questions/search" name="search" accept-charset="UTF-8" method="get" th:onsubmit="return searchBoard(this)"><input name="utf8" type="hidden" value="&#x2713;" />
+            <div class="input-group has-clear">
+              <span class="input-group-addon icon-search"><span class="hc-icons-search">Search</span></span>
+              <input required="required" placeholder="질문을 검색하세요." class="form-control input" name="text" id="text" type="text" value="" onpresskey="JavaScript:press(this.form)">
+              <span class="input-group-addon form-control-clear"><span class="hc-icons-l-x">Close</span> </span>
+            </div>
+        </form>
+      </div>
       <ul class="nav nav-tabs" role="tablist" >
           <li class="nav-item"><a class="nav-link" href="/" th:classappend="${tab}=='home' ? active">최신</a></li>
           <li class="nav-item"><a class="nav-link" href="/popular" th:classappend="${tab}=='popular'? active">인기</a></li>
@@ -30,29 +31,29 @@
           <li class="nav-item"><a class="nav-link" href="/selectTag" th:classappend="${tab}=='selectTag'? active">태그 선택</a></li>
       </ul>
 
-      <ul class="question-list" th:each="board:${boardList}">
-          <li class="question-list-item" th:scope="board">
+      <ul class="question-list" th:each="item:${boardList}">
+          <li class="question-list-item" th:scope="item">
             <div class="question-view-count">
-                <div class="question-number" th:text="${board.boardView}"></div>
+                <div class="question-number" th:text="${item.boardView}"></div>
                     <h6>조회</h6>
                 </div>
 	        <div class="question-vote-count">
-		        <div class="question-number" th:text="${board.fondScore}"></div>
+		        <div class="question-number" th:text="${item.fondScore}"></div>
 		        <h6>좋아요</h6>
 	        </div>
-	        <div class="question-answer-count accepted" th:if="${board.answerIsAdopted==1}">
-		        <div class="question-number"  th:text="'✓'+${board.cntBoardAnswer}"></div>
+	        <div class="question-answer-count accepted" th:if="${item.answerIsAdopted==1}">
+		        <div class="question-number"  th:text="'✓'+${item.cntBoardAnswer}"></div>
                 <h6>답변</h6>
 	        </div>
-            <div class="question-answer-count" th:unless="${board.answerIsAdopted==1}">
-              <div class="question-number" th:text="${board.cntBoardAnswer}"></div>
+            <div class="question-answer-count" th:unless="${item.answerIsAdopted==1}">
+              <div class="question-number" th:text="${item.cntBoardAnswer}"></div>
               <h6>답변</h6>
             </div>
 	        <div class="question">
 		        <div class="top">
-			    <h4><a th:href="@{/board/{boardIdx}(boardIdx=${board.boardIdx})}" th:text='${board.boardTitle}'></a></h4>
+			    <h4><a th:href="@{/board/{boardIdx}(boardIdx=${item.boardIdx})}" th:text='${item.boardTitle}'></a></h4>
 		        </div>
-                <ul class="question-tags" th:each="tag:${board.tagList}">
+                <ul class="question-tags" th:each="tag:${item.tagList}">
                     <li class="label label-tag " th:scope="tag">
                         <a rel="tag" th:href="@{/tagItem/{tagName}(tagName=${tag.tagName})}">
                             <span th:text="${tag.tagName}">태그</span>
@@ -61,8 +62,8 @@
                 </ul>
 
                 <ul class="question-info float-xs-right">
-                    <li><a title="작성자" href="/userPage(userIdx=${board.userIdx})" th:text='${board.userName}'></a></li>
-                    <li th:text="${board.timeInterval}"></li>
+                    <li><a title="작성자" th:href="@{/userPage/{userIdx}(userIdx=${item.userIdx})}" th:text='${item.userName}'></a></li>
+                    <li th:text="${item.timeInterval}"></li>
                 </ul>
 	        </div>
           </li>
@@ -109,6 +110,20 @@
         <script th:inline="javascript">
             function movePage(uri,queryString){
                 location.href=uri+queryString;
+            }
+
+            function press(form){
+                if (form.keyCode==13){
+                    search.submit();
+                }
+            }
+
+            function searchBoard(form){
+                if (isEmpty(form.text.value)==true){
+                    alert("검색어를 입력해주세요")
+                    form.text.focus();
+                    return false;
+                }
             }
         </script>
     </th:block>

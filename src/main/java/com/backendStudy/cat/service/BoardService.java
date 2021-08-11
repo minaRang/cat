@@ -10,6 +10,6 @@ public interface BoardService {
     public DTOBoard getBoardDetail(Long index);
     public boolean deleteBoard(long index);
     public List<DTOBoard> getBoardList(DTOBoard board, String tab);
+    public List<DTOBoard> searchBoardList(DTOBoard board);
     public Integer setBoardView(Long index);
-
 }

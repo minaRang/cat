@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 @Slf4j
 @Service
@@ -69,23 +69,45 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public List<DTOBoard> getBoardList(DTOBoard board, String tab) {
-        int totalBoard = boardMapper.selectBoardTotalCount(board);
+        int totalBoard = boardMapper.selectBoardTotalCount(board).orElseGet(()-> {
+            return 0;
+        });
+
         PageInfo pageInfo = new PageInfo(board);
         pageInfo.SetTotalData(totalBoard);
         board.setPageInfo(pageInfo);
-        if (totalBoard>0){
-            List<DTOBoard> boardList = new ArrayList<>();
-            if (tab.equalsIgnoreCase("home"))
-                boardList = boardMapper.findAllBoardOrderByDate(board);
-            else if (tab.equalsIgnoreCase("popular"))
-                boardList = boardMapper.findAllBoardOrderByPopular(board);
-            else if (tab.equalsIgnoreCase("needAnswer"))
-                boardList=boardMapper.findAllNeedAnswer(board);
-            boardList.forEach(b->b.setTimeInterval(CalDate(b.getDate())));
-            boardList.forEach(b->b.setTagList(tagMapper.findByBoardIdx(b.getBoardIdx())));
-            return boardList;
-        }
-        else return null;
+        if (totalBoard==0) return new ArrayList<>();
+        List<DTOBoard> boardList = new ArrayList<>();
+        if (tab.equalsIgnoreCase("home"))
+            boardList = boardMapper.findAllBoardOrderByDate(board);
+        else if (tab.equalsIgnoreCase("popular"))
+            boardList = boardMapper.findAllBoardOrderByPopular(board);
+        else if (tab.equalsIgnoreCase("needAnswer"))
+            boardList=boardMapper.findAllNeedAnswer(board);
+        boardList.forEach(b->b.setTimeInterval(CalDate(b.getDate())));
+        boardList.forEach(b->b.setTagList(tagMapper.findByBoardIdx(b.getBoardIdx())));
+        return boardList;
+    }
+
+    @Override
+    public List<DTOBoard> searchBoardList(DTOBoard board) {
+        int totalBoard = boardMapper.totalSearchBoard(board).orElseGet(()->{
+            return 0;
+        });
+
+        PageInfo pageInfo = new PageInfo(board);
+        pageInfo.SetTotalData(totalBoard);
+        board.setPageInfo(pageInfo);
+        if (totalBoard==0) return new ArrayList<>();
+
+        List<DTOBoard> boardList = boardMapper.searchBoard(board);
+        boardList.forEach(b->b.setTimeInterval(CalDate(b.getDate())));
+        boardList.forEach(b->b.setTagList(tagMapper.findByBoardIdx(b.getBoardIdx())));
+        boardList.forEach(b -> b.setCntBoardAnswer(boardMapper.selectAnswerCount(b)));
+        boardList.forEach(b -> b.setAnswerIsAdopted(boardMapper.selectAnswerIsAdopted(b).orElseGet(() -> {
+            return 0;
+        })));
+        return boardList;
     }
 
     @Override

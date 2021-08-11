@@ -27,7 +27,7 @@ public class Criteria {
                 .queryParam("Page", pageNo)
                 .queryParam("recordsPerPage", recordsPerPage)
                 .queryParam("searchType", searchType)
-                .queryParam("searchKeyword", searchKeyword)
+                .queryParam("text", searchKeyword)
                 .build()
                 .encode();
         return uriComponents.toUriString();
