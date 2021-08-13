@@ -4,9 +4,11 @@ import java.util.Date;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.stereotype.Component;
 
 
 @ToString
+@Component
 @Getter
 @Setter
 public class DTOUser {
