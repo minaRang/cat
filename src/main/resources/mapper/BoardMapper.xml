@@ -11,7 +11,6 @@
         b.board_view,
         b.date,
         b.update_time,
-        a.answer_is_adopted,
         f.fond_score
     </sql>
 
@@ -69,25 +68,25 @@
     </delete>
 
     <select id="findAllBoardOrderByDate" parameterType="DTOBoard" resultType="DTOBoard">
-        SELECT <include refid="boardListColumn"/>, count(a.board_idx) as cnt_board_answer
+        SELECT <include refid="boardListColumn"/>, count(a.board_idx) as cnt_board_answer, IFNULL(SUM(a.answer_is_adopted),0) as answer_is_adopted
         FROM (board b LEFT JOIN user u on b.user_idx=u.user_idx) LEFT JOIN answer a on b.board_idx=a.board_idx LEFT JOIN fond f on b.board_idx=f.board_idx
-        GROUP BY b.board_idx
+        GROUP BY <include refid="boardListColumn"/>
         Order By b.date DESC
         LIMIT #{pageInfo.firstIndex}, #{recordsPerPage}
     </select>
 
     <select id="findAllBoardOrderByPopular" parameterType="DTOBoard" resultType="DTOBoard">
-        SELECT <include refid="boardListColumn"/>, count(a.board_idx) as cnt_board_answer
+        SELECT <include refid="boardListColumn"/>, count(a.board_idx) as cnt_board_answer, IFNULL(SUM(a.answer_is_adopted),0) as answer_is_adopted
         FROM (board b LEFT JOIN user u on b.user_idx=u.user_idx) LEFT JOIN answer a on b.board_idx=a.board_idx LEFT JOIN fond f on b.board_idx=f.board_idx
-        GROUP BY b.board_idx
+        GROUP BY <include refid="boardListColumn"/>
         Order By b.board_view DESC
         LIMIT #{pageInfo.firstIndex}, #{recordsPerPage}
     </select>
 
     <select id="findAllNeedAnswer" parameterType="DTOBoard" resultType="DTOBoard">
-        SELECT <include refid="boardListColumn"/>, count(a.board_idx) as cnt_board_answer
+        SELECT <include refid="boardListColumn"/>, count(a.board_idx) as cnt_board_answer, IFNULL(SUM(a.answer_is_adopted),0) as answer_is_adopted
         FROM (board b LEFT JOIN user u on b.user_idx=u.user_idx) LEFT JOIN answer a on b.board_idx=a.board_idx LEFT JOIN fond f on b.board_idx=f.board_idx
-        GROUP BY b.board_idx
+        GROUP BY <include refid="boardListColumn"/>
         HAVING cnt_board_answer=0
         Order By b.date DESC
         LIMIT #{pageInfo.firstIndex}, #{recordsPerPage}
