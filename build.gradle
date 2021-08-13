@@ -16,16 +16,15 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-batch'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
+
 	implementation group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '2.5.3'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'com.google.code.gson:gson:2.8.7' /*gson*/
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly 'mysql:mysql-connector-java'
 
 	compileOnly 'org.projectlombok:lombok:1.18.20'
-	compileOnly 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4:1.16'
 	annotationProcessor 'org.projectlombok:lombok:1.18.20'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -38,4 +37,16 @@ dependencies {
 
 test {
 	useJUnitPlatform()
+}
+bootRun{
+	String activeProfile = System.properties['spring.profiles.active']
+	println "zone: $activeProfile"
+	systemProperty "spring.profiles.active", activeProfile
+}
+sourceSets {
+	main {
+		resources {
+			srcDirs("src/main/resources", "src/main/resources-env")
+		}
+	}
 }
