@@ -21,13 +21,13 @@ public class TagController {
 
     @GetMapping("/searchTag")
     @ResponseBody
-    public List<DTOTag> AutoTagName(@RequestParam String tagName){
+    public List<DTOTag> autoTagName(@RequestParam String tagName){
         List<DTOTag> dtoTags=tagService.autoMatchingTag(tagName);
         return dtoTags;
     }
 
     @GetMapping("/tagItem/{tagName}")
-    public String TagItemView(@PathVariable String tagName,@ModelAttribute("board")DTOBoard board, Model model){
+    public String tagItemView(@PathVariable String tagName,@ModelAttribute("board")DTOBoard board, Model model){
         DTOTag tag = new DTOTag();
         tag.setTagName(tagName);
         TagInfo tagInfo = tagService.findTagInfo(tag);
@@ -41,7 +41,7 @@ public class TagController {
     }
 
     @GetMapping("/tagItem/popular/{tagName}")
-    public String TagItemPopularView(@PathVariable String tagName,@ModelAttribute("board")DTOBoard board, Model model){
+    public String tagItemPopularView(@PathVariable String tagName,@ModelAttribute("board")DTOBoard board, Model model){
         DTOTag tag = new DTOTag();
         tag.setTagName(tagName);
         TagInfo tagInfo = tagService.findTagInfo(tag);
@@ -55,7 +55,7 @@ public class TagController {
     }
 
     @GetMapping("/tagItem/needAnswer/{tagName}")
-    public String TagItemNeedAnswerView(@PathVariable String tagName,@ModelAttribute("board")DTOBoard board, Model model){
+    public String tagItemNeedAnswerView(@PathVariable String tagName,@ModelAttribute("board")DTOBoard board, Model model){
         DTOTag tag = new DTOTag();
         tag.setTagName(tagName);
         TagInfo tagInfo = tagService.findTagInfo(tag);
@@ -69,12 +69,12 @@ public class TagController {
     }
 
     @GetMapping("/selectTag")
-    public String SelectTagView(@ModelAttribute("tag")DTOTag tag,
+    public String selectTagView(@ModelAttribute("tag")DTOTag tag,
                                 Model model){
-        int totalTagNum = tagService.findAllTagCount(tag);
         List<DTOTag> tagList = tagService.findAllTagList(tag);
-        model.addAttribute("totalTagNum",totalTagNum);
+        model.addAttribute("totalTagNum",tag.getPageInfo().getTotalData());
         model.addAttribute("tagList",tagList);
+        model.addAttribute("search","no");
         return "tag/selectTag";
     }
 }

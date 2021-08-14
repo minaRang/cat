@@ -28,7 +28,7 @@ public class WriteController {
     TagService tagService;
 
     @GetMapping("/write")
-    public String MainForm(Model model){
+    public String mainForm(Model model){
         model.addAttribute("board",new DTOBoard());
         model.addAttribute("tag", new DTOTag());
         return "board/write";

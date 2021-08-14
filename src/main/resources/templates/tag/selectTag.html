@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="searchbar">
-                    <form role="form" action="https://hashcode.co.kr/tags/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+                    <form role="form" action="/selectTag/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
                         <div class="input-group has-clear">
                             <span class="input-group-addon icon-search"><span class="hc-icons-search">Search</span></span>
                             <input placeholder="태그 검색" class="form-control input" name="text" id="text" type="text" value="">
@@ -39,7 +39,8 @@
                 <ul class="tag-list favorite-tags">
                       <h5 class="tag-introduce m-t-20">별을 눌러서 관심 태그를 등록해보세요.</h5>
                 </ul>
-                <h4 class="title-with-bottom-line" th:text="|모든 태그 (${totalTagNum}개)|">모든 태그(2585개)</h4>
+                <h4 class="title-with-bottom-line" th:if="${search}=='no'" th:text="|모든 태그 (${totalTagNum}개)|">모든 태그(2585개)</h4>
+                <h4 class="title-with-bottom-line" th:unless="${search}=='no'" th:text="|${totalTagNum}개의 검색 결과|">모든 태그(2585개)</h4>
                 <ul class="tag-list" >
                     <li th:each="tag:${tagList}" th:scope="tag">
                         <a rel="tag" th:href="@{/tagItem/{tagName}(tagName=${tag.tagName})}">

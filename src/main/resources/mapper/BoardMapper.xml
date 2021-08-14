@@ -92,24 +92,9 @@
         LIMIT #{pageInfo.firstIndex}, #{recordsPerPage}
     </select>
 
-    <select id="searchBoard" parameterType="DTOBoard" resultType="DTOBoard">
-        SELECT <include refid="boardListColumn"/>
-        FROM (board b LEFT JOIN user u on b.user_idx=u.user_idx) LEFT JOIN fond f on b.board_idx=f.board_idx LEFT JOIN tag t on b.board_idx=t.board_idx
-        WHERE b.board_title LIKE CONCAT('%',#{searchKeyword},'%') OR b.board_content LIKE CONCAT('%',#{searchKeyword},'%') OR t.tag_name = #{searchKeyword}
-        group by b.board_idx
-        Order By b.date DESC
-        LIMIT #{pageInfo.firstIndex}, #{recordsPerPage}
-    </select>
-
     <select id="selectBoardTotalCount" parameterType="DTOBoard" resultType="int">
         SELECT count(*)
         FROM board
-    </select>
-
-    <select id="totalSearchBoard" parameterType="DTOBoard" resultType="int">
-        SELECT count(distinct b.board_idx)
-        FROM board b LEFT JOIN tag t on b.board_idx=t.board_idx
-        WHERE b.board_title LIKE CONCAT('%',#{searchKeyword},'%') OR b.board_content LIKE CONCAT('%',#{searchKeyword},'%') OR t.tag_name = #{searchKeyword}
     </select>
 
     <select id="selectAnswerCount" parameterType="DTOBoard" resultType="int">

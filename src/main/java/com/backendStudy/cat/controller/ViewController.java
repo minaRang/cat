@@ -15,7 +15,7 @@ public class ViewController {
     BoardService boardService;
 
     @GetMapping("/board/{boardIdx}")
-    public String BoardDetail(@PathVariable long boardIdx, Model model){
+    public String boardDetail(@PathVariable long boardIdx, Model model){
         boardService.setBoardView(boardIdx);
         DTOBoard board = boardService.getBoardDetail(boardIdx);
 

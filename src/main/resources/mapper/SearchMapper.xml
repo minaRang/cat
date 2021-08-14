@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.backendStudy.cat.mapper.SearchMapper">
+    <sql id="boardListColumn">
+        u.user_name,
+        b.board_idx,
+        b.board_title,
+        b.board_content,
+        b.board_view,
+        b.date,
+        b.update_time,
+        f.fond_score
+    </sql>
+
+    <select id="searchBoard" parameterType="DTOBoard" resultType="DTOBoard">
+        SELECT <include refid="boardListColumn"/>
+        FROM (board b LEFT JOIN user u on b.user_idx=u.user_idx) LEFT JOIN fond f on b.board_idx=f.board_idx LEFT JOIN tag t on b.board_idx=t.board_idx
+        WHERE b.board_title LIKE CONCAT('%',#{searchKeyword},'%') OR b.board_content LIKE CONCAT('%',#{searchKeyword},'%') OR t.tag_name = #{searchKeyword}
+        group by <include refid="boardListColumn"/>
+        Order By b.date DESC
+        LIMIT #{pageInfo.firstIndex}, #{recordsPerPage}
+    </select>
+
+    <select id="totalSearchBoard" parameterType="DTOBoard" resultType="int">
+        SELECT count(distinct b.board_idx)
+        FROM board b LEFT JOIN tag t on b.board_idx=t.board_idx
+        WHERE b.board_title LIKE CONCAT('%',#{searchKeyword},'%') OR b.board_content LIKE CONCAT('%',#{searchKeyword},'%') OR t.tag_name LIKE CONCAT('%',#{searchKeyword},'%')
+    </select>
+
+    <select id="searchTag" parameterType="DTOTag" resultType="DTOTag">
+        SELECT tag_name, count(board_idx) as cnt_board
+        FROM tag
+        WHERE tag_name LIKE CONCAT('%',#{searchKeyword},'%')
+        GROUP BY tag_name
+        Order By tag_name
+        LIMIT #{pageInfo.firstIndex}, #{recordsPerPage}
+    </select>
+
+    <select id="totalSearchTag" parameterType="DTOTag" resultType="Integer">
+        SELECT count(distinct tag_name)
+        FROM tag
+        WHERE tag_name LIKE CONCAT('%',#{searchKeyword},'%')
+    </select>
+</mapper>

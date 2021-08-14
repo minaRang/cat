@@ -16,9 +16,7 @@ public interface BoardMapper {
     public List<DTOBoard> findAllBoardOrderByDate(DTOBoard board);
     public List<DTOBoard> findAllBoardOrderByPopular(DTOBoard board);
     public List<DTOBoard> findAllNeedAnswer(DTOBoard board);
-    public List<DTOBoard> searchBoard(DTOBoard board);
     public Optional<Integer> selectBoardTotalCount(DTOBoard board);
-    public Optional<Integer> totalSearchBoard(DTOBoard board);
     public int updateBoardView(Long index);
     public int selectAnswerCount(DTOBoard board);
     public Optional<Integer> selectAnswerIsAdopted(DTOBoard board);
