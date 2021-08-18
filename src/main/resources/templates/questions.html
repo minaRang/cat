@@ -10,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${boardDetail.boardTitle}">주제명(ex.Java) - 질문제목 | Hashcode</title>
     <link rel="stylesheet" type="text/css" href="/CSS/style.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> <!--jquery-->
 
 </head>
 
@@ -115,9 +116,6 @@
                             -->
                         </ul>
 
-                        <div class="comment-text btn-add-comment">
-                            <h6 class="btn-comment">댓글 입력</h6>
-                        </div>
                         <div class="comment-text new-comment-form" style="">
                             <form class="new_comment" id="new_comment" role="form" action="/question/14262/comments" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓">
                                 <div class="form-group"><textarea required="required" placeholder="댓글 입력" rows="1" class="form-control" name="comment[comment]" id="comment_comment" style="height: 56px;"></textarea></div>
@@ -125,6 +123,10 @@
                             </form>
                         </div>
                         <!-- 댓글 입력 클릭하기 전 댓글 html
+                        <div class="comment-text btn-add-comment">
+                            <h6 class="btn-comment">댓글 입력</h6>
+                        </div>
+
                         <div class="comment-text new-comment-form" style="display: none;">
                             <form class="new_comment" id="new_comment" role="form" action="/question/13850/comments"
                                   accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓">
@@ -529,9 +531,9 @@
         });
 
         function printCommentList() {
-            var boardIdx = [[${board.boardIdx}]];
+            var boardIdx = [[${boardDetail.boardIdx}]];
             $.get("/board/" + boardIdx + "/comments", function(response) {
-                if (isEmpty(response) == false) {
+                if (response != null) {
                     var commentsHtml = ""; //ul 태그에 댓글을 렌더링 할 HTML을 담는 변수
 
                     $(response.commentList).each(function(idx, comment) { //댓글 개수만큼 반복문 실행해 commentsHtml에 추가
@@ -539,7 +541,7 @@
                                     <li id="comment-1" class="comment">
                                         <span class="comment-content">${comment.commentContent}</span>
                                             <a class="comment-author" href="">${comment.userIdx}</a>
-                                        <span class="comment-date">${moment(comment.date).format('YYYY-MM-DD HH:mm')}</span>
+                                        <span class="comment-date">${comment.date}</span>
                                     </li>
                                 `;
                     });

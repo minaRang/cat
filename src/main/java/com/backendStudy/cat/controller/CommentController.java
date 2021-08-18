@@ -52,7 +52,7 @@ public class CommentController {
 */
 
     //질문글 댓글 출력
-    @GetMapping("/board/{boardIdx}/comments") //TODO: URI를 어떻게 정해야할지 모르겠다..ㅜ.ㅜ
+    @GetMapping("/board/{boardIdx}/comments")
     public JsonObject getCommentList(@PathVariable("boardIdx") Long boardIdx, //REST 방식에서 리소스 표현, URI에 파라미터로 전달받을 변수를 지정
                                      @ModelAttribute("comment") DTOComment comment) { //매개변수로 전달받은 객체를 뷰로 전달 (페이징 처리 시에도 사용)
         JsonObject jsonObj = new JsonObject(); //json 객체
