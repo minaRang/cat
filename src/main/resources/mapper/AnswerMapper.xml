@@ -3,31 +3,37 @@
 <mapper namespace="com.backendStudy.cat.mapper.AnswerMapper">
 
     <sql id="insertAnswer">
+        answer_idx,
         user_idx,
         board_idx,
         answer_content,
         answer_is_adopted,
         date,
-        update_time
+        update_time,
+        answer_exist
     </sql>
 
     <insert id="insertAnswer" useGeneratedKeys="true" keyProperty="answerIdx" parameterType="DTOAnswer">
         INSERT INTO answer(<include refid="insertAnswer"/>)
         VALUES(
-        #{userIdx},
-        #{boardIdx},
-        #{answerContent},
-        0,
-        NOW(),
-        NULL
+               #{answerIdx},
+               #{userIdx},
+               #{boardIdx},
+               #{answerContent},
+               0,
+               NOW(),
+               NULL,
+               1
         )
     </insert>
 
     <select id="findByAnswerIdx" parameterType="long" resultType="DTOAnswer">
         SELECT *
         FROM answer
-        WHERE answer_idx=#{answerIdx}
+        WHERE answer_exist = 1
+          AND answer_idx = #{answerIdx}
     </select>
+
     <select id="findByBoardIdx" parameterType="long" resultType="DTOAnswer">
         SELECT *
         FROM answer
@@ -37,20 +43,30 @@
     <update id="updateAnswer" parameterType="DTOAnswer">
         UPDATE answer
         SET
-        user_idx=#{userIdx},
-        answer_content=#{answerContent},
-        update_time=NOW()
+            user_idx=#{userIdx},
+            answer_content=#{answerContent},
+            update_time=NOW()
         WHERE answer_idx=#{answerIdx}
     </update>
 
     <delete id ="deleteAnswer" parameterType="long">
-        DELETE FROM answer
+        UPDATE answer
+        SET answer_exist = 0
         WHERE answer_idx=#{answerIdx}
     </delete>
 
     <select id="selectCountAnswer" parameterType="DTOAnswer" resultType="Long">
         SELECT count(*)
         FROM answer
+        WHERE answer_exist = 1
     </select>
 
+    <select id="selectAnswerList" parameterType="DTOAnswer" resultType="DTOAnswer">
+        SELECT *
+        FROM answer
+        WHERE answer_exist = 1
+        ORDER BY
+            answer_idx ASC,
+            date ASC
+    </select>
 </mapper>

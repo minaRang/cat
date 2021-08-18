@@ -2,11 +2,15 @@ package com.backendStudy.cat.service;
 
 import com.backendStudy.cat.domain.DTOComment;
 import com.backendStudy.cat.mapper.CommentMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collections;
 import java.util.List;
 
+@Slf4j
 @Service
 @Transactional
 public class CommentServiceImpl implements CommentService {
@@ -15,41 +19,41 @@ public class CommentServiceImpl implements CommentService {
     private CommentMapper commentMapper;
 
     @Override
-    public Long registerComment(DTOComment comment) { //댓글 등록
-        long queryResult = 0;
+    public boolean registerComment(DTOComment comment) { //댓글 등록
+        int queryResult = 0;
 
         queryResult = commentMapper.insertComment(comment);
-        return queryResult;
+        return (queryResult == 1) ? true : false;
     }
 
     @Override
-    public Long editComment(DTOComment comment) { //댓글 수정
-        long queryResult = 0;
+    public boolean editComment(DTOComment comment) { //댓글 수정
+        int queryResult = 0;
 
         queryResult = commentMapper.updateComment(comment);
-        return queryResult;
+        return (queryResult == 1) ? true : false;
     }
 
     @Override
     public boolean deleteComment(long index) { //댓글 삭제
+        int queryResult = 0;
         DTOComment comment = commentMapper.selectCommentIdx(index);
 
         if(comment != null && comment.getCommentExist() == 1){ //댓글이 존재하면
-            commentMapper.deleteComment(index);
-            return true;
+            queryResult = commentMapper.deleteComment(index);
         }
-        else return false;
+        return (queryResult == 1) ? true : false;
     }
 
     @Override
-    public List<DTOComment> getCommentList() { //댓글 리스트 반환
-        Long totalComment = commentMapper.selectCountComment(); //댓글 개수
+    public List<DTOComment> getCommentList(DTOComment comment) { //댓글 리스트 반환
+        List<DTOComment> commentList = Collections.emptyList();
+        long totalComment = commentMapper.selectCountComment(comment); //댓글 개수
 
         if (totalComment > 0){ //댓글이 존재하면
-            List<DTOComment> commentList = commentMapper.selectCommentList();
-            return commentList;
+            commentList = commentMapper.selectCommentList(comment);
         }
-        else return null; //댓글이 존재하지 않으면
+        return commentList;
     }
 
 }

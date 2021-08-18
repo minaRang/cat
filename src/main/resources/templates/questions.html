@@ -96,29 +96,48 @@
                         </ul>
                     </div>
 
-                    <!--답변 영역-->
-                    <div class="comments-wrap" id="14135" data-question-id="14135">
-                        <ul class="comments" id="question-comments-14135"></ul>
+                    <!--질문글 댓글 영역-->
+                    <div class="comments-wrap" id="13850" data-question-id="13850">
+                        <ul class="comments" id="question-comments-13850">
+                            <!--
+                            <li id="comment-17044" class="comment">
+                                <span class="comment-content">질문글 댓글 1</span>
+                                <a class="comment-author" href="/users/134889/%EC%B4%88%EB%B3%B4">댓글 작성자명 1</a>
+                                <span class="comment-date">YYYY.M.D HH:MM</span>
 
-                        <div class="comment-text btn-add-comment" style="display: none;">
+                            </li>
+                            <li id="comment-17047" class="comment">
+                                <span class="comment-content">질문글 댓글 2</span>
+                                <a class="comment-author" href="/users/215971/%EB%8F%84%EB%A7%88%EB%A7%9B">댓글 작성자명 2</a>
+                                <span class="comment-date">YYYY.M.D HH:MM</span>
+
+                            </li>
+                            -->
+                        </ul>
+
+                        <div class="comment-text btn-add-comment">
                             <h6 class="btn-comment">댓글 입력</h6>
                         </div>
-
                         <div class="comment-text new-comment-form" style="">
-                            <form class="new-comment" id="new-comment" role="form" action="/question/14135/comments"
-                                  accept-charset="UTF-8" data-remote="true" method="post">
-                                <input name="utf8" type="hidden" value="✓">
-                                <div class="form-group">
-                                        <textarea required="required" placeholder="댓글 입력" rows="1" class="form-control"
-                                                  name="comment[comment]" id="comment_comment" style="height: 57px;">
-                                        </textarea>
-                                </div>
-                                <span>
-                                        <input type="submit" name="commit" value="입력"
-                                               class="btn btn-sm btn-primary btn-submit" data-disable-with="처리 중">
-                                    </span>
+                            <form class="new_comment" id="new_comment" role="form" action="/question/14262/comments" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓">
+                                <div class="form-group"><textarea required="required" placeholder="댓글 입력" rows="1" class="form-control" name="comment[comment]" id="comment_comment" style="height: 56px;"></textarea></div>
+                                <span><input type="submit" name="commit" value="입력" class="btn btn-sm btn-primary btn-submit" data-disable-with="처리 중"></span>
                             </form>
                         </div>
+                        <!-- 댓글 입력 클릭하기 전 댓글 html
+                        <div class="comment-text new-comment-form" style="display: none;">
+                            <form class="new_comment" id="new_comment" role="form" action="/question/13850/comments"
+                                  accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓">
+                                <div class="form-group">
+                                    <textarea required="required" placeholder="댓글 입력" rows="1" class="form-control" name="comment[comment]"
+                                              id="comment_comment" style="height: 56px;">
+                                    </textarea>
+                                </div>
+                                <span>
+                                    <input type="submit" name="commit" value="입력" class="btn btn-sm btn-primary btn-submit" data-disable-with="처리 중"></span>
+                            </form>
+                        </div>
+                        -->
                     </div>
                 </div>
             </div>
@@ -502,7 +521,34 @@
     </div>
 
     <script src="JS/hashcode.js"></script>
+    <script src="JS/moment.js"></script> <!-- 날짜 라이브러리 -->
 
+    <script th:inline="javascript">
+        $(function() {
+            printCommentList();
+        });
+
+        function printCommentList() {
+            var boardIdx = [[${board.boardIdx}]];
+            $.get("/board/" + boardIdx + "/comments", function(response) {
+                if (isEmpty(response) == false) {
+                    var commentsHtml = ""; //ul 태그에 댓글을 렌더링 할 HTML을 담는 변수
+
+                    $(response.commentList).each(function(idx, comment) { //댓글 개수만큼 반복문 실행해 commentsHtml에 추가
+                        commentsHtml += `
+                                    <li id="comment-1" class="comment">
+                                        <span class="comment-content">${comment.commentContent}</span>
+                                            <a class="comment-author" href="">${comment.userIdx}</a>
+                                        <span class="comment-date">${moment(comment.date).format('YYYY-MM-DD HH:mm')}</span>
+                                    </li>
+                                `;
+                    });
+
+                    $(".comments").html(commentsHtml); //comments 클래스가 지정된 ul태그에 댓글 리스트 렌더링
+                }
+            }, "json");
+        }
+    </script>
 
 </body>
 

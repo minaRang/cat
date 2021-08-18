@@ -18,7 +18,7 @@ public class CommentMapperTest {
     private CommentMapper commentMapper;
 
     @Test
-    public void insertTest(){ //댓글 정보
+    public void insertTest(){ //댓글 등록
         DTOComment comment = new DTOComment();
         comment.setUserIdx(1);
         comment.setBoardIdx(1);
@@ -34,7 +34,7 @@ public class CommentMapperTest {
         DTOComment comment = new DTOComment();
         comment.setCommentContent("댓글 test");
         commentMapper.insertComment(comment);
-        Long totalComment = commentMapper.selectCountComment();
+        long totalComment = commentMapper.selectCountComment(comment);
 
         log.info("댓글 개수: "+ totalComment);
     }
@@ -69,13 +69,15 @@ public class CommentMapperTest {
 
     @Test
     public void getAllCommentTest(){ //모든 댓글 리스트
-        long totalComment = commentMapper.selectCountComment();
+        DTOComment comment = new DTOComment();
+        long totalComment = commentMapper.selectCountComment(comment);
+
         if (totalComment > 0){
-            List<DTOComment> commentList = commentMapper.selectCommentList();
+            List<DTOComment> commentList = commentMapper.selectCommentList(comment);
             if(CollectionUtils.isEmpty(commentList) == false){
-                for(DTOComment comment : commentList){
-                    log.info("댓글 내용: "+ comment.getCommentContent());
-                    log.info("댓글 작성자 인덱스: "+ comment.getUserIdx());
+                for(DTOComment com : commentList){
+                    log.info("댓글 내용: "+ com.getCommentContent());
+                    log.info("댓글 작성자 인덱스: "+ com.getUserIdx());
                     log.info("========================");
                 }
             }

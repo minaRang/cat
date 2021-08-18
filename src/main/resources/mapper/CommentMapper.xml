@@ -38,7 +38,7 @@
     </select>
 
     <!-- 댓글 개수 조회-->
-    <select id="selectCountComment" resultType="long">
+    <select id="selectCountComment" parameterType="DTOComment" resultType="long">
         SELECT
             COUNT(*)
         FROM comment
