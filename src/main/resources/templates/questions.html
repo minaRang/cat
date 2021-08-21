@@ -8,6 +8,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--403 error 방지 csrf token 추가-->
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+
     <title th:text="${boardDetail.boardTitle}">주제명(ex.Java) - 질문제목 | Hashcode</title>
     <link rel="stylesheet" type="text/css" href="/CSS/style.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> <!--jquery-->
@@ -100,6 +104,14 @@
                     <!--질문글 댓글 영역-->
                     <div class="comments-wrap" id="13850" data-question-id="13850">
                         <ul class="comments" id="question-comments-13850">
+                            <!-- 수정버튼 클릭 시 나타나는 textarea
+                            <li id="comment-17569" class="comment"><div class="comment-edit-form">
+                                <form class="edit_comment" id="edit_comment_17569" role="form" action="/question/14213/comments/17569" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch">
+                                    <div class="form-group"><textarea required="required" rows="1" class="form-control" name="comment[comment]" id="comment_comment" style="height: 86px;">test</textarea></div>
+                                    <input type="hidden" name="id" id="id" value="{:value=>17569}">
+                                </form></div>
+                            </li>
+                            -->
                             <!--
                             <li id="comment-17044" class="comment">
                                 <span class="comment-content">질문글 댓글 1</span>
@@ -117,9 +129,13 @@
                         </ul>
 
                         <div class="comment-text new-comment-form" style="">
-                            <form class="new_comment" id="new_comment" role="form" action="/question/14262/comments" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓">
-                                <div class="form-group"><textarea required="required" placeholder="댓글 입력" rows="1" class="form-control" name="comment[comment]" id="comment_comment" style="height: 56px;"></textarea></div>
-                                <span><input type="submit" name="commit" value="입력" class="btn btn-sm btn-primary btn-submit" data-disable-with="처리 중"></span>
+                            <!--th:action="@{/board/{boardIdx}/comments(boardIdx=${boardDetail.boardIdx})}"  method="post"-->
+                            <form class="new_comment" id="new_comment" role="form" accept-charset="UTF-8" data-remote="true">
+                                <!--<input name="utf8" type="hidden" value="✓">-->
+                                <div class="form-group">
+                                    <textarea required="required" type="text" placeholder="댓글 입력" rows="1" class="form-control" name="comment[comment]" id="comment_content" style="height: 56px;"></textarea>
+                                </div>
+                                <span><input type="submit" name="commit" value="입력" class="btn btn-sm btn-primary btn-submit" th:onclick="insertComment([[${boardDetail.boardIdx}]])" data-disable-with="처리 중"></span>
                             </form>
                         </div>
                         <!-- 댓글 입력 클릭하기 전 댓글 html
@@ -284,6 +300,16 @@
                                     </li>
                                 </ul>
 
+                                <!--답변글 댓글 영역-->
+                                <div class="comment-text new-comment-form" style="">
+                                    <form class="new_comment" id="new_comment" role="form" action="/question/14288/answers/10956/comments" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓">
+                                        <div class="form-group">
+                                            <textarea auto_focus="true" required="required" placeholder="댓글을 입력하세요" rows="1" class="form-control" name="comment[comment]" id="comment_comment" style="height: 56px;"></textarea>
+                                        </div>
+                                        <span><input type="submit" name="commit" value="입력" class="btn btn-sm btn-primary btn-submit" data-disable-with="처리 중"></span>
+                                    </form>
+                                </div>
+                                <!--
                                 <div class="comment-text btn-add-comment">
                                     <h6 class="btn-comment">댓글 달기</h6>
                                 </div>
@@ -303,6 +329,7 @@
                                                      data-disable-with="처리 중"></span>
                                     </form>
                                 </div>
+                                -->
                             </div>
                         </div>
 
@@ -525,13 +552,83 @@
     <script src="JS/hashcode.js"></script>
     <script src="JS/moment.js"></script> <!-- 날짜 라이브러리 -->
 
+    <!-- 댓글 삭제 확인 모달 창
+    <div id="confirm-modal-850808813885642" class="modal false fade in" tabindex="-1" role="dialog" aria-labelledby="confirm-modal-850808813885642Label" style="z-index: 1051; display: block;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="confirm-modal-850808813885642Label" class="modal-title">확인</h3>
+                </div>
+                <div class="modal-body">
+                    <p>삭제하시겠습니까?</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn cancel btn-default" data-dismiss="modal" aria-hidden="true">취소</button>
+                    <button class="btn commit btn-danger" data-dismiss="modal">확인</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    -->
+
     <script th:inline="javascript">
+
+        //댓글 리스트 출력 함수
         $(function() {
             printCommentList();
         });
 
+        //댓글 입력 함수
+        function insertComment(boardIdx) {
+
+            //csrf token 추가
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+
+            var content = document.getElementById("comment_content"); //댓글 입력창
+            if (content.value == null) {
+                content.setAttribute("placeholder", "댓글을 입력하세요");
+                content.focus();
+                return false;
+            }
+
+            //var uri = [[ @{/comments} ]];
+            //var uri = "/board/" + boardIdx + "/comments";
+            var headers = {"Content-Type": "application/json", "X-HTTP-Method-Override": "POST"};
+            var params = {"boardIdx": boardIdx, "commentContent": content.value, "writer": "관리자"}; //작성자는 임의로 관리자로 설정
+
+            $.ajax({
+                url: "/comments",
+                type: "POST",   //HTTP 요청 메서드
+                headers: headers,   //HTTP 요청 헤더
+                dataType: "json",   //서버로부터 응답받을 데이터 타입 (text, html, xml, json, script 등)
+                data: JSON.stringify(params),   //서버에 전송할 데이터 지정
+                //JSON.stringify: JavaScript 값이나 객체를 JSON 문자열로 변환
+
+                //헤더에 csrf 토큰 추가
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader(header, token);
+                },
+                success: function(response) { //Ajax 요청에 성공했을 때 실행되는 콜백 함수
+                    if (response.result == false) {
+                        alert("댓글 등록에 실패하였습니다.");
+                        return false;
+                    }
+
+                    printCommentList(); //댓글 리스트 출력 함수
+                    content.value = "";
+                },
+                error: function(xhr, status, error) { //Ajax 요청에 실패했을 때 실행되는 콜백 함수
+                    alert("에러가 발생하였습니다.");
+                    return false;
+                }
+            });
+        }
+
         function printCommentList() {
             var boardIdx = [[${boardDetail.boardIdx}]];
+
             $.get("/board/" + boardIdx + "/comments", function(response) {
                 if (response != null) {
                     var commentsHtml = ""; //ul 태그에 댓글을 렌더링 할 HTML을 담는 변수
@@ -542,6 +639,8 @@
                                         <span class="comment-content">${comment.commentContent}</span>
                                             <a class="comment-author" href="">${comment.userIdx}</a>
                                         <span class="comment-date">${comment.date}</span>
+                                        <a class="comment-edit" data-remote="true" href="/question/14213/comments/17569/edit?type=question">수정</a>
+                                        <a class="comment-delete" data-confirm="삭제하시겠습니까?" data-remote="true" rel="nofollow" data-method="delete" href="/question/14213/comments/17569?type=question">삭제</a>
                                     </li>
                                 `;
                     });

@@ -9,11 +9,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,18 +23,20 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
-    /* 댓글 입력
-    @RequestMapping(value = { "/comments", "/comments/{idx}" }, method = { RequestMethod.POST, RequestMethod.PATCH })
-    public JsonObject registerComment(@PathVariable(value = "idx", required = false) Long idx, @RequestBody final CommentDTO params) {
+    // 댓글 입력
+    //comment: 새로운 댓글 등록, comments/{idx}: 댓글 번호에 해당하는 댓글의 수정
+    @RequestMapping(value = { "/comments", "/comments/{commentIdx}" }, method = { RequestMethod.POST, RequestMethod.PATCH })
+    public JsonObject registerComment(@PathVariable(value = "commentIdx", required = false) Long commentIdx, @RequestBody final DTOComment comment) {
+        //파라미터 앞에 @RequestBody 지정시, 파라미터로 전달받은 JSON 문자열을 객체로 변환
 
-        JsonObject jsonObj = new JsonObject();
+        JsonObject jsonObj = new JsonObject(); //사용자 댓글 데이터를 받을 json 객체
 
         try {
-            if (idx != null) {
-                params.setIdx(idx);
+            if (commentIdx != null) { //PK null 검사, 이미 존재하는 댓글이면 수정 진행
+                comment.setCommentIdx(commentIdx);
             }
 
-            boolean isRegistered = commentService.registerComment(params);
+            boolean isRegistered = commentService.registerComment(comment); //댓글 등록 실행 결과 저장
             jsonObj.addProperty("result", isRegistered);
 
         } catch (DataAccessException e) {
@@ -49,9 +49,7 @@ public class CommentController {
         return jsonObj;
     }
 
-*/
-
-    //질문글 댓글 출력
+    //댓글 출력 TODO: 질문글, 답변글 댓글 구분 / 사용자 닉네임 출력
     @GetMapping("/board/{boardIdx}/comments")
     public JsonObject getCommentList(@PathVariable("boardIdx") Long boardIdx, //REST 방식에서 리소스 표현, URI에 파라미터로 전달받을 변수를 지정
                                      @ModelAttribute("comment") DTOComment comment) { //매개변수로 전달받은 객체를 뷰로 전달 (페이징 처리 시에도 사용)
