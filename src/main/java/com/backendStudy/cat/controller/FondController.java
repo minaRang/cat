@@ -71,4 +71,46 @@ public class FondController {
         return data;
     }
     //TODO:answer 구현
+    @RequestMapping(value = "/board/answer_fond", method = {RequestMethod.PUT})
+    @ResponseBody
+    public List<String> updateFondScoreAnswer(@RequestParam(value = "fond") Long fondScore,
+                                        @RequestParam(value="question-answerIdx") Long answerIdx,
+                                        Model model) {
+        DTOUser user = new DTOUser();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.getPrincipal().equals("anonymousUser")) {
+            log.info(authentication.toString());
+            return new ArrayList<>();
+        }
+
+        CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
+        user = userMapper.selectUserByEmail(customUserDetails.getUsername());
+        log.info("login user {} {} {}", customUserDetails.getUsername(), user.getUserName(), user.getUserIdx());
+        log.info("answerIdx {}", answerIdx);
+        DTOFond fond = new DTOFond();
+        fond.setAnswerIdx(answerIdx);
+        fond.setUserIdx(user.getUserIdx());
+        fond = fondService.findFondAnswer(fond);
+        List<String> data = new ArrayList<>();
+        if (fond.getFondScore() * fondScore!=0){
+            data.add("hc-icons-thumb-up");
+            data.add("hc-icons-thumb-down");
+            fondScore=0L;
+        }
+        else if(fond.getFondScore()==0){
+            fondScore += fond.getFondScore();
+            if (fondScore == 1) {
+                data.add("hc-icons-thumb-up active");
+                data.add("hc-icons-thumb-down");
+            }
+            else if (fondScore==-1) {
+                data.add("hc-icons-thumb-up");
+                data.add("hc-icons-thumb-down active");
+            }
+        }
+        fondService.updateFondAnswer(answerIdx, user.getUserIdx(), fondScore);
+        data.add(fondService.cntFondAnswer(answerIdx).toString());
+        data.add("#answer" + answerIdx);
+        return data;
+    }
 }

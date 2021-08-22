@@ -1,12 +1,10 @@
 package com.backendStudy.cat.controller;
 
-import com.backendStudy.cat.domain.CustomUserDetails;
-import com.backendStudy.cat.domain.DTOBoard;
-import com.backendStudy.cat.domain.DTOFond;
-import com.backendStudy.cat.domain.DTOUser;
+import com.backendStudy.cat.domain.*;
 import com.backendStudy.cat.mapper.UserMapper;
 import com.backendStudy.cat.service.BoardService;
 import com.backendStudy.cat.service.FondService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,8 +14,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 //게시글 상세 페이지
+@Slf4j
 @Controller
 public class ViewController {
     @Autowired
@@ -45,11 +45,11 @@ public class ViewController {
 
             fond=fondService.findFondBoard(fond);
             if (fond.getFondScore()>0)
-                model.addAttribute("userBoardFond", "up");
+                board.setUserFond("up");
             else if (fond.getFondScore()<0)
-                model.addAttribute("userBoardFond", "down");
-        }
+                board.setUserFond("down");
 
+        }
         //TODO: 답변 내용 및 편집 히스토리(작성자) 내용 표시
         model.addAttribute("boardDetail",board);
         return "questions";
