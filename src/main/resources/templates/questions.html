@@ -8,6 +8,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+    <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
     <title th:text="${boardDetail.boardTitle}">주제명(ex.Java) - 질문제목 | Hashcode</title>
     <link rel="stylesheet" type="text/css" href="/CSS/style.css"/>
 
@@ -30,14 +32,13 @@
                         </a>
                     </div>
                     <div class="content question-body">
-                        <div class="vote">
-                            <a id="question-upvote-14122" title="좋아요" data-remote="true" rel="nofollow"
-                               data-method="put" href="/question/14122/upvote">
-                                <span class="hc-icons-thumb-up ">좋아요</span>
+                        <input id="question-boardIdx" th:value="${boardDetail.boardIdx}" style="display:none">
+                        <div class="vote" id="question-fond">
+                            <a id="question-fondup" title="좋아요">
+                                <span class="hc-icons-thumb-up" th:classappend="${userBoardFond}=='up' ? active">좋아요</span>
                             </a>
-                            <h2 itemprop="upvoteCount" id="question-vote-sum-14122" th:text="${boardDetail.fondScore}">0</h2>
-                            <a id="question-downvote-14122" title="싫어요" data-remote="true" rel="nofollow"
-                               data-method="put" href="/question/14122/downvote">
+                            <h2 itemprop="upvoteCount" id="question-vote-sum" th:text="${boardDetail.fondScore}">0</h2>
+                            <a id="question-fonddown" th:classappend="${userBoardFond}=='up' ? active" title="싫어요">
                                 <span class="hc-icons-thumb-down ">싫어요</span>
                             </a>
                         </div>
@@ -136,7 +137,7 @@
                     <li class="answer-item" id="answer-10827" itemprop="acceptedAnswer" itemscope="" itemtype="">
                         <div class="vote">
                             <a id="answer-upvote-10827" title="좋아요" data-remote="true" rel="nofollow" data-method="put" href="">
-                                <span class="hc-icons-thumb-up ">좋아요</span>
+                                <span class="hc-icons-thumb-up">좋아요</span>
                             </a>
                             <h2 itemprop="upvoteCount" id="answer-vote-sum-10827">n</h2>
 
@@ -499,6 +500,10 @@
                 </div>
             </div>
         </div>
+        <th:block layout:fragment="script">
+            <script type="text/javascript" th:src="@{//code.jquery.com/jquery-3.3.1.js}"></script>
+            <script type="text/javascript" src="/JS/questions.js"></script>
+        </th:block>
     </div>
 
     <script src="JS/hashcode.js"></script>

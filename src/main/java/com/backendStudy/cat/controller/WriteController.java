@@ -1,5 +1,6 @@
 package com.backendStudy.cat.controller;
 
+import com.backendStudy.cat.domain.CustomUserDetails;
 import com.backendStudy.cat.domain.DTOBoard;
 import com.backendStudy.cat.domain.DTOTag;
 import com.backendStudy.cat.mapper.BoardMapper;
@@ -7,6 +8,8 @@ import com.backendStudy.cat.service.BoardService;
 import com.backendStudy.cat.service.TagService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,6 +51,16 @@ public class WriteController {
 
         //test용
         //TODO : 로그인한 계정의 idx 값 저장으로 수정
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.getPrincipal().equals("anonymousUser"))
+            log.info(authentication.toString());
+        else{
+            CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
+            log.info(customUserDetails.getUsername());
+        }
+
+
         board.setUserIdx(2L);
         boardService.registerBoard(board,tagNameList);
 
