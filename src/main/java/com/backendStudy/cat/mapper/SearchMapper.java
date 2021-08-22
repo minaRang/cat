@@ -9,8 +9,8 @@ import java.util.Optional;
 
 @Mapper
 public interface SearchMapper {
-    public List<DTOBoard> searchBoard(DTOBoard board);
-    public Optional<Integer> totalSearchBoard(DTOBoard board);
-    public List<DTOTag> searchTag(DTOTag tag);
-    public Optional<Integer> totalSearchTag(DTOTag tag);
+    public List<DTOBoard> searchBoard(DTOBoard board); //게시판 검색
+    public Optional<Integer> totalSearchBoard(DTOBoard board); // 검색 결과 게시물의 수
+    public List<DTOTag> searchTag(DTOTag tag); //태그 검색
+    public Optional<Integer> totalSearchTag(DTOTag tag); //검색 결과 태그의 수
 }
