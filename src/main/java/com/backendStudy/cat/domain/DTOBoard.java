@@ -23,6 +23,10 @@ public class DTOBoard extends DTOCommon {
     private int answerIsAdopted;
     private int fondScore;
 
+    //board
+    //유저별로 좋아요, 싫어요를 눌렸는가
+    private String userFond;
+
     //지난 시간 계산(시간 간격)
     private String timeInterval;
     private List<DTOTag> tagList;
