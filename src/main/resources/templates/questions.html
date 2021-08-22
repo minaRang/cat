@@ -38,8 +38,8 @@
                                 <span class="hc-icons-thumb-up" th:classappend="${boardDetail.userFond}=='up' ? active">좋아요</span>
                             </a>
                             <h2 itemprop="upvoteCount" id="question-vote-sum" th:text="${boardDetail.fondScore}">0</h2>
-                            <a id="question-fonddown" th:classappend="${boardDetail.userFond}=='down' ? active" title="싫어요">
-                                <span class="hc-icons-thumb-down ">싫어요</span>
+                            <a id="question-fonddown" title="싫어요">
+                                <span class="hc-icons-thumb-down " th:classappend="${boardDetail.userFond}=='down' ? active" >싫어요</span>
                             </a>
                         </div>
                         <div class="markdown" itemprop="text" th:text="${boardDetail.boardContent}">
