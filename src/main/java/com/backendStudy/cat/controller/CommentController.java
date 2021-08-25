@@ -34,8 +34,10 @@ public class CommentController {
         try {
             if (commentIdx != null) { //PK null 검사, 이미 존재하는 댓글이면 수정 진행
                 comment.setCommentIdx(commentIdx);
-            }
+                boolean isEdited = commentService.editComment(comment); //댓글 수정 실행 결과 저장
+                jsonObj.addProperty("result", isEdited);
 
+            }
             boolean isRegistered = commentService.registerComment(comment); //댓글 등록 실행 결과 저장
             jsonObj.addProperty("result", isRegistered);
 
