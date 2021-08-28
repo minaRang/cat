@@ -10,8 +10,7 @@
         b.board_content,
         b.board_view,
         b.date,
-        b.update_time,
-        f.fond_score
+        b.update_time
     </sql>
 
     <sql id="boardDetail">
@@ -21,7 +20,6 @@
         b.board_view,
         b.date,
         b.update_time,
-        f.fond_score,
         u.user_name
     </sql>
 
@@ -47,9 +45,10 @@
     </insert>
 
     <select id="findByBoardIdx" parameterType="long" resultType="DTOBoard">
-        SELECT <include refid="boardDetail"/>
+        SELECT <include refid="boardDetail"/>, sum(f.fond_score) as fond_score
         FROM board b LEFT JOIN fond f on b.board_idx=f.board_idx LEFT JOIN user u on b.user_idx=u.user_idx
         WHERE b.board_idx=#{boardIdx}
+        GROUP BY <include refid="boardDetail"/>
     </select>
 
     <update id="updateBoard" parameterType="DTOBoard">
@@ -68,7 +67,10 @@
     </delete>
 
     <select id="findAllBoardOrderByDate" parameterType="DTOBoard" resultType="DTOBoard">
-        SELECT <include refid="boardListColumn"/>, count(a.board_idx) as cnt_board_answer, IFNULL(SUM(a.answer_is_adopted),0) as answer_is_adopted
+        SELECT <include refid="boardListColumn"/>
+        , count(distinct a.board_idx) as cnt_board_answer
+        , if (count(distinct f.fond_idx)>0, IFNULL(SUM(a.answer_is_adopted)/count(distinct f.fond_idx),0), IFNULL(SUM(a.answer_is_adopted),0) )as answer_is_adopted
+        , if (count(distinct a.answer_idx)>0, sum(f.fond_score)/count(distinct a.answer_idx),sum(f.fond_score)) as fond_score
         FROM (board b LEFT JOIN user u on b.user_idx=u.user_idx) LEFT JOIN answer a on b.board_idx=a.board_idx LEFT JOIN fond f on b.board_idx=f.board_idx
         GROUP BY <include refid="boardListColumn"/>
         Order By b.date DESC
@@ -76,7 +78,10 @@
     </select>
 
     <select id="findAllBoardOrderByPopular" parameterType="DTOBoard" resultType="DTOBoard">
-        SELECT <include refid="boardListColumn"/>, count(a.board_idx) as cnt_board_answer, IFNULL(SUM(a.answer_is_adopted),0) as answer_is_adopted
+        SELECT <include refid="boardListColumn"/>
+        , count(distinct a.board_idx) as cnt_board_answer
+        , if (count(distinct f.fond_idx)>0, IFNULL(SUM(a.answer_is_adopted)/count(distinct f.fond_idx),0), IFNULL(SUM(a.answer_is_adopted),0) )as answer_is_adopted
+        , if (count(distinct a.answer_idx)>0, sum(f.fond_score)/count(distinct a.answer_idx),sum(f.fond_score)) as fond_score
         FROM (board b LEFT JOIN user u on b.user_idx=u.user_idx) LEFT JOIN answer a on b.board_idx=a.board_idx LEFT JOIN fond f on b.board_idx=f.board_idx
         GROUP BY <include refid="boardListColumn"/>
         Order By b.board_view DESC
@@ -84,7 +89,10 @@
     </select>
 
     <select id="findAllNeedAnswer" parameterType="DTOBoard" resultType="DTOBoard">
-        SELECT <include refid="boardListColumn"/>, count(a.board_idx) as cnt_board_answer, IFNULL(SUM(a.answer_is_adopted),0) as answer_is_adopted
+        SELECT <include refid="boardListColumn"/>
+        , count(distinct a.board_idx) as cnt_board_answer
+        , if (count(distinct f.fond_idx)>0, IFNULL(SUM(a.answer_is_adopted)/count(distinct f.fond_idx),0), IFNULL(SUM(a.answer_is_adopted),0))as answer_is_adopted
+        , if (count(distinct a.answer_idx)>0, sum(f.fond_score)/count(distinct a.answer_idx),sum(f.fond_score)) as fond_score
         FROM (board b LEFT JOIN user u on b.user_idx=u.user_idx) LEFT JOIN answer a on b.board_idx=a.board_idx LEFT JOIN fond f on b.board_idx=f.board_idx
         GROUP BY <include refid="boardListColumn"/>
         HAVING cnt_board_answer=0

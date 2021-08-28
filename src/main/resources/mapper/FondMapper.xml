@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.backendStudy.cat.mapper.FondMapper">
+
+    <sql id="fondColumn">
+        user_idx,
+        board_idx,
+        answer_idx,
+        fond_score
+    </sql>
+
+    <insert id="insertFondBoard" useGeneratedKeys="true" keyProperty="fondIdx" parameterType="DTOFond">
+        INSERT INTO fond (<include refid="fondColumn"/>)
+        VALUES (
+        #{userIdx},
+        #{boardIdx},
+        NULL,
+        #{fondScore}
+        )
+    </insert>
+
+    <insert id="insertFondAnswer" useGeneratedKeys="true" keyProperty="fondIdx" parameterType="DTOFOnd">
+        INSERT INTO fond (<include refid="fondColumn"/>)
+        VALUES (
+        #{userIdx},
+        NULL,
+        #{answerIdx},
+        #{fondScore}
+        )
+    </insert>
+
+    <update id="updateFond" parameterType="DTOFond">
+        UPDATE fond
+        SET
+        fond_score=#{fondScore}
+        WHERE fond_idx=#{fondIdx}
+    </update>
+
+    <select id="findBoardFond" parameterType="Long" resultType="DTOFond">
+        SELECT *
+        FROM fond
+        WHERE board_idx = #{boardIdx} and user_idx=#{userIdx}
+    </select>
+
+    <select id="findAnswerFond" parameterType="DTOFond" resultType="DTOFond">
+        SELECT *
+        FROM fond
+        WHERE answer_idx = #{answerIdx} and user_idx=#{userIdx}
+    </select>
+
+    <select id="findByBoardIdx" parameterType="Long" resultType="Integer">
+        SELECT SUM(fond_score) as fond_score
+        FROM fond
+        WHERE board_idx = #{boardIdx}
+    </select>
+    <select id="findByAnswerIdx" parameterType="Long" resultType="Integer">
+        SELECT SUM(fond_score) as fond_score
+        FROM fond
+        WHERE answer_idx = #{answerIdx}
+    </select>
+</mapper>
