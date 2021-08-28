@@ -71,6 +71,27 @@ public class CommentController {
 
     }
 
+    //댓글 삭제
+    @DeleteMapping(value = "/comments/{commentIdx}")
+    public JsonObject deleteComment(@PathVariable("commentIdx") final Long commentIdx) {
+
+        JsonObject jsonObj = new JsonObject();
+
+        try {
+            boolean isDeleted = commentService.deleteComment(commentIdx);
+            jsonObj.addProperty("result", isDeleted);
+
+        } catch (DataAccessException e) {
+            jsonObj.addProperty("message", "데이터베이스 처리 과정에 문제가 발생하였습니다.");
+
+        } catch (Exception e) {
+            jsonObj.addProperty("message", "시스템에 문제가 발생하였습니다.");
+        }
+
+        return jsonObj;
+    }
+
+
     //답변글 댓글
     //@GetMapping("/{boardIdx}/answers/{answerIdx}/comments")
 

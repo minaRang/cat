@@ -12,37 +12,17 @@
     <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
     <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
     <title th:text="${boardDetail.boardTitle}">주제명(ex.Java) - 질문제목 | Hashcode</title>
-    <!--jquery-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!--bootstrap css-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/CSS/style.css"/>
-    <!--bootstrap js-->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <!--jquery
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>-->
 
 </head>
 
 <body class="questions questions-show" data-controller="questions" data-action="show" layout:fragment="content">
     <div class="main">
-        <!-- 댓글 삭제 확인 모달 창
-        <div id="confirm-modal-850808813885642" class="modal false fade in" tabindex="-1" role="dialog" aria-labelledby="confirm-modal-850808813885642Label" style="z-index: 1051; display: block;">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h3 id="confirm-modal-850808813885642Label" class="modal-title">확인</h3>
-                    </div>
-                    <div class="modal-body">
-                        <p>삭제하시겠습니까?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn cancel btn-default" data-dismiss="modal" aria-hidden="true">취소</button>
-                        <button class="btn commit btn-danger" data-dismiss="modal">확인</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        -->
+
         <!--댓글 수정 모달창-->
         <div id="commentModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -51,6 +31,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
+                        <h3 class="modal-title">댓글 수정</h3>
                     </div>
                     <div class="modal-body">
                         <form>
@@ -67,11 +48,36 @@
                     <div class="modal-footer">
                         <button type="button" id="btnModalCancel" class="btn btn-default waves-effect waves-light" data-dismiss="modal">취소하기</button>
                         <button type="button" id="btnCommentUpdate" class="btn btn-primary waves-effect waves-light" onclick="updateComment()" >수정하기</button>
-                        <button type="button" id="btnCommentDelete" class="btn btn-danger waves-effect waves-light">삭제하기</button>
+
                     </div>
                 </div>
             </div>
         </div>
+
+        <!--댓글 삭제 모달창-->
+        <div id="deleteModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h3 class="modal-title">댓글 삭제</h3>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <p>삭제하시겠습니까?</p>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="btnModalCancel" class="btn btn-default waves-effect waves-light" data-dismiss="modal">취소하기</button>
+                        <button type="button" id="btnCommentDelete" class="btn btn-danger waves-effect waves-light" onclick="deleteComment()">삭제하기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <div class="content">
             <div class="content-wrap" itemscope="" itemtype="">
                 <div class="center">
@@ -596,6 +602,8 @@
     </div>
 
     <script src="JS/hashcode.js"></script>
+    <!--bootstrap js-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <!-- <script src="JS/moment.js"></script> 날짜 라이브러리 -->
 
     <script th:inline="javascript">
@@ -605,13 +613,19 @@
             printCommentList();
         });
 
-        function openModal(commentIdx, writer, content){
+        //모달창 제어 함수
+        function openUpdateModal(commentIdx, writer, content){
             $("#commentModal").modal("toggle");
 
             document.getElementById("modalWriter").value = writer;
             document.getElementById("modalContent").value = content;
 
             document.getElementById("btnCommentUpdate").setAttribute("onclick", "updateComment("+ commentIdx +")");
+        }
+
+        function openDeleteModal(commentIdx){
+            $("#deleteModal").modal("toggle");
+
             document.getElementById("btnCommentDelete").setAttribute("onclick", "deleteComment("+ commentIdx +")");
         }
 
@@ -702,6 +716,47 @@
             });
         }
 
+        //댓글 삭제 함수
+        function deleteComment(commentIdx) {
+
+            //csrf token 및 헤더 선언
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+
+            if (!confirm('댓글을 삭제하시겠습니까?')) {
+                return false;
+            }
+
+            //var uri = [[ @{/comments/} ]] + commentIdx;
+            var comIdx = commentIdx;
+            var headers = {"Content-Type": "application/json", "X-HTTP-Method-Override": "DELETE"};
+
+            $.ajax({
+                url: "/comments/" + comIdx,
+                type: "DELETE",
+                headers: headers,
+                dataType: "json",
+
+                //헤더에 csrf 토큰 추가
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader(header, token);
+                },
+                success: function(response) {
+                    if (response.result == false) {
+                        alert("댓글 삭제에 실패하였습니다.");
+                        return false;
+                    }
+
+                    printCommentList();
+                    $("#deleteModal").modal("hide");
+                },
+                error: function(xhr, status, error) {
+                    alert("에러가 발생하였습니다.");
+                    return false;
+                }
+            });
+        }
+
         //댓글 리스트 출력 함수
         function printCommentList() {
             var boardIdx = [[${boardDetail.boardIdx}]];
@@ -716,16 +771,16 @@
                                         <span class="comment-content">${comment.commentContent}</span> <!--댓글 내용-->
                                         <a class="comment-author" href="">${comment.userIdx}</a> <!--댓글 작성자 인덱스, 추후 댓글 작성자명으로 변경-->
                                         <span class="comment-date">${comment.date}</span> <!--댓글 입력 날짜-->
-                                        <a class="comment-edit" data-remote="true" onclick="openModal(${comment.commentIdx}, '${comment.userIdx}', '${comment.commentContent}' )">수정</a> <!--수정 버튼 클릭 시 modal창 띄움-->
-                                        <a class="comment-delete" data-confirm="삭제하시겠습니까?" data-remote="true" rel="nofollow" data-method="delete" href="">삭제</a>
-                                    </li>
-                                `;
+                                        <a class="comment-edit" data-remote="true" onclick="openUpdateModal(${comment.commentIdx}, '${comment.userIdx}', '${comment.commentContent}' )">수정</a> <!--수정 버튼 클릭 시 modal창 띄움-->
+                                        <a class="comment-delete" data-confirm="삭제하시겠습니까?" data-remote="true" rel="nofollow" data-method="delete" onclick="openDeleteModal(${comment.commentIdx})">삭제</a> <!--삭제 버튼 클릭 시 modal창 띄움-->
+                                    </li> `;
                     });
 
                     $(".comments").html(commentsHtml); //comments 클래스가 지정된 ul태그에 댓글 리스트 렌더링
                 }
             }, "json");
         }
+
 
     </script>
 
