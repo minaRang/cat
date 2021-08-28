@@ -44,16 +44,10 @@ public class CustomUserDetailsService implements UserDetailsService {
         log.info("사용자의 정보가 있습니다.");
         log.info("사용자 : " +user.toString());
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        if(user.getUserAuthority().equals("admin")){
-            log.info("관리자입니다.");
+        if(user.getUserAuthority().equals("ROLE_ADMIN"))
             authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-            authorities.add(new SimpleGrantedAuthority("ROLE_MEMBER"));
-        }else if (user.getUserAuthority().equals("member")){
-            log.info("회원입니다.");
-            authorities.add(new SimpleGrantedAuthority("ROLE_MEMBER"));
-        }else{
-            log.info("권한이 없습니다.");
-            return null;}
+        authorities.add(new SimpleGrantedAuthority("ROLE_MEMBER"));
+
         CustomUserDetails c= new CustomUserDetails(user.getUserEmail(), user.getUserPassword(),user.getIsAccountNonExpired(),user.getIsEnabled(),authorities);
         log.info(c.toString());
         return c;

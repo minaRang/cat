@@ -1,7 +1,12 @@
 <html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml" class=""
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{layout/default_layout}">
 <head>
+    <!--403 error 방지 csrf token 추가-->
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <title>김다빈님의 정보 | Hashcode</title>
@@ -9,14 +14,13 @@
     <link rel="apple-touch-icon" type="image/png" href="https://hashcode.co.kr/assets/favicon/apple-touch-icon-d5908b1dee004f60c43142ddf9c90297c5ff1c0df11450cc7d038cea90fef1a1.png">
     <meta name="theme-color" content="#5C6BC0">
 
-<!--    부트스트랩-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
     <link rel="stylesheet" media="all" href="CSS/myPage.css">
+    <link rel="stylesheet" media="all" href="CSS/myPageSetting.css">
     <meta name="csrf-param" content="authenticity_token">
     <meta name="csrf-token" content="0jUKSZjoRD8A1VmNJx6f8VHZIPsjHPmEjfpeutB1AU4Bd2W/rNAkbI4Vh8wiJOLLYCsf3DuzBu1/TMqCvIlIlA==">
-    </head>
+
+
+</head>
 
 <body class="users users-show" data-controller="users" data-action="show" layout:fragment="content">
 <div class="main">
@@ -34,41 +38,44 @@
       </span>
                 <h5 class="float-xs-right settings"><a href="https://hashcode.co.kr/user/edit">설정</a></h5>
                 <div class="name-edit">
-                    <h1 class="name">
-                        김다빈
+                    <h1 class="name" th:text="${user.getUserName()}">
                     </h1>
-                    <a data-remote="true" href="/user/edit_name">수정</a>
+                    <a data-remote="true" href="javascript:openModal(1)" >수정</a>
                 </div>
                 <div class="detail-info">
-                    <!--id, title, value, user-->
-                    <div id="introduction" class="user-information">
+                    <!--소개-->
+                    <div id="introduction-edit" class="user-information">
                         <span class="hc-icons-introduction hc-icons">id</span>
                         <span>
-                            <a data-remote="true" href="/user/info?property=introduction">등록</a>
+                            <span id="introduction" th:text="${user.getUserBio()}"> </span>
+                            <a data-remote="true" href="javascript:openModal(2)" th:text="${user.getUserBio()!=null} ? '수정' : '등록'"></a>
                         </span>
                     </div>
 
-                    <!--id, title, value, user-->
-                    <div id="homepage" class="user-information">
+                    <!--홈페이지-->
+                    <div id="homepage-edit" class="user-information">
                         <span class="hc-icons-homepage hc-icons">id</span>
                         <span>
-                            <a data-remote="true" href="/user/info?property=homepage">등록</a>
+                            <span id="homepage" th:text="${user.getUserHomepage()}"> </span>
+                            <a data-remote="true" href="javascript:openModal(3)" th:text="${user.getUserHomepage()!=null} ? '수정' : '등록'"></a>
                         </span>
                     </div>
 
-                    <!--id, title, value, user-->
-                    <div id="location" class="user-information">
+                    <!--주소-->
+                    <div id="location-edit" class="user-information">
                         <span class="hc-icons-location hc-icons">id</span>
                         <span>
-                            <a data-remote="true" href="/user/info?property=location">등록</a>
+                            <span id="location" th:text="${user.getUserAddress()}"> </span>
+                            <a data-remote="true" href="javascript:openModal(4)" th:text="${user.getUserAddress()!=null} ? '수정' : '등록'"></a>
                         </span>
                     </div>
 
-                    <!--id, title, value, user-->
-                    <div id="organization" class="user-information">
+                    <!--소속-->
+                    <div id="organization-edit" class="user-information">
                         <span class="hc-icons-organization hc-icons">id</span>
                         <span>
-                            <a data-remote="true" href="/user/info?property=organization">등록</a>
+                            <span id="organization" th:text="${user.getUserCompany()}"> </span>
+                            <a data-remote="true" href="javascript:openModal(5)" th:text="${user.getUserCompany()!=null} ? '수정' : '등록'"></a>
                         </span>
                     </div>
 
@@ -180,3 +187,138 @@
         </div>
     </div>
 </div>
+
+<!--modal-->
+<div class="swal2-container swal2-center swal2-fade swal2-shown" style="overflow-y: auto;display: none" id="modal">
+    <div aria-labelledby="swal2-title" aria-describedby="swal2-content" class="swal2-popup swal2-modal swal2-show" tabindex="-1" role="dialog" aria-live="assertive" aria-modal="true" style="display: flex;">
+        <div class="swal2-header">
+            <h2 class="swal2-title" id="swal2-title"></h2>
+        </div>
+        <form id="modal-form" >
+        <div class="swal2-content">
+            <div id="swal2-content" style="display: block;">
+                <p><input type="text" id="input-field" style="padding: 5px; width: 70%;"></p>
+            </div>
+        </div>
+        <div class="swal2-actions" style="display: flex;">
+            <button type="button" class="swal2-confirm swal2-styled" aria-label="" id="modal-submit" style="border-left-color: rgb(48, 133, 214); border-right-color: rgb(48, 133, 214);">확인</button>
+            <button type="button" class="swal2-cancel swal2-styled" aria-label="" style="display: inline-block;" id="modal-close">취소</button></div>
+        </form>
+    </div>
+</div>
+
+<!--    부트스트랩-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+<script th:inline="javascript">
+    //csrf token 추가
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    var modalNum;
+
+
+    let userInfo = /*[[${user}]]*/ null;
+    console.log(userInfo);
+    console.log(userInfo.userName);
+
+    $("#modal-close").click(function (event) {
+        $("#modal").css("display","none");
+    })
+
+    function openModal(modalName){
+        console.log("openModal 이벤트 발생");
+        switch (modalName){
+            case 1:
+                $("#swal2-title").text("이름을 등록해주세요.");
+                $("#input-field").val(userInfo.userName);
+                break;
+            case 2:
+                $("#swal2-title").text("자기소개를 등록해주세요.");
+                if(userInfo.userBio==null)
+                    $("input-field").val('');
+                else {
+                    console.log("제대로 대는뎅"+userInfo.userBio);
+                    $("#input-field").val(userInfo.userBio);
+                }
+                break;
+            case 3:
+                $("#swal2-title").text("홈페이지를 등록해주세요.");
+                if(userInfo.userHomepage==null)
+                    $("#input-field").val('');
+                else
+                    $("#input-field").val(userInfo.userHomepage);
+                break;
+            case 4:
+                $("#swal2-title").text("주소를 등록해주세요.");
+                if(userInfo.userAddress==null)
+                    $("#input-field").val('');
+                else
+                    $("#input-field").val(userInfo.userAddress);
+                break;
+            case 5:
+                $("#swal2-title").text("소속을 등록해주세요.");
+                if(userInfo.userCompany==null)
+                    $("#input-field").val('');
+                else
+                    $("#input-field").val(userInfo.userCompany);
+                break;
+        }
+        $("#modal").css("display","flex");
+        modalNum=modalName;
+    }
+
+    //확인 버튼 누르면
+    $("#modal-submit").click(function () {
+        var change=$("#input-field").val();
+
+        if(change==''){
+            console.log("널값");
+            change=null;
+        }
+        switch (modalNum){
+            case 1:
+                userInfo.userName=change;
+                $(".name").text(userInfo.userName);
+                break;
+            case 2:
+                userInfo.userBio=change;
+                $("#introduction").text(userInfo.userBio);
+                break;
+            case 3:
+                userInfo.userHomepage=change;
+                $("#homepage").text(userInfo.userHomepage);
+                break;
+            case 4:
+                userInfo.userAddress=change;
+                $("#location").text(userInfo.userAddress);
+                break;
+            case 5:
+                userInfo.userCompany=change;
+                $("#organization").text(userInfo.userCompany);
+                break;
+        }
+        $.ajax({
+            type:'POST',
+            url:'/users/myPage',
+            data:JSON.stringify(userInfo),
+            contentType:"application/json; charset=UTF-8",
+            success : function (data){
+                $("#modal-close").trigger("click"); //성공했을 경우 모달창 자동으로 닫히도록 함.
+            },
+            error:function(errorThrown){
+                alert(errorThrown.statusText); //실패했을 경우 error alert 발생
+            },
+            //헤더에 csrf 토큰 추가
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader(header, token);
+            }
+
+        });
+    })
+
+</script>
+
+</body>

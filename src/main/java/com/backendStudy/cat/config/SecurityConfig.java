@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -16,6 +17,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity      //Spring Security를 설정할 클래스예요~
 @AllArgsConstructor
+@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true) //@PreAuthorize와 @Secured의 사용 활성화
 public class SecurityConfig extends WebSecurityConfigurerAdapter{ //일반적으로 이걸 상속받음. WebSecurityConfigurer 인스턴스를 편리하게 생성하기 위한 클래스이다.
     @Autowired
     CustomUserDetailsService customUserDetailsService;
@@ -61,6 +63,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{ //일반적으
                 .invalidateHttpSession(true); //HTTP 세션을 초기화
 
     }
-
 
 }

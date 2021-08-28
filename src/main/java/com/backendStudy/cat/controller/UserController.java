@@ -1,6 +1,9 @@
 package com.backendStudy.cat.controller;
 
+import com.backendStudy.cat.domain.DTOUser;
+import com.backendStudy.cat.service.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -8,10 +11,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,11 +20,14 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class UserController {
     Authentication auth;
+    @Autowired
+    UserServiceImpl userService;
 
     @GetMapping("/login")
     public String login(Model model){
         log.info("============================");
         log.info("login 실행");
+        userService.mailSend();
         return "login";
     }
 
@@ -53,12 +56,22 @@ public class UserController {
     }
 
     @GetMapping("/myPage")
-    public String myPage(){
+    public String myPage(Model model){
         log.info("============================");
         log.info("myPage 실행");
         auth = SecurityContextHolder.getContext().getAuthentication();
         log.info("사용자는: "+auth.getName());
+        model.addAttribute("user",userService.getUser(auth.getName()));
         return "myPage";
+    }
+
+    @RequestMapping(value="/myPage", method=RequestMethod.POST)
+    @ResponseBody
+    public void modifyMyPage(@RequestBody DTOUser user){
+        log.info("============================");
+        log.info("myPage 수정");
+        log.info(user.toString());
+        userService.updateUser("detail",user);
     }
 
     @GetMapping("/denied")

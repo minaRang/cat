@@ -4,6 +4,7 @@ import java.util.Date;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 
@@ -28,7 +29,9 @@ public class DTOUser {
     private long isEnabled;//계정사용가능
     private long isAccountNonExpired;// 계정만료
     private String userAuthority;// 권한
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Date date;// 등록일
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Date update_time;// 수정일
 
 }

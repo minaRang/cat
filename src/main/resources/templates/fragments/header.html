@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko"
-      html xmlns:th="http://www.thymeleaf.org">
+      html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <body th:fragment="headerFragment">
     <nav class="topbar navbar  hidden-sm-down">
@@ -11,7 +12,8 @@
             </a>
             <ul class="nav navbar-nav animated-dropdown">
                 <li class="nav-item"><a title="가입하기" class="nav-link nav-signup" href="">가입하기</a></li>
-                <li class="nav-item"><a title="로그인" class="nav-link nav-signin" href="">로그인</a></li>
+                <li sec:authorize="isAnonymous()" class="nav-item"><a title="로그인" class="nav-link nav-signin" href="">로그인</a></li>
+                <li sec:authorize="isAuthenticated()" class="nav-item"><a title="로그아웃" class="nav-link nav-signin" href="">로그아웃</a></li>
                 <li class="nav-item"><a class="nav-link nav-opinion opinion-item" data-placement="bottom" data-toggle="popover-login" data-trigger="focus" tabindex="1" href="javascript:;" data-original-title="" title="">의견 보내기</a></li>
       
               <li class="nav-item nav-question">

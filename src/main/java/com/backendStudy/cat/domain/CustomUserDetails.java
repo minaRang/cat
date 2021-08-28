@@ -54,18 +54,16 @@ public class CustomUserDetails implements UserDetails {
     //계정 만료되었는지 리턴 (true: 만료x)
     @Override
     public boolean isAccountNonExpired() {
-        return true;
-//        if(isAccountNonExpired==1)
-//            return false;
-//        else return true;
+        if(isAccountNonExpired==1)
+            return false;
+        else return true;
     }
     //계정 사용가능한지 (활성화 되었는지) 리턴 (true: 활성화)
     @Override
     public boolean isEnabled() {
-        return true;
-//        if (isEnabled==1)
-//            return true;
-//        else return false;
+        if (isEnabled==1)
+            return true;
+        else return false;
     }
 
     //아래는 우리 프로젝트에서는 쓰지 않는 것
